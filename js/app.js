@@ -72,7 +72,7 @@ var app = {
     this.xp = 0;
     this.clef = 0;
     this.afficheInventaire = function() {
-      console.log('Inventaire : ' + this.or + " or " + this.clef + ' clef ' + this.xp + ' experiences');
+      console.log('Inventaire : ' + this.or + " or " + this.clef + ' clef ' + this.xp + ' experiences ' + this.sante + ' points de vies');
     };
     this.combattre = function(adversaire) {
       this.attaquer(adversaire);
