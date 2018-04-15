@@ -1,16 +1,30 @@
 var app = {
+  ennemiesPool: [],
+
   init: function() {
+    app.start();
+  },
+
+  start: function() {
     app.joueur = app.creationJoueur('arknoid', 100, 5, 10);
     app.joueur.description();
     app.joueur.afficheInventaire();
-    app.orc = app.creationEnemmie('ZogZog', 30, 4, 'orc');
-    app.orc.description();
-    
-    while (app.orc.sante > 0) {
-      app.joueur.combattre(app.orc);
-    }
-    app.joueur.afficheInventaire();
+
+    app.createEnnemiesPool(5);
+    app.ennemiesPool.forEach(function(enemies) {
+      while (enemies.sante > 0) {
+        app.joueur.combattre(enemies);
+        app.joueur.afficheInventaire();
+      };
+    });
   },
+
+  createEnnemiesPool : function (nombre) {
+    for (var index = 0 ; index < nombre; index++) {
+      app.ennemiesPool.push(app.creationEnemmie('ZogZog'+index, 6, 4, 'orc'));
+    }
+  },
+
   Ennemie: function(nom, sante, force, race) {
     app.Personnage.call(this, nom, sante, force, race);
     this.race = race;
@@ -46,7 +60,8 @@ var app = {
           console.log(cible.nom + " est mort !");
         }
       } else {
-        console.log(this.nom + " ne peut pas attaquer : il est mort...");
+        ennemiesPool = [],
+          console.log(this.nom + " ne peut pas attaquer : il est mort...");
       }
     }
   },
@@ -57,7 +72,7 @@ var app = {
     this.xp = 0;
     this.clef = 0;
     this.afficheInventaire = function() {
-      console.log( 'Inventaire : '+this.or + " or " + this.clef + ' clef ' + this.xp + ' experiences');
+      console.log('Inventaire : ' + this.or + " or " + this.clef + ' clef ' + this.xp + ' experiences');
     };
     this.combattre = function(adversaire) {
       this.attaquer(adversaire);
