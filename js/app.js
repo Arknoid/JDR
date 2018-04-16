@@ -4,23 +4,23 @@ var app = {
   enemyPool: [],
 
   // obj pour cree le joueur (temporaire)
-  arknoid :{
-    name : 'arknoid',
-    life : 100,
-    strength :5,
-    dexterity : 15,
-    intelligence : 20,
-    gold :100
+  arknoid: {
+    name: 'arknoid',
+    life: 100,
+    strength: 5,
+    dexterity: 15,
+    intelligence: 20,
+    gold: 100
   },
 
   //enemie de base pour les testes
-  orc : {
-    name :'zogzog',
-    life : 20,
-    strength : 10,
-    dexterity : 10,
-    inteligence : 5,
-    race : 'orc'
+  orc: {
+    name: 'zogzog',
+    life: 20,
+    strength: 10,
+    dexterity: 10,
+    inteligence: 5,
+    race: 'orc'
   },
 
 
@@ -42,17 +42,16 @@ var app = {
     //Generation d'ennemies
     app.createEnemysPool(5);
 
-    //Boucle permetant de de continuer tant que le joueur n'est pas mort et que la pool d'ennemies n'est pas vide
-    while (app.player.life > 0 && app.enemyPool.length > 1) {
-      //Pour chaque enemies generer le joueur doit les combattres les uns apres les autres (pour le moment)
-      app.enemyPool.forEach(function(enemy) {
-        while (enemy.life > 0 && app.player.life > 0) {
-          app.player.combat(enemy);
-          //debug
-          app.player.showInventory();
-        };
-      });
-    };
+
+    //Pour chaque enemies generer le joueur doit les combattres les uns apres les autres (pour le moment)
+    app.enemyPool.forEach(function(enemy) {
+      while (enemy.life > 0 && app.player.life > 0) {
+        app.player.combat(enemy);
+        //debug
+        app.player.showInventory();
+      };
+    });
+
     app.gameOver();
   },
 
@@ -76,7 +75,7 @@ var app = {
     this.attack = function(target) {
       if (this.life > 0) {
         //les degats sont calculer avec la force + un nombre aleatoir suivant la puissance min et max de l'arme du porteur
-        var damage = this.strength + app.randomNumber(this.weapon.damageMin,this.weapon.damageMax);
+        var damage = this.strength + app.randomNumber(this.weapon.damageMin, this.weapon.damageMax);
         console.log(this.name + " attaque " + target.name + " et lui fait " + damage + " points de dégâts");
         target.life = target.life - damage;
         if (target.life > 0) {
@@ -91,9 +90,9 @@ var app = {
 
   //Prototype pour les ennemies
   Enemy: function(obj) {
-    app.Character.call(this,obj);
+    app.Character.call(this, obj);
     this.race = obj.race;
-    this.weapon = new app.items.weapons.Arms('Rusty sword',1,4);
+    this.weapon = new app.items.weapons.Arms('Rusty sword', 1, 4);
     //petite presentation pour debug
     this.describ = function() {
       console.log("je suis " + this.name + 'de race : ' + this.race + ', j\'ai ' + this.life + ' de vies  et ' + this.strength + ' de strength.');
@@ -116,7 +115,7 @@ var app = {
     this.xp = 0;
     this.key = 0;
     // Arme de base choisie dans le Namespace items.weapons
-    this.weapon = new app.items.weapons.Arms('Axe',4,6);
+    this.weapon = new app.items.weapons.Arms('Axe', 4, 6);
 
     //Affiche inventaire pour debug
     this.showInventory = function() {
@@ -155,7 +154,7 @@ var app = {
     }
   },
 
-  gameOver: function(){
+  gameOver: function() {
     console.error("You are Dead");
     console.error("Game Over");
   },
@@ -163,16 +162,16 @@ var app = {
   //NameSpace pour les items
   items: {
     weapons: {
-      Arms : function(name,damageMin,damageMax) {
-          this.name = name;
-          this.damageMin = damageMin;
-          this.damageMaw = damageMax;
-          //this.speed =
+      Arms: function(name, damageMin, damageMax) {
+        this.name = name;
+        this.damageMin = damageMin;
+        this.damageMaw = damageMax;
+        //this.speed =
       },
 
 
     },
-    potions :{
+    potions: {
       life: function() {
         this.name = 'Potion of life';
         this.powerMin = 10;
