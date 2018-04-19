@@ -1,1 +1,82 @@
 
+@import url('https://fonts.googleapis.com/css?family=Aref+Ruqaa:400,700|Merienda:400,700');
+
+body{
+  background-image: url("../images/thedullforest_by_bersverk88-dbtj913.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+#container{
+  margin: auto;
+  max-width: 900px;
+  height:  100vh;
+
+}
+h1{
+  font-family: 'Aref Ruqaa', serif;
+  font-size: 2rem;
+  color: BurlyWood;
+  text-shadow: 1px 1px 10px white;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 1rem;
+  width: 35%;
+  margin:  1rem auto;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+header {
+  height: 10%;
+}
+.card{
+  height: 250px;
+  width: 200px;;
+  background-repeat:repeat;
+  background-size: 100% 100%;
+  border-radius: 10px;
+  border: 5px solid black;
+  box-shadow: 0 0 20px black;
+  margin: auto;
+}
+.card--backgroud-orcShaman{
+  background-image: url("../images/orc_shaman_by_saturnoarg-d5159hi.jpg");
+}
+
+
+#btnEnter {
+  font-family: 'Aref Ruqaa', cursive;
+  font-size: 1.5rem;
+  color: BurlyWood;
+  text-shadow: 1px 1px 10px white;
+  margin: auto;
+  display: block;
+  padding: 1rem 2rem;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+  border: none;
+  text-transform: uppercase;
+  box-shadow: 0 0 20px black;
+  border: 2px solid black;
+
+
+}
+
+#gameContents {
+  display: flex;
+  flex-direction: column;
+  height: 85%;
+}
+
+footer{
+  padding: 0 1rem;
+  margin: auto;
+  height: 5%;
+  width: 40%;
+  text-align: center;
+  color: white;
+  text-shadow: 1px 1px 10px black;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+}
