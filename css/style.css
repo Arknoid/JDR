@@ -1,5 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css?family=Aref+Ruqaa:400,700|Merienda:400,700');
+@import url('https://fonts.googleapis.com/css?family=Kreon');
 
 body{
   background-image: url("../images/thedullforest_by_bersverk88-dbtj913.jpg");
@@ -55,6 +56,8 @@ header {
 .card-damage {
   position: absolute;
   color: white;
+  font-family: 'Kreon', serif;
+  font-weight: bold;
 }
 
 .card-name {
@@ -95,6 +98,7 @@ header {
   left: 92%;
 }
 .card-toHit{
+  color: black;
   height: 45px;
   width: 45px;
   top: 92%;
