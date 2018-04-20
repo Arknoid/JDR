@@ -54,6 +54,7 @@ header {
 .card-mana,
 .card-toHit,
 .card-damage {
+  text-shadow: 1px 1px 10px black;
   position: absolute;
   color: white;
   font-family: 'Kreon', serif;
@@ -98,7 +99,7 @@ header {
   left: 92%;
 }
 .card-toHit{
-  color: black;
+
   height: 45px;
   width: 45px;
   top: 92%;
