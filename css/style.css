@@ -30,7 +30,11 @@ h1{
 header {
   height: 10%;
 }
+
+/*Card Section  */
+
 .card{
+  position: relative;
   height: 250px;
   width: 200px;;
   background-repeat:repeat;
@@ -44,6 +48,73 @@ header {
   background-image: url("../images/orc_shaman_by_saturnoarg-d5159hi.jpg");
 }
 
+.card-name,
+.card-pv,
+.card-mana,
+.card-toHit,
+.card-damage {
+  position: absolute;
+  color: white;
+}
+
+.card-name {
+  text-transform: capitalize;
+  border-radius: 10px;
+  padding: 0.2rem 0.5rem;
+  top: -6%;
+  left: -2%;
+
+  background-color: black;
+  box-shadow: 0 0 10px black;
+}
+.card-pv{
+
+  padding: 1rem 0.7rem;
+  height: 45px;
+  width: 45px;
+  padding: 1rem 0rem;
+  font-size: 1.5rem;
+  text-align: center;
+  vertical-align:middle;
+  background: url("../images/card_elements/pv.png") ;
+  background-size: 100% 100%; */
+  border-radius: 50px;
+  top: calc(5% - 25px);
+  left: 90%;
+}
+.card-mana{
+  height: 35px;
+  width: 35px;
+  padding: 0.5rem 0rem;
+  text-align: center;
+  vertical-align:middle;
+  font-size: 1.2rem;
+  background: url("../images/card_elements/mana.png") ;
+  background-size: 100% 100%;
+  top: calc(25% - 25px);
+  left: 92%;
+}
+.card-toHit{
+  height: 45px;
+  width: 45px;
+  top: 92%;
+  left: 90%;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  background: url("../images/card_elements/defence.png") ;
+  background-size: 100% 100%;
+}
+.card-damage{
+  text-align: center;
+  padding: 2.7rem 0rem;
+  height: 100px;
+  width: 100px;
+  font-size: 1.2rem;
+  background: url("../images/card_elements/attack.png") ;
+  background-size: 100% 100%;
+  top: 80%;
+  left: -20%;
+}
 
 #btnEnter {
   font-family: 'Aref Ruqaa', cursive;
