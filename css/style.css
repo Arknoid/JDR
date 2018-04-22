@@ -5,7 +5,7 @@
 body{
   background-image: url("../images/thedullforest_by_bersverk88-dbtj913.jpg");
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: 100% 100%;
 }
 
 #container{
@@ -20,7 +20,6 @@ body{
   display: flex;
   flex-direction:column;
   height: 85%;
-
 
 }
 
@@ -40,10 +39,8 @@ body{
   height: 100%;
   width: 50%;
   display:flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: space-around;
-
+  margin-right 2rem;
 
 }
 
@@ -65,7 +62,7 @@ header {
   height: 10%;
 }
 
-/*Card Section  */
+/*  gameContents section*/
 .enemy{
   height: 250px;
   width: 200px;;
@@ -86,14 +83,6 @@ width: 150px;
   border: 5px solid black;
   box-shadow: 0 0 20px black;
 
-}
-
-.player--img-knight{
-  background-image: url("../images/player_elements/face.png");
-}
-
-.enemy--img-orcShaman{
-  background-image: url("../images/orc_shaman_by_saturnoarg-d5159hi.jpg");
 }
 
 
@@ -137,7 +126,7 @@ width: 150px;
   background: url("../images/card_elements/pv.png") ;
   background-size: 100% 100%; */
   border-radius: 50px;
-  top: calc(5% - 25px);
+  top: calc(0% - 25px);
   left: 90%;
 }
 .player-mana,
@@ -150,7 +139,7 @@ width: 150px;
   font-size: 1.2rem;
   background: url("../images/card_elements/mana.png") ;
   background-size: 100% 100%;
-  top: 20%;
+  top: 25px;
   left: 92%;
 }
 
@@ -159,7 +148,7 @@ width: 150px;
 
   height: 45px;
   width: 45px;
-  top: calc(100% - 22px);
+  top: calc(98% - 22px);
   left: calc(100% - 22px);
   padding: 0.5rem;
   font-size: 1.2rem;
@@ -169,22 +158,23 @@ width: 150px;
 
 .player-damage,
 .enemy-damage{
-  text-align: center;
-  padding: 2.7rem 0rem;
-  height: 100px;
-  width: 100px;
+
+  text-align:center;
+  padding: 2.1rem 0rem;
+  height: 80px;
+  width: 80px;
   font-size: 1.2rem;
   background: url("../images/card_elements/attack.png") ;
   background-size: 100% 100%;
   top: calc(100% - 50px);
-  left: -50px;
+  left: -30px;
 }
 
 .enemy-skills,
 .enemy-items,
 .player-skills,
 .player-items {
-  padding: 2rem;
+  padding: 2rem 1.5rem;
 
 }
 
@@ -198,6 +188,7 @@ width: 150px;
 .items{
   height: 40px;
   width: 40px;
+
 }
 .enemy-attack,
 .items,
@@ -207,9 +198,36 @@ width: 150px;
   border: 2px solid black;
   box-shadow: 0 0 20px black;
   margin-top: 5px;
-
 }
 
+.items:hover,
+.player-attack:hover,
+.player-block:hover{
+  transform: scale(1.1);
+  box-shadow: 0 0 20px white;
+  border: none;
+}
+/* Modifiers */
+
+/* Player Faces */
+.player--img-darkKnight{
+  background-image: url("../images/player_elements/face2.png");
+}
+.player--img-knight{
+  background-image: url("../images/player_elements/face.png");
+}
+
+/* Enemys */
+.enemy--img-orcShaman{
+  background-image: url("../images/orc_shaman_by_saturnoarg-d5159hi.jpg");
+}
+
+.enemy--img-gobelinShaman{
+  background-image: url("../images/goblin_shaman_by_jonasjensenart-d64k3v1.jpg");
+}
+.enemy--img-orcWarrior{
+  background-image: url("../images/stone_blade_by_willobrien-d7ktk12.jpg");
+}
 
 .items-potionLife{
   background: url("../images/player_elements/potion.png");
