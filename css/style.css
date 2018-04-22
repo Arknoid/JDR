@@ -12,8 +12,41 @@ body{
   margin: auto;
   max-width: 900px;
   height:  100vh;
+  display: flex;
+  flex-direction:column;
+}
+
+#gameContents{
+  display: flex;
+  flex-direction:column;
+  height: 85%;
+
 
 }
+
+#playerSection,
+#enemySection{
+  height: 50%;
+  display: flex;
+  justify-content: space-around;
+
+}
+
+#enemy3,
+#enemy2,
+#enemy1,
+#player2,
+#player1 {
+  height: 100%;
+  width: 50%;
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+
+
+}
+
 h1{
   font-family: 'Aref Ruqaa', serif;
   font-size: 2rem;
@@ -33,27 +66,47 @@ header {
 }
 
 /*Card Section  */
-
-.card{
-  position: relative;
+.enemy{
   height: 250px;
   width: 200px;;
+}
+
+.player{
+height: 150px;
+width: 150px;
+}
+
+
+.enemy,
+.player{
+  position: relative;
   background-repeat:repeat;
   background-size: 100% 100%;
   border-radius: 10px;
   border: 5px solid black;
   box-shadow: 0 0 20px black;
-  margin: auto;
+
 }
-.card--backgroud-orcShaman{
+
+.player--img-knight{
+  background-image: url("../images/player_elements/face.png");
+}
+
+.enemy--img-orcShaman{
   background-image: url("../images/orc_shaman_by_saturnoarg-d5159hi.jpg");
 }
 
-.card-name,
-.card-pv,
-.card-mana,
-.card-toHit,
-.card-damage {
+
+.player-name,
+.player-pv,
+.player-mana,
+.player-toHit,
+.player-damage,
+.enemy-name,
+.enemy-pv,
+.enemy-mana,
+.enemy-toHit,
+.enemy-damage {
   text-shadow: 1px 1px 10px black;
   position: absolute;
   color: white;
@@ -61,18 +114,19 @@ header {
   font-weight: bold;
 }
 
-.card-name {
+.player-name,
+.enemy-name {
   text-transform: capitalize;
   border-radius: 10px;
   padding: 0.2rem 0.5rem;
   top: -6%;
   left: -2%;
-
   background-color: black;
   box-shadow: 0 0 10px black;
 }
-.card-pv{
 
+.player-pv,
+.enemy-pv{
   padding: 1rem 0.7rem;
   height: 45px;
   width: 45px;
@@ -86,7 +140,8 @@ header {
   top: calc(5% - 25px);
   left: 90%;
 }
-.card-mana{
+.player-mana,
+.enemy-mana{
   height: 35px;
   width: 35px;
   padding: 0.5rem 0rem;
@@ -95,21 +150,25 @@ header {
   font-size: 1.2rem;
   background: url("../images/card_elements/mana.png") ;
   background-size: 100% 100%;
-  top: calc(25% - 25px);
+  top: 20%;
   left: 92%;
 }
-.card-toHit{
+
+.player-toHit,
+.enemy-toHit{
 
   height: 45px;
   width: 45px;
-  top: 92%;
-  left: 90%;
+  top: calc(100% - 22px);
+  left: calc(100% - 22px);
   padding: 0.5rem;
   font-size: 1.2rem;
   background: url("../images/card_elements/defence.png") ;
   background-size: 100% 100%;
 }
-.card-damage{
+
+.player-damage,
+.enemy-damage{
   text-align: center;
   padding: 2.7rem 0rem;
   height: 100px;
@@ -117,8 +176,57 @@ header {
   font-size: 1.2rem;
   background: url("../images/card_elements/attack.png") ;
   background-size: 100% 100%;
-  top: 80%;
-  left: -20%;
+  top: calc(100% - 50px);
+  left: -50px;
+}
+
+.enemy-skills,
+.enemy-items,
+.player-skills,
+.player-items {
+  padding: 2rem;
+
+}
+
+.player-block,
+.player-attack,
+.enemy-attack{
+  height: 60px;
+  width: 60px;
+}
+
+.items{
+  height: 40px;
+  width: 40px;
+}
+.enemy-attack,
+.items,
+.player-attack,
+.player-block{
+  border-radius: 10px;
+  border: 2px solid black;
+  box-shadow: 0 0 20px black;
+  margin-top: 5px;
+
+}
+
+
+.items-potionLife{
+  background: url("../images/player_elements/potion.png");
+  background-size: 100% 100%;
+
+}
+.items-PotionMana{
+  background: url("../images/player_elements/potionMana.png");
+  background-size: 100% 100%;
+}
+.skill--img-attack{
+  background: url("../images/player_elements/attack.png");
+  background-size: 100% 100%;
+}
+.skill--img-block{
+  background: url("../images/player_elements/defence.png");
+  background-size: 100% 100%;
 }
 
 #btnEnter {
@@ -139,16 +247,10 @@ header {
 
 }
 
-#gameContents {
-  display: flex;
-  flex-direction: column;
-  height: 85%;
-}
 
 footer{
   padding: 0 1rem;
   margin: auto;
-  height: 5%;
   width: 40%;
   text-align: center;
   color: white;
