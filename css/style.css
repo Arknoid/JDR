@@ -3,12 +3,13 @@
 @import url('https://fonts.googleapis.com/css?family=Kreon');
 
 body{
-  background-image: url("../images/thedullforest_by_bersverk88-dbtj913.jpg");
+  background-image: url("../images/backgrounds/thedullforest_by_bersverk88-dbtj913.jpg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
 
 #container{
+
   margin: auto;
   max-width: 900px;
   height:  100vh;
@@ -219,31 +220,42 @@ width: 150px;
 
 /* Enemys */
 .enemy--img-orcShaman{
-  background-image: url("../images/orc_shaman_by_saturnoarg-d5159hi.jpg");
+  background-image: url("../images/enemy/orc_shaman_by_saturnoarg-d5159hi.jpg");
 }
 
 .enemy--img-gobelinShaman{
-  background-image: url("../images/goblin_shaman_by_jonasjensenart-d64k3v1.jpg");
+  background-image: url("../images/enemy/goblin_shaman_by_jonasjensenart-d64k3v1.jpg");
 }
 .enemy--img-orcWarrior{
-  background-image: url("../images/stone_blade_by_willobrien-d7ktk12.jpg");
+  background-image: url("../images/enemy/stone_blade_by_willobrien-d7ktk12.jpg");
 }
 
+.items-potionLifeMini{
+  background: url("../images/items/potions/potionLifeMini.png");
+  background-size: 100% 100%;
+}
 .items-potionLife{
-  background: url("../images/player_elements/potion.png");
+  background: url("../images/items/potions/potionLife.png");
   background-size: 100% 100%;
+}
 
-}
-.items-PotionMana{
-  background: url("../images/player_elements/potionMana.png");
+.items-potionManaMini{
+  background: url("../images/items/potions/potionManaMini.png");
   background-size: 100% 100%;
 }
+
+.items-potionMana{
+  background: url("../images/items/potions/potionMana.png");
+  background-size: 100% 100%;
+}
+
+
 .skill--img-attack{
-  background: url("../images/player_elements/attack.png");
+  background: url("../images/skills/attack.png");
   background-size: 100% 100%;
 }
 .skill--img-block{
-  background: url("../images/player_elements/defence.png");
+  background: url("../images/skills/defence.png");
   background-size: 100% 100%;
 }
 
@@ -261,7 +273,6 @@ width: 150px;
   text-transform: uppercase;
   box-shadow: 0 0 20px black;
   border: 2px solid black;
-
 
 }
 
