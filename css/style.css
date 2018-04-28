@@ -88,12 +88,12 @@ width: 150px;
 
 
 .player-name,
-.player-pv,
+.player-life,
 .player-mana,
 .player-toHit,
 .player-damage,
 .enemy-name,
-.enemy-pv,
+.enemy-life,
 .enemy-mana,
 .enemy-toHit,
 .enemy-damage {
@@ -115,8 +115,8 @@ width: 150px;
   box-shadow: 0 0 10px black;
 }
 
-.player-pv,
-.enemy-pv{
+.player-life,
+.enemy-life{
   padding: 1rem 0.7rem;
   height: 45px;
   width: 45px;
@@ -223,7 +223,7 @@ width: 150px;
   background-image: url("../images/enemy/orc_shaman_by_saturnoarg-d5159hi.jpg");
 }
 
-.enemy--img-gobelinShaman{
+.enemy--img-goblinShaman{
   background-image: url("../images/enemy/goblin_shaman_by_jonasjensenart-d64k3v1.jpg");
 }
 .enemy--img-orcWarrior{

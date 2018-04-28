@@ -1,6 +1,7 @@
  {
     "env": {
-        "browser": true
+        "browser": true,
+        "jquery" : true
     },
     "extends": "eslint:recommended",
     "rules": {
@@ -11,4 +12,4 @@
         "eqeqeq": "error",
         "no-else-return": "error"
     }
-} 
+}
