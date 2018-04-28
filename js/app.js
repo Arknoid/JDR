@@ -2,8 +2,8 @@ var app = {
 
   //tableau a remplir d'ennemies grace a createEnemysPool();
   enemyPool: [],
-  numberEnemy: 5,
-
+  numberEnemy: 10,
+  currentEnemy: 0,
 
   init: function() {
     app.start();
@@ -12,27 +12,17 @@ var app = {
 
   //Demarage du jeu !
   start: function() {
-    // debugger;
+
     //Appel du constructeur des joueurs  avec un objet contenan  "nom,mana,life,toHit,toDodge,damage,attack ..."
     app.player1 = app.createPlayer(app.players.player1);
     app.player2 = app.createPlayer(app.players.player2);
-    app.enemy1 = app.createEnemy(app.enemys.goblinShaman, 'enemy1');
+    // app.enemy1 = app.createEnemy(app.enemys.goblinShaman, 'enemy1');
 
 
     //Generation d'ennemies
-    // app.createEnemysPool(app.numberEnemy);
+    app.createEnemysPool(app.numberEnemy);
+    app.enemyPool[app.currentEnemy].generateHtml();
 
-    //Pour chaques enemies generer le joueur doit les combattres les uns apres les autres
-    //   app.enemyPool.forEach(function(enemy) {
-    //     while (enemy.life > 0 && app.player.life > 0) {
-    //       app.player.combat(enemy);
-    //     };
-    //   });
-    //   if (app.player.life > 0) {
-    //     app.win();
-    //     app.player.showInventory();
-    //   } else
-    //     app.gameOver();
   },
 
   //Generateur de nombres aleatoire arondie
@@ -44,6 +34,29 @@ var app = {
     return Math.round(number * percentage / 100);
   },
 
+  combatManager: function(player) {
+
+    switch (player) {
+    case 'player1':
+      app.player1.attack(app.enemyPool[app.currentEnemy]);
+      app.enemyPool[app.currentEnemy].update();
+      break;
+    case 'player2':
+      app.player2.attack(app.enemyPool[app.currentEnemy]);
+      app.enemyPool[app.currentEnemy].update();
+      break;
+    case 'enemy1':
+      app.enemyPool[app.currentEnemy].attack(app.player1);
+      break;
+    }
+
+    if (app.enemyPool[app.currentEnemy].life <= 0) {
+      $('#enemy1').remove();
+      app.currentEnemy++;
+      app.enemyPool[app.currentEnemy].generateHtml();
+
+    }
+  },
   //Prototype de Base ! qui peu evoluer vers 'player' ou  'enemy' grace au systeme d'heritage;
   Character: function(obj) {
 
@@ -56,27 +69,12 @@ var app = {
     this.attaque = obj.attaque;
     this.gold = obj.gold;
 
-
     // Attaque un enemie cible
-    this.attack = function() {
-      console.log(this.name);
-      // if (app.randomNumber(1, 6) > this.weapon.toHit) {
-      //
-      //   var damage = this.attackBonus + app.randomNumber(this.weapon.damageMin, this.weapon.damageMax);
-      //
-      //   console.log(this.name + " attaque " + target.name + " et lui fait " + damage + " points de dégâts");
-      //   target.life = target.life - damage;
-      //
-      //   if (target.life > 0) {
-      //     console.log(target.name + " a encore " + target.life + " points de vie");
-      //   } else {
-      //     target.life = 0;
-      //     console.error(target.name + " est mort !");
-      //   }
-      // } else {
-      //   console.warn(this.name + " loupe son attaque");
-      // }
+    this.attack = function(target) {
+      console.log(this.name + 'attaque');
+      target.life -= this.damage;
     };
+
   },
 
   //Prototype pour les ennemies
@@ -84,7 +82,7 @@ var app = {
     //appel du construceur de Character
     app.Character.call(this, obj);
     this.valueXp = obj.valueXp;
-
+    this.id = 'enemy1';
     this.generateHtml = function() {
       var divId = $('<div>', {
         id: 'enemy1',
@@ -94,9 +92,7 @@ var app = {
         id: 'enemy-items',
       });
 
-      var divEnemy = $('<div>', {
-        id: 'player',
-      })
+      var divEnemy = $('<div>')
         .addClass('enemy enemy--img-' + obj.face);
 
 
@@ -133,6 +129,12 @@ var app = {
       divId.append(divItems, divEnemy, divSkills);
       $('#enemySection').append(divId);
     };
+    this.update = function() {
+
+      $('#' + this.id + ' .enemy .enemy-life').text(this.life);
+      $('#' + this.id + ' .enemy .enemy-mana').text(this.mana);
+
+    };
     // this.weapon = new app.weapons.Arms(obj.arms.name, obj.arms.damageMin, obj.arms.damageMax ,obj.arms.toHit);
     //petite presentation pour debug
     // this.describ = function() {
@@ -146,7 +148,6 @@ var app = {
     //Plus des proprietés spécifique
     this.xp = 0;
     this.id = obj.id;
-
     this.generateHtml = function() {
       var divId = $('<div>', {
         id: this.id,
@@ -187,13 +188,17 @@ var app = {
 
       var skillAttack1 = $('<div>')
         .addClass('player-attack skill--img-attack')
+        .data('player', this.id)
         .on('click', function() {
-          console.log(obj.name);
+          app.combatManager($(this).data('player'));
         });
 
       var skillAttack2 = $('<div>')
         .addClass('player-attack skill--img-attack')
-        .on('click', this.attack);
+        .data('player', this.id)
+        .on('click', function() {
+          app.combatManager($(this).data('player'));
+        });
 
 
       divPlayer.append(divName, divLife, divMana, divToHit, divDamage);
@@ -201,26 +206,26 @@ var app = {
       divId.append(divItems, divPlayer, divSkills);
       $('#playerSection').append(divId);
 
-    },
 
-    // Arme de base choisie dans le Namespace items.weapons
-    // this.weapon = new app.weapons.Arms(obj.arms.name, obj.arms.damageMin, obj.arms.damageMax, obj.arms.toHit);
+      // this.skill1 = $('.player-attack [data = '+this.id+']').on('click',function(){console.log('Yeah!!!')})
+      // Arme de base choisie dans le Namespace items.weapons
+      // this.weapon = new app.weapons.Arms(obj.arms.name, obj.arms.damageMin, obj.arms.damageMax, obj.arms.toHit);
 
-    //Affiche inventaire pour debug
-    // this.showInventory = function() {
-    //   console.warn('Inventory : ' + this.gold + " gold " + this.xp + ' experiences ' + this.life + ' lifes ' + 'arms : ' + this.weapon.name);
-    // };
-
-    this.combat = function(opponent) {
-      //Character.attack()
-      this.attack(opponent);
-      opponent.attack(this);
-      if (opponent.life === 0) {
-        this.xp += opponent.valueXp;
-        this.gold += opponent.gold;
-        console.warn(this.name + ' a tué ' + opponent.name + ' et a gagné : ' + opponent.valueXp + 'Xp et ' + opponent.gold + ' Or ');
-      }
+      //Affiche inventaire pour debug
+      // this.showInventory = function() {
+      //   console.warn('Inventory : ' + this.gold + " gold " + this.xp + ' experiences ' + this.life + ' lifes ' + 'arms : ' + this.weapon.name);
+      // };
+      //
+      // this.combat = function(opponent) {
+      //   //Character.attack()
+      //   this.attack(opponent);
+      //   opponent.attack(this);
+      //   if (opponent.life === 0) {
+      //     this.xp += opponent.valueXp;
+      //     this.gold += opponent.gold;
+      //     console.warn(this.name + ' a tué ' + opponent.name + ' et a gagné : ' + opponent.valueXp + 'Xp et ' + opponent.gold + ' Or ');
     };
+
   },
 
   //Fonction pour crée le joueur basé sur le Prototype charactere -> player
@@ -233,7 +238,7 @@ var app = {
   //Fonction pour crée un enemie  basé sur le Prototype charactere -> Enemy
   createEnemy: function(obj) {
     var enemy = new app.Enemy(obj);
-    enemy.generateHtml();
+    // enemy.generateHtml();
     return enemy;
 
   },
@@ -303,7 +308,7 @@ var app = {
     orcWarrior: {
       name: 'orc-warrior',
       face: 'orcWarrior',
-      life: 10,
+      life: 20,
       mana: 2,
       toHit: 3,
       toDodge: 3,
@@ -316,7 +321,7 @@ var app = {
     goblinShaman: {
       name: 'goblin-shaman',
       face: 'goblinShaman',
-      life: 5,
+      life: 20,
       mana: 10,
       toHit: 4,
       toDodge: 2,
