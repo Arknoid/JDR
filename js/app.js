@@ -51,9 +51,12 @@ var app = {
     }
 
     if (app.enemyPool[app.currentEnemy].life <= 0) {
-      $('#enemy1').remove();
-      app.currentEnemy++;
-      app.enemyPool[app.currentEnemy].generateHtml();
+      $('#enemy1').fadeOut('slow',function(){
+        $(this).remove();
+        app.currentEnemy++;
+        app.enemyPool[app.currentEnemy].generateHtml();
+      });
+
 
     }
   },
