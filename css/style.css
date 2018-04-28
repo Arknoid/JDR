@@ -64,19 +64,18 @@ header {
 }
 
 /*  gameContents section*/
-.enemy{
+.--card-size-normmal{
   height: 250px;
   width: 200px;;
 }
 
-.player{
+.--card--size-little{
 height: 150px;
 width: 150px;
 }
 
 
-.enemy,
-.player{
+.card{
   position: relative;
   background-repeat:repeat;
   background-size: 100% 100%;
@@ -87,16 +86,11 @@ width: 150px;
 }
 
 
-.player-name,
-.player-life,
-.player-mana,
-.player-toHit,
-.player-damage,
-.enemy-name,
-.enemy-life,
-.enemy-mana,
-.enemy-toHit,
-.enemy-damage {
+.card-name,
+.card-life,
+.card-mana,
+.card-toHit,
+.card-damage {
   text-shadow: 1px 1px 10px black;
   position: absolute;
   color: white;
@@ -104,8 +98,7 @@ width: 150px;
   font-weight: bold;
 }
 
-.player-name,
-.enemy-name {
+.card-name {
   text-transform: capitalize;
   border-radius: 10px;
   padding: 0.2rem 0.5rem;
@@ -115,8 +108,7 @@ width: 150px;
   box-shadow: 0 0 10px black;
 }
 
-.player-life,
-.enemy-life{
+.card-life{
   padding: 1rem 0.7rem;
   height: 45px;
   width: 45px;
@@ -130,8 +122,8 @@ width: 150px;
   top: calc(0% - 25px);
   left: 90%;
 }
-.player-mana,
-.enemy-mana{
+
+.card-mana{
   height: 35px;
   width: 35px;
   padding: 0.5rem 0rem;
@@ -144,8 +136,8 @@ width: 150px;
   left: 92%;
 }
 
-.player-toHit,
-.enemy-toHit{
+
+.card-toHit{
 
   height: 45px;
   width: 45px;
@@ -157,8 +149,7 @@ width: 150px;
   background-size: 100% 100%;
 }
 
-.player-damage,
-.enemy-damage{
+.card-damage{
 
   text-align:center;
   padding: 2.1rem 0rem;
@@ -171,17 +162,15 @@ width: 150px;
   left: -30px;
 }
 
-.enemy-skills,
-.enemy-items,
-.player-skills,
-.player-items {
+
+.card-skills,
+.card-items {
   padding: 2rem 1.5rem;
 
 }
 
-.player-block,
-.player-attack,
-.enemy-attack{
+.card-block,
+.card-attack{
   height: 60px;
   width: 60px;
 }
@@ -191,10 +180,9 @@ width: 150px;
   width: 40px;
 
 }
-.enemy-attack,
+.card-attack,
 .items,
-.player-attack,
-.player-block{
+.card-block{
   border-radius: 10px;
   border: 2px solid black;
   box-shadow: 0 0 20px black;
@@ -202,8 +190,8 @@ width: 150px;
 }
 
 .items:hover,
-.player-attack:hover,
-.player-block:hover{
+.card-attack:hover,
+.card-block:hover{
   transform: scale(1.1);
   box-shadow: 0 0 20px white;
   border: none;

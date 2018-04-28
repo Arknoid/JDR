@@ -96,35 +96,35 @@ var app = {
       });
 
       var divEnemy = $('<div>')
-        .addClass('enemy enemy--img-' + obj.face);
+        .addClass('card --card-size-normmal enemy--img-' + obj.face);
 
 
       var divName = $('<div>')
         .text(this.name)
-        .addClass('enemy-name');
+        .addClass('card-name');
 
       var divMana = $('<div>')
         .text(this.mana)
-        .addClass('enemy-mana');
+        .addClass('card-mana');
 
       var divLife = $('<div>')
         .text(this.life)
-        .addClass('enemy-life');
+        .addClass('card-life');
 
       var divToHit = $('<div>')
         .text(this.toHit)
-        .addClass('enemy-toHit');
+        .addClass('card-toHit');
 
       var divDamage = $('<div>')
         .text(this.damage)
-        .addClass('enemy-damage');
+        .addClass('card-damage');
 
       var divSkills = $('<div>')
-        .addClass('enemy-skills');
+        .addClass('card-skills');
 
 
       var skillAttack1 = $('<div>')
-        .addClass('enemy-attack skill--img-attack');
+        .addClass('card-attack skill--img-attack');
 
 
       divEnemy.append(divName, divLife, divMana, divToHit, divDamage);
@@ -134,16 +134,12 @@ var app = {
     };
     this.update = function() {
 
-      $('#' + this.id + ' .enemy .enemy-life').text(this.life);
-      $('#' + this.id + ' .enemy .enemy-mana').text(this.mana);
+      $('#' + this.id + ' .card .card-life').text(this.life);
+      $('#' + this.id + ' .enemy .card-mana').text(this.mana);
 
     };
-    // this.weapon = new app.weapons.Arms(obj.arms.name, obj.arms.damageMin, obj.arms.damageMax ,obj.arms.toHit);
-    //petite presentation pour debug
-    // this.describ = function() {
-    //   console.log("je suis " + this.name + ', j\'ai ' + this.life + ' de vies  et ' + this.strength + ' de strength.');
-  },
 
+  },
   //Prototype du joueur
   Player: function(obj) {
     //Apelle du construteur du Prototype de base 'Charactere'
@@ -157,47 +153,45 @@ var app = {
       });
 
       var divItems = $('<div>', {
-        id: 'player-items',
+        id: 'card-items',
       });
 
-      var divPlayer = $('<div>', {
-        id: 'player',
-      })
-        .addClass('player player--img-' + obj.face);
+      var divPlayer = $('<div>')
+        .addClass('card  --card--size-little player--img-' + obj.face);
 
 
       var divName = $('<div>')
         .text(this.name)
-        .addClass('player-name');
+        .addClass('card-name');
 
       var divMana = $('<div>')
         .text(this.mana)
-        .addClass('player-mana');
+        .addClass('card-mana');
 
       var divLife = $('<div>')
         .text(this.life)
-        .addClass('player-life');
+        .addClass('card-life');
 
       var divToHit = $('<div>')
         .text(this.toHit)
-        .addClass('player-toHit');
+        .addClass('card-toHit');
 
       var divDamage = $('<div>')
         .text(this.damage)
-        .addClass('player-damage');
+        .addClass('card-damage');
 
       var divSkills = $('<div>')
-        .addClass('player-skills');
+        .addClass('card-skills');
 
       var skillAttack1 = $('<div>')
-        .addClass('player-attack skill--img-attack')
+        .addClass('card-attack skill--img-attack')
         .data('player', this.id)
         .on('click', function() {
           app.combatManager($(this).data('player'));
         });
 
       var skillAttack2 = $('<div>')
-        .addClass('player-attack skill--img-attack')
+        .addClass('card-attack skill--img-attack')
         .data('player', this.id)
         .on('click', function() {
           app.combatManager($(this).data('player'));
@@ -209,26 +203,8 @@ var app = {
       divId.append(divItems, divPlayer, divSkills);
       $('#playerSection').append(divId);
 
-
-      // this.skill1 = $('.player-attack [data = '+this.id+']').on('click',function(){console.log('Yeah!!!')})
-      // Arme de base choisie dans le Namespace items.weapons
-      // this.weapon = new app.weapons.Arms(obj.arms.name, obj.arms.damageMin, obj.arms.damageMax, obj.arms.toHit);
-
-      //Affiche inventaire pour debug
-      // this.showInventory = function() {
-      //   console.warn('Inventory : ' + this.gold + " gold " + this.xp + ' experiences ' + this.life + ' lifes ' + 'arms : ' + this.weapon.name);
-      // };
-      //
-      // this.combat = function(opponent) {
-      //   //Character.attack()
-      //   this.attack(opponent);
-      //   opponent.attack(this);
-      //   if (opponent.life === 0) {
-      //     this.xp += opponent.valueXp;
-      //     this.gold += opponent.gold;
-      //     console.warn(this.name + ' a tué ' + opponent.name + ' et a gagné : ' + opponent.valueXp + 'Xp et ' + opponent.gold + ' Or ');
-    };
-
+    }
+      // t
   },
 
   //Fonction pour crée le joueur basé sur le Prototype charactere -> player
@@ -349,17 +325,6 @@ var app = {
     },
   },
 
-
-  weapons: {
-    //Constructeur
-    Arms: function(name, damageMin, damageMax, toHit) {
-      this.name = name;
-      this.damageMin = damageMin;
-      this.damageMaw = damageMax;
-      this.toHit = toHit;
-      //this.speed =
-    },
-  },
   items: {
     potions: {
       life: function() {
