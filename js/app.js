@@ -16,7 +16,8 @@ var app = {
     //Appel du constructeur des joueurs  avec un objet contenan  "nom,mana,life,toHit,toDodge,damage,attack ..."
     app.player1 = app.createPlayer(app.players.player1);
     app.player2 = app.createPlayer(app.players.player2);
-    app.enemy1 = app.createEnemy(app.enemys.goblinShaman,1);
+    app.enemy1 = app.createEnemy(app.enemys.goblinShaman, 'enemy1');
+
 
     //Generation d'ennemies
     // app.createEnemysPool(app.numberEnemy);
@@ -57,8 +58,8 @@ var app = {
 
 
     // Attaque un enemie cible
-    this.attack = function(target) {
-      console.log(this.name + 'attaque' + target.name );
+    this.attack = function() {
+      console.log(this.name);
       // if (app.randomNumber(1, 6) > this.weapon.toHit) {
       //
       //   var damage = this.attackBonus + app.randomNumber(this.weapon.damageMin, this.weapon.damageMax);
@@ -83,11 +84,59 @@ var app = {
     //appel du construceur de Character
     app.Character.call(this, obj);
     this.valueXp = obj.valueXp;
+
+    this.generateHtml = function() {
+      var divId = $('<div>', {
+        id: 'enemy1',
+      });
+
+      var divItems = $('<div>', {
+        id: 'enemy-items',
+      });
+
+      var divEnemy = $('<div>', {
+        id: 'player',
+      })
+        .addClass('enemy enemy--img-' + obj.face);
+
+
+      var divName = $('<div>')
+        .text(this.name)
+        .addClass('enemy-name');
+
+      var divMana = $('<div>')
+        .text(this.mana)
+        .addClass('enemy-mana');
+
+      var divLife = $('<div>')
+        .text(this.life)
+        .addClass('enemy-life');
+
+      var divToHit = $('<div>')
+        .text(this.toHit)
+        .addClass('enemy-toHit');
+
+      var divDamage = $('<div>')
+        .text(this.damage)
+        .addClass('enemy-damage');
+
+      var divSkills = $('<div>')
+        .addClass('enemy-skills');
+
+
+      var skillAttack1 = $('<div>')
+        .addClass('enemy-attack skill--img-attack');
+
+
+      divEnemy.append(divName, divLife, divMana, divToHit, divDamage);
+      divSkills.append(skillAttack1);
+      divId.append(divItems, divEnemy, divSkills);
+      $('#enemySection').append(divId);
+    };
     // this.weapon = new app.weapons.Arms(obj.arms.name, obj.arms.damageMin, obj.arms.damageMax ,obj.arms.toHit);
     //petite presentation pour debug
     // this.describ = function() {
     //   console.log("je suis " + this.name + ', j\'ai ' + this.life + ' de vies  et ' + this.strength + ' de strength.');
-    // };
   },
 
   //Prototype du joueur
@@ -97,6 +146,62 @@ var app = {
     //Plus des proprietés spécifique
     this.xp = 0;
     this.id = obj.id;
+
+    this.generateHtml = function() {
+      var divId = $('<div>', {
+        id: this.id,
+      });
+
+      var divItems = $('<div>', {
+        id: 'player-items',
+      });
+
+      var divPlayer = $('<div>', {
+        id: 'player',
+      })
+        .addClass('player player--img-' + obj.face);
+
+
+      var divName = $('<div>')
+        .text(this.name)
+        .addClass('player-name');
+
+      var divMana = $('<div>')
+        .text(this.mana)
+        .addClass('player-mana');
+
+      var divLife = $('<div>')
+        .text(this.life)
+        .addClass('player-life');
+
+      var divToHit = $('<div>')
+        .text(this.toHit)
+        .addClass('player-toHit');
+
+      var divDamage = $('<div>')
+        .text(this.damage)
+        .addClass('player-damage');
+
+      var divSkills = $('<div>')
+        .addClass('player-skills');
+
+      var skillAttack1 = $('<div>')
+        .addClass('player-attack skill--img-attack')
+        .on('click', function() {
+          console.log(obj.name);
+        });
+
+      var skillAttack2 = $('<div>')
+        .addClass('player-attack skill--img-attack')
+        .on('click', this.attack);
+
+
+      divPlayer.append(divName, divLife, divMana, divToHit, divDamage);
+      divSkills.append(skillAttack1, skillAttack2);
+      divId.append(divItems, divPlayer, divSkills);
+      $('#playerSection').append(divId);
+
+    },
 
     // Arme de base choisie dans le Namespace items.weapons
     // this.weapon = new app.weapons.Arms(obj.arms.name, obj.arms.damageMin, obj.arms.damageMax, obj.arms.toHit);
@@ -113,114 +218,22 @@ var app = {
       if (opponent.life === 0) {
         this.xp += opponent.valueXp;
         this.gold += opponent.gold;
-        console.warn(this.name + " a tué " + opponent.name + " et a gagné : " + opponent.valueXp + 'Xp et ' + opponent.gold + ' Or ');
+        console.warn(this.name + ' a tué ' + opponent.name + ' et a gagné : ' + opponent.valueXp + 'Xp et ' + opponent.gold + ' Or ');
       }
     };
   },
 
   //Fonction pour crée le joueur basé sur le Prototype charactere -> player
-  //Et genertation du HTML
   createPlayer: function(obj) {
     var player = new app.Player(obj);
-
-    var divId = $('<div>',{
-      id : player.id,
-    });
-
-    var divItems = $('<div>',{
-      id : 'player-items',
-    });
-
-    var divPlayer = $('<div>',{
-      id : 'player',})
-      .addClass('player player--img-'+ obj.face);
-
-
-    var divName = $('<div>')
-      .text(player.name)
-      .addClass('player-name');
-
-    var divMana = $('<div>')
-      .text(player.mana)
-      .addClass('player-mana');
-
-    var divLife = $('<div>')
-      .text(player.life)
-      .addClass('player-life');
-
-    var divToHit = $('<div>')
-      .text(player.toHit)
-      .addClass('player-toHit');
-
-    var divDamage = $('<div>')
-      .text(player.damage)
-      .addClass('player-damage');
-
-    var divSkills = $('<div>')
-      .addClass('player-skills');
-
-    var skillAttack1 = $('<div>')
-      .addClass('player-attack skill--img-attack');
-
-    var skillAttack2= $('<div>')
-      .addClass('player-attack skill--img-attack');
-
-
-    divPlayer.append(divName,divLife,divMana,divToHit,divDamage);
-    divSkills.append(skillAttack1,skillAttack2);
-    divId.append(divItems,divPlayer,divSkills);
-    $('#playerSection').append(divId);
+    player.generateHtml();
     return player;
   },
 
   //Fonction pour crée un enemie  basé sur le Prototype charactere -> Enemy
-  createEnemy: function(obj,idNumb) {
+  createEnemy: function(obj) {
     var enemy = new app.Enemy(obj);
-
-    var divId = $('<div>',{
-      id : 'enemy'+idNumb,
-    });
-
-    var divItems = $('<div>',{
-      id : 'enemy-items',
-    });
-
-    var divEnemy= $('<div>',{
-      id : 'player',})
-      .addClass('enemy enemy--img-'+ obj.face);
-
-
-    var divName = $('<div>')
-      .text(enemy.name)
-      .addClass('enemy-name');
-
-    var divMana = $('<div>')
-      .text(enemy.mana)
-      .addClass('enemy-mana');
-
-    var divLife = $('<div>')
-      .text(enemy.life)
-      .addClass('enemy-life');
-
-    var divToHit = $('<div>')
-      .text(enemy.toHit)
-      .addClass('enemy-toHit');
-
-    var divDamage = $('<div>')
-      .text(enemy.damage)
-      .addClass('enemy-damage');
-
-    var divSkills = $('<div>')
-      .addClass('enemy-skills');
-
-    var skillAttack1 = $('<div>')
-      .addClass('enemy-attack skill--img-attack');
-
-
-    divEnemy.append(divName,divLife,divMana,divToHit,divDamage);
-    divSkills.append(skillAttack1);
-    divId.append(divItems,divEnemy,divSkills);
-    $('#enemySection').append(divId);
+    enemy.generateHtml();
     return enemy;
 
   },
@@ -256,9 +269,9 @@ var app = {
   //NameSpace pour le joueur
   players: {
     player1: {
-      id : 'player1',
+      id: 'player1',
       name: 'arknoid',
-      face :'knight',
+      face: 'knight',
       life: 50,
       mana: 10,
       toHit: 3,
@@ -266,21 +279,21 @@ var app = {
       gold: 0,
       damage: 6,
       attaque: 1,
-      potionLife : 1,
-      potionMana : 1,
+      potionLife: 1,
+      potionMana: 1,
 
     },
     player2: {
-      id : 'player2',
+      id: 'player2',
       name: 'darknoid',
-      face :'darkKnight',
+      face: 'darkKnight',
       life: 50,
       mana: 10,
       toHit: 3,
       toDodge: 3,
       gold: 0,
       damage: 6,
-      potionLife : 2,
+      potionLife: 2,
     },
   },
 
@@ -289,6 +302,7 @@ var app = {
     //enemies de base pour les tests
     orcWarrior: {
       name: 'orc-warrior',
+      face: 'orcWarrior',
       life: 10,
       mana: 2,
       toHit: 3,
@@ -301,7 +315,7 @@ var app = {
 
     goblinShaman: {
       name: 'goblin-shaman',
-      face : 'goblinShaman',
+      face: 'goblinShaman',
       life: 5,
       mana: 10,
       toHit: 4,
@@ -315,6 +329,7 @@ var app = {
 
     orcShaman: {
       name: 'orc-shaman',
+      face: 'orcShaman',
       life: 10,
       mana: 8,
       toHit: 3,
