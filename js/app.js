@@ -13,8 +13,6 @@ var app = {
 
     app.player [0] = app.createPlayer(app.players.player1);
     app.player [1] = app.createPlayer(app.players.player2);
-    app.player [2] = app.createPlayer(app.players.player2);
-    app.player [3] = app.createPlayer(app.players.player1);
 
     //Generation d'ennemies
     app.createEnemysPool(app.numberEnemy);
