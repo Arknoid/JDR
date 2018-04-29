@@ -219,31 +219,31 @@ header {
 }
 
 .items-potionLifeMini{
-  background: url("../images/items/potions/potionLifeMini.png");
+  background: url("../images/items/potions/potionLifeMini.jpg");
   background-size: 100% 100%;
 }
 .items-potionLife{
-  background: url("../images/items/potions/potionLife.png");
+  background: url("../images/items/potions/potionLife.jpg");
   background-size: 100% 100%;
 }
 
 .items-potionManaMini{
-  background: url("../images/items/potions/potionManaMini.png");
+  background: url("../images/items/potions/potionManaMini.jpg");
   background-size: 100% 100%;
 }
 
 .items-potionMana{
-  background: url("../images/items/potions/potionMana.png");
+  background: url("../images/items/potions/potionMana.jpg");
   background-size: 100% 100%;
 }
 
 
 .skill--img-attack{
-  background: url("../images/skills/attack.png");
+  background: url("../images/skills/attack.jpg");
   background-size: 100% 100%;
 }
 .skill--img-block{
-  background: url("../images/skills/defence.png");
+  background: url("../images/skills/defence.jpg");
   background-size: 100% 100%;
 }
 
