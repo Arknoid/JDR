@@ -1,6 +1,6 @@
 var app = {
 
-  player : [],
+  player: [],
   enemyPool: [],
   numberEnemy: 50,
   currentEnemy: 0,
@@ -11,8 +11,8 @@ var app = {
   //Demarage du jeu !
   start: function() {
 
-    app.player [0] = app.createPlayer(app.players.player1);
-    app.player [1] = app.createPlayer(app.players.player2);
+    app.player[0] = app.createPlayer(app.players.player1);
+    app.player[1] = app.createPlayer(app.players.player2);
 
     //Generation d'ennemies
     app.createEnemysPool(app.numberEnemy);
@@ -24,8 +24,18 @@ var app = {
     return Math.round(Math.random() * (max - min) + min);
   },
 
-  setPercentage: function(number, percentage) {
-    return Math.round(number * percentage / 100);
+  enemyManger : function () {
+    if (app.enemyPool[app.currentEnemy].life <= 0) {
+      app.currentEnemy++;
+      app.enemyPool[app.currentEnemy].generateHtml();
+    }
+  },
+
+  playerManager : function (){
+
+    if (app.player[0].die && app.player[1].die) {
+      app.gameOver();
+    }
   },
 
   combatManager: function(attacker) {
@@ -39,22 +49,18 @@ var app = {
         break;
       case 'enemy1':
         //attaque au hasard un joueur
-        var randPlayer = app.randomNumber(0,app.player.length-1);
+        var randPlayer = app.randomNumber(0, app.player.length - 1);
         app.enemyPool[app.currentEnemy].attack(app.player[randPlayer]);
         break;
     }
-
-    if (app.enemyPool[app.currentEnemy].life <= 0) {
-      $('#enemy1').fadeOut('slow', function() {
-        $(this).remove();
-        app.currentEnemy++;
-        app.enemyPool[app.currentEnemy].generateHtml();
-      });
-    }
+  },
+  gameOver : function() {
+     $('<h2>').text('gameOver').appendTo('#playerSection');
+     console.log('gameOver');
   },
   //Prototype de Base ! qui peu evoluer vers 'player' ou  'enemy' grace au systeme d'heritage;
   Character: function(obj) {
-
+    this.die = false;
     this.name = obj.name;
     this.life = obj.life;
     this.mana = obj.mana;
@@ -73,19 +79,19 @@ var app = {
 
     this.generateHtml = function() {
 
-      var divItems = $('<div>').attr('id','card-items');
+      var divItems = $('<div>').attr('id', 'card-items');
       var divName = $('<div>').text(this.name).addClass('card-name');
       var divMana = $('<div>').text(this.mana).addClass('card-mana');
       var divLife = $('<div>').text(this.life).addClass('card-life');
       var divToHit = $('<div>').text(this.toHit).addClass('card-toHit');
       var divDamage = $('<div>').text(this.damage).addClass('card-damage');
       var divSkills = $('<div>').addClass('card-skills');
-      var divId = $('<div>').attr('id',this.id);
-      var divItems = $('<div>').attr('id','card-items');
-      var divCard = $('<div>').addClass('card  --card-size-'+this.cardSize+' card--img-' + obj.face);
+      var divId = $('<div>').attr('id', this.id);
+      var divItems = $('<div>').attr('id', 'card-items');
+      var divCard = $('<div>').addClass('card  --card-size-' + this.cardSize + ' card--img-' + obj.face);
 
       for (var i = 0; i < this.numberAttack; i++) {
-          $('<div>')
+        $('<div>')
           .addClass('card-attack skill--img-attack')
           .data('owner', this.id)
           .on('click', function() {
@@ -100,8 +106,20 @@ var app = {
     };
 
     this.updateStats = function() {
-      $('#' + this.id + ' .card .card-life').text(this.life);
-      $('#' + this.id + ' .card .card-mana').text(this.mana);
+      if (this.life <= 0) {
+        this.die = true;
+        $('#' + this.id + ' .card .card-life').text(0);
+        $('#' + this.id).fadeOut('slow', function() {
+          $(this).remove();
+          if (this.id === 'player1' || this.id ==='player2') {
+            app.playerManager();
+          }else app.enemyManger();
+        });
+      }else {
+        $('#' + this.id + ' .card .card-life').text(this.life);
+        $('#' + this.id + ' .card .card-mana').text(this.mana);
+      };
+
     };
   },
 
@@ -148,18 +166,14 @@ var app = {
       var randNumber = app.randomNumber(1, 100);
       if (randNumber >= 50) {
         app.enemyPool.push(app.createEnemy(app.enemys.goblinShaman));
-      }else if (randNumber >= 25) {
+      } else if (randNumber >= 25) {
         app.enemyPool.push(app.createEnemy(app.enemys.orcWarrior));
-      }else {
-         app.enemyPool.push(app.createEnemy(app.enemys.orcShaman));
+      } else {
+        app.enemyPool.push(app.createEnemy(app.enemys.orcShaman));
       }
     }
   },
 
-  gameOver: function() {
-    console.error('You are Dead');
-    console.error('Game Over');
-  },
   win: function() {
     console.error('You win');
   },
@@ -190,7 +204,7 @@ var app = {
       toDodge: 3,
       gold: 0,
       damage: 6,
-      numberAttack : 2,
+      numberAttack: 2,
       potionLife: 2,
     },
   },
