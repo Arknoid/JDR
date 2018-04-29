@@ -64,14 +64,14 @@ header {
 }
 
 /*  gameContents section*/
-.--card-size-normmal{
+.--card-size-normal{
   height: 250px;
   width: 200px;;
 }
 
-.--card--size-little{
-height: 150px;
-width: 150px;
+.--card-size-tiny{
+  height: 150px;
+  width: 150px;
 }
 
 
@@ -199,22 +199,22 @@ width: 150px;
 /* Modifiers */
 
 /* Player Faces */
-.player--img-darkKnight{
+.card--img-darkKnight{
   background-image: url("../images/player_elements/face2.png");
 }
-.player--img-knight{
+.card--img-knight{
   background-image: url("../images/player_elements/face.png");
 }
 
 /* Enemys */
-.enemy--img-orcShaman{
+.card--img-orcShaman{
   background-image: url("../images/enemy/orc_shaman_by_saturnoarg-d5159hi.jpg");
 }
 
-.enemy--img-goblinShaman{
+.card--img-goblinShaman{
   background-image: url("../images/enemy/goblin_shaman_by_jonasjensenart-d64k3v1.jpg");
 }
-.enemy--img-orcWarrior{
+.card--img-orcWarrior{
   background-image: url("../images/enemy/stone_blade_by_willobrien-d7ktk12.jpg");
 }
 
