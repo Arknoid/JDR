@@ -200,10 +200,10 @@ header {
 
 /* Player Faces */
 .card--img-darkKnight{
-  background-image: url("../images/player_elements/face2.png");
+  background-image: url("../images/player_elements/face2.jpg");
 }
 .card--img-knight{
-  background-image: url("../images/player_elements/face.png");
+  background-image: url("../images/player_elements/face.jpg");
 }
 
 /* Enemys */
