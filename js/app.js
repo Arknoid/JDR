@@ -1,27 +1,22 @@
 var app = {
 
-  //tableau a remplir d'ennemies grace a createEnemysPool();
+  player : [],
   enemyPool: [],
   numberEnemy: 50,
   currentEnemy: 0,
 
   init: function() {
     app.start();
-
   },
-
   //Demarage du jeu !
   start: function() {
 
-    //Appel du constructeur des joueurs  avec un objet contenan  "nom,mana,life,toHit,toDodge,damage,attack ..."
-    app.player1 = app.createPlayer(app.players.player1);
-    app.player2 = app.createPlayer(app.players.player2);
-
+    app.player [0] = app.createPlayer(app.players.player1);
+    app.player [1] = app.createPlayer(app.players.player2);
 
     //Generation d'ennemies
     app.createEnemysPool(app.numberEnemy);
     app.enemyPool[app.currentEnemy].generateHtml();
-
   },
 
   //Generateur de nombres aleatoire arondie
@@ -33,19 +28,22 @@ var app = {
     return Math.round(number * percentage / 100);
   },
 
-  combatManager: function(player) {
+  combatManager: function(attacker) {
 
-    switch (player) {
+    switch (attacker) {
       case 'player1':
-        app.player1.attack(app.enemyPool[app.currentEnemy]);
+        app.player[0].attack(app.enemyPool[app.currentEnemy]);
         app.enemyPool[app.currentEnemy].updateStats();
         break;
       case 'player2':
-        app.player2.attack(app.enemyPool[app.currentEnemy]);
+        app.player[1].attack(app.enemyPool[app.currentEnemy]);
         app.enemyPool[app.currentEnemy].updateStats();
         break;
       case 'enemy1':
-        app.enemyPool[app.currentEnemy].attack(app.player1);
+        //attaque au hasard un joueur
+        var randPlayer = app.randomNumber(0,app.player.length-1);
+        app.enemyPool[app.currentEnemy].attack(app.player[randPlayer]);
+        app.player[randPlayer].updateStats();
         break;
     }
 
@@ -55,8 +53,6 @@ var app = {
         app.currentEnemy++;
         app.enemyPool[app.currentEnemy].generateHtml();
       });
-
-
     }
   },
   //Prototype de Base ! qui peu evoluer vers 'player' ou  'enemy' grace au systeme d'heritage;
@@ -73,7 +69,7 @@ var app = {
 
     // Attaque un enemie cible
     this.attack = function(target) {
-      console.log(this.name + 'attaque');
+      console.log(this.name + ' attack');
       target.life -= this.damage;
     };
 
@@ -86,7 +82,6 @@ var app = {
       var divToHit = $('<div>').text(this.toHit).addClass('card-toHit');
       var divDamage = $('<div>').text(this.damage).addClass('card-damage');
       var divSkills = $('<div>').addClass('card-skills');
-      var skillAttack1 = $('<div>').addClass('card-attack skill--img-attack');
       var divId = $('<div>').attr('id',this.id);
       var divItems = $('<div>').attr('id','card-items');
       var divCard = $('<div>').addClass('card  --card-size-'+this.cardSize+' card--img-' + obj.face);
