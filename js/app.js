@@ -13,6 +13,8 @@ var app = {
 
     app.player [0] = app.createPlayer(app.players.player1);
     app.player [1] = app.createPlayer(app.players.player2);
+    app.player [2] = app.createPlayer(app.players.player2);
+    app.player [3] = app.createPlayer(app.players.player1);
 
     //Generation d'ennemies
     app.createEnemysPool(app.numberEnemy);
@@ -33,17 +35,14 @@ var app = {
     switch (attacker) {
       case 'player1':
         app.player[0].attack(app.enemyPool[app.currentEnemy]);
-        app.enemyPool[app.currentEnemy].updateStats();
         break;
       case 'player2':
         app.player[1].attack(app.enemyPool[app.currentEnemy]);
-        app.enemyPool[app.currentEnemy].updateStats();
         break;
       case 'enemy1':
         //attaque au hasard un joueur
         var randPlayer = app.randomNumber(0,app.player.length-1);
         app.enemyPool[app.currentEnemy].attack(app.player[randPlayer]);
-        app.player[randPlayer].updateStats();
         break;
     }
 
@@ -71,6 +70,7 @@ var app = {
     this.attack = function(target) {
       console.log(this.name + ' attack');
       target.life -= this.damage;
+      target.updateStats();
     };
 
     this.generateHtml = function() {
