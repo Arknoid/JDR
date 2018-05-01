@@ -98,6 +98,10 @@ var app = {
           .data('owner', this.id)
           .on('click', function() {
             app.combatManager($(this).data('owner'));
+             $(this).addClass('skill--disable');
+             setTimeout(function(){
+               $(this).removeClass('skill--disable');
+             }, 1000);
           })
           .appendTo(divSkills);
       }
