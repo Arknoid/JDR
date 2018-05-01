@@ -2,7 +2,7 @@ var app = {
 
   player: [],
   enemyPool: [],
-  numberEnemy: 50,
+  numberEnemy: 10,
   currentEnemy: 0,
 
   init: function() {
@@ -26,8 +26,14 @@ var app = {
 
   enemyManger : function () {
     if (app.enemyPool[app.currentEnemy].life <= 0) {
-      app.currentEnemy++;
-      app.enemyPool[app.currentEnemy].generateHtml();
+
+      if (app.currentEnemy === app.enemyPool.length-1 ) {
+        app.win();
+      } else {
+        app.currentEnemy++;
+        app.enemyPool[app.currentEnemy].generateHtml();
+      }
+
     }
   },
 
@@ -53,10 +59,6 @@ var app = {
         app.enemyPool[app.currentEnemy].attack(app.player[randPlayer]);
         break;
     }
-  },
-  gameOver : function() {
-     $('<h2>').text('gameOver').appendTo('#playerSection');
-     console.log('gameOver');
   },
   //Prototype de Base ! qui peu evoluer vers 'player' ou  'enemy' grace au systeme d'heritage;
   Character: function(obj) {
@@ -175,9 +177,14 @@ var app = {
   },
 
   win: function() {
-    console.error('You win');
+    $('<h2>').text('You win').appendTo('#enemySection');
+    console.log('You win');
   },
 
+  gameOver : function() {
+    $('<h2>').text('gameOver').appendTo('#playerSection');
+    console.log('gameOver');
+  },
 };
 
 $(app.init);
