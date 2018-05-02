@@ -17,6 +17,7 @@ var app = {
     //Generation d'ennemies
     app.createEnemysPool(app.numberEnemy);
     app.enemyPool[app.currentEnemy].generateHtml();
+    app.enemyPool[app.currentEnemy].autoAttack();
   },
 
   //Generateur de nombres aleatoire arondie
@@ -24,7 +25,7 @@ var app = {
     return Math.round(Math.random() * (max - min) + min);
   },
 
-  enemyManger: function() {
+  enemyManager: function() {
     if (app.enemyPool[app.currentEnemy].life <= 0) {
 
       if (app.currentEnemy === app.enemyPool.length - 1) {
@@ -32,6 +33,7 @@ var app = {
       } else {
         app.currentEnemy++;
         app.enemyPool[app.currentEnemy].generateHtml();
+        app.enemyPool[app.currentEnemy].autoAttack();
       }
 
     }
@@ -39,7 +41,7 @@ var app = {
 
   playerManager: function() {
 
-    if (app.player[0].die && app.player[1].die) {
+    if (app.player[0].isDie && app.player[1].isDie) {
       app.gameOver();
     }
   },
@@ -62,7 +64,7 @@ var app = {
   },
   //Prototype de Base ! qui peu evoluer vers 'player' ou  'enemy' grace au systeme d'heritage;
   Character: function(obj) {
-    this.die = false;
+    this.isDie = false;
     this.name = obj.name;
     this.life = obj.life;
     this.mana = obj.mana;
@@ -70,6 +72,7 @@ var app = {
     this.dodge = obj.dodge;
     this.damage = obj.damage;
     this.numberAttack = obj.numberAttack;
+    this.skillAttack = [],
     this.gold = obj.gold;
     // Attaque un enemie cible
     this.attack = function(target) {
@@ -90,8 +93,9 @@ var app = {
       var divId = $('<div>').attr('id', this.id);
       var divCard = $('<div>').addClass('card  --card-size-' + this.cardSize + ' card--img-' + obj.face);
 
+      //generate Attack skills
       for (var attack = 0; attack < this.numberAttack; attack++) {
-        $('<div>')
+        this.skillAttack[attack] = $('<div>')
           .addClass('card-attack skill--img-attack')
           .data('owner', this.id)
           .data('canUse',true )
@@ -99,8 +103,7 @@ var app = {
             var $skill = $(this)
             if ($skill.data('canUse') ) {
               app.combatManager($skill.data('owner'));
-              $skill.addClass('skill--disable')
-              .data('canUse',false);
+              $skill.addClass('skill--disable').data('canUse',false);
               this.attack =  setTimeout(function() {
                 $skill.removeClass('skill--disable');
                 $skill.data('canUse',true);
@@ -117,13 +120,13 @@ var app = {
 
     this.updateStats = function() {
       if (this.life <= 0) {
-        this.die = true;
+        this.isDie = true;
         $('#' + this.id + ' .card .card-life').text(0);
         $('#' + this.id).fadeOut('slow', function() {
           $(this).remove();
           if (this.id === 'player1' || this.id === 'player2') {
             app.playerManager();
-          } else app.enemyManger();
+          } else app.enemyManager();
         });
       } else {
         $('#' + this.id + ' .card .card-life').text(this.life);
@@ -141,6 +144,15 @@ var app = {
     this.id = 'enemy1';
     this.cardSize = 'normal';
     this.sectionId = '#enemySection';
+
+    this.autoAttack = function(){
+
+      this.skillAttack.forEach(function(skill){
+        setInterval(function(){
+          $(skill).trigger('click');
+        },app.randomNumber(20,30)*100);
+      });
+    }
   },
 
   //Prototype du joueur
