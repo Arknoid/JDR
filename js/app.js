@@ -24,10 +24,10 @@ var app = {
     return Math.round(Math.random() * (max - min) + min);
   },
 
-  enemyManger : function () {
+  enemyManger: function() {
     if (app.enemyPool[app.currentEnemy].life <= 0) {
 
-      if (app.currentEnemy === app.enemyPool.length-1 ) {
+      if (app.currentEnemy === app.enemyPool.length - 1) {
         app.win();
       } else {
         app.currentEnemy++;
@@ -37,7 +37,7 @@ var app = {
     }
   },
 
-  playerManager : function (){
+  playerManager: function() {
 
     if (app.player[0].die && app.player[1].die) {
       app.gameOver();
@@ -47,17 +47,17 @@ var app = {
   combatManager: function(attacker) {
 
     switch (attacker) {
-      case 'player1':
-        app.player[0].attack(app.enemyPool[app.currentEnemy]);
-        break;
-      case 'player2':
-        app.player[1].attack(app.enemyPool[app.currentEnemy]);
-        break;
-      case 'enemy1':
-        //attaque au hasard un joueur
-        var randPlayer = app.randomNumber(0, app.player.length - 1);
-        app.enemyPool[app.currentEnemy].attack(app.player[randPlayer]);
-        break;
+    case 'player1':
+      app.player[0].attack(app.enemyPool[app.currentEnemy]);
+      break;
+    case 'player2':
+      app.player[1].attack(app.enemyPool[app.currentEnemy]);
+      break;
+    case 'enemy1':
+      //attaque au hasard un joueur
+      var randPlayer = app.randomNumber(0, app.player.length - 1);
+      app.enemyPool[app.currentEnemy].attack(app.player[randPlayer]);
+      break;
     }
   },
   //Prototype de Base ! qui peu evoluer vers 'player' ou  'enemy' grace au systeme d'heritage;
@@ -71,7 +71,6 @@ var app = {
     this.damage = obj.damage;
     this.numberAttack = obj.numberAttack;
     this.gold = obj.gold;
-
     // Attaque un enemie cible
     this.attack = function(target) {
       console.log(this.name + ' attack');
@@ -89,19 +88,24 @@ var app = {
       var divDamage = $('<div>').text(this.damage).addClass('card-damage');
       var divSkills = $('<div>').addClass('card-skills');
       var divId = $('<div>').attr('id', this.id);
-      var divItems = $('<div>').attr('id', 'card-items');
       var divCard = $('<div>').addClass('card  --card-size-' + this.cardSize + ' card--img-' + obj.face);
 
-      for (var i = 0; i < this.numberAttack; i++) {
+      for (var attack = 0; attack < this.numberAttack; attack++) {
         $('<div>')
           .addClass('card-attack skill--img-attack')
           .data('owner', this.id)
+          .data('canUse',true )
           .on('click', function() {
-            app.combatManager($(this).data('owner'));
-             $(this).addClass('skill--disable');
-             setTimeout(function(){
-               $(this).removeClass('skill--disable');
-             }, 1000);
+            var $skill = $(this)
+            if ($skill.data('canUse') ) {
+              app.combatManager($skill.data('owner'));
+              $skill.addClass('skill--disable')
+              .data('canUse',false);
+              this.attack =  setTimeout(function() {
+                $skill.removeClass('skill--disable');
+                $skill.data('canUse',true);
+              }, 2000);
+            }
           })
           .appendTo(divSkills);
       }
@@ -117,14 +121,14 @@ var app = {
         $('#' + this.id + ' .card .card-life').text(0);
         $('#' + this.id).fadeOut('slow', function() {
           $(this).remove();
-          if (this.id === 'player1' || this.id ==='player2') {
+          if (this.id === 'player1' || this.id === 'player2') {
             app.playerManager();
-          }else app.enemyManger();
+          } else app.enemyManger();
         });
-      }else {
+      } else {
         $('#' + this.id + ' .card .card-life').text(this.life);
         $('#' + this.id + ' .card .card-mana').text(this.mana);
-      };
+      }
 
     };
   },
@@ -135,7 +139,7 @@ var app = {
     app.Character.call(this, obj);
     this.valueXp = obj.valueXp;
     this.id = 'enemy1';
-    this.cardSize = 'normal'
+    this.cardSize = 'normal';
     this.sectionId = '#enemySection';
   },
 
@@ -146,7 +150,7 @@ var app = {
     //Plus des proprietés spécifique
     this.xp = 0;
     this.id = obj.id;
-    this.cardSize = 'tiny'
+    this.cardSize = 'tiny';
     this.sectionId = '#playerSection';
     // t
   },
@@ -185,7 +189,7 @@ var app = {
     console.log('You win');
   },
 
-  gameOver : function() {
+  gameOver: function() {
     $('<h2>').text('gameOver').appendTo('#playerSection');
     console.log('gameOver');
   },
