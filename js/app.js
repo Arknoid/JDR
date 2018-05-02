@@ -6,7 +6,11 @@ var app = {
   currentEnemy: 0,
 
   init: function() {
-    app.start();
+    $('#btnEnter').on('click',function(){
+      app.start();
+      $(this).remove();
+    });
+
   },
   //Demarage du jeu !
   start: function() {
@@ -197,11 +201,13 @@ var app = {
   },
 
   win: function() {
+    $('#playerSection').remove();
     $('<h2>').text('You win').appendTo('#enemySection');
     console.log('You win');
   },
 
   gameOver: function() {
+    $('#enemySection').remove();
     $('<h2>').text('gameOver').appendTo('#playerSection');
     console.log('gameOver');
   },
