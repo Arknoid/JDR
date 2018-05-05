@@ -68,6 +68,7 @@ var app = {
   },
   //Prototype de Base ! qui peu evoluer vers 'player' ou  'enemy' grace au systeme d'heritage;
   Character: function(obj) {
+
     this.isDie = false;
     this.name = obj.name;
     this.life = obj.life;
@@ -76,15 +77,30 @@ var app = {
     this.dodge = obj.dodge;
     this.damage = obj.damage;
     this.numberAttack = obj.numberAttack;
-    this.skillAttack = [],
+    this.skillsAttack = [],
     this.gold = obj.gold;
+
     // Attaque un enemie cible
     this.attack = function(target) {
       console.log(this.name + ' attack');
       target.life -= this.damage;
       target.updateStats();
     };
-
+    this.useSkill = function(){
+      var $skill = $(this)
+      console.log("attack");
+      if ($skill.data('canUse') ) {
+        app.combatManager($skill.data('owner'));
+        $skill.addClass('skill--disable').data('canUse',false);
+        this.attack =  setTimeout(function() {
+          $skill.removeClass('skill--disable');
+          $skill.data('canUse',true);
+        }, 2000);
+      }
+    };
+    this.log = function(){
+      console.log("coucou log");
+    }
     this.generateHtml = function() {
 
       var divItems = $('<div>').attr('id', 'card-items');
@@ -99,21 +115,11 @@ var app = {
 
       //generate Attack skills
       for (var attack = 0; attack < this.numberAttack; attack++) {
-        this.skillAttack[attack] = $('<div>')
+        this.skillsAttack[attack] = $('<div>')
           .addClass('card-attack skill--img-attack')
           .data('owner', this.id)
           .data('canUse',true )
-          .on('click', function() {
-            var $skill = $(this)
-            if ($skill.data('canUse') ) {
-              app.combatManager($skill.data('owner'));
-              $skill.addClass('skill--disable').data('canUse',false);
-              this.attack =  setTimeout(function() {
-                $skill.removeClass('skill--disable');
-                $skill.data('canUse',true);
-              }, 2000);
-            }
-          })
+          .on('click', this.useSkill)
           .appendTo(divSkills);
       }
 
@@ -150,11 +156,10 @@ var app = {
     this.sectionId = '#enemySection';
 
     this.autoAttack = function(){
-
-      this.skillAttack.forEach(function(skill){
+      this.skillsAttack.forEach(function(skill){
         setInterval(function(){
-          $(skill).trigger('click');
-        },app.randomNumber(20,30)*100);
+         $(skill).trigger('click');
+       },app.randomNumber(20,30)*100);
       });
     }
   },
@@ -168,7 +173,6 @@ var app = {
     this.id = obj.id;
     this.cardSize = 'tiny';
     this.sectionId = '#playerSection';
-    // t
   },
 
   //Fonction pour crée le joueur basé sur le Prototype charactere -> player
