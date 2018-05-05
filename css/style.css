@@ -28,7 +28,7 @@ body{
 #enemySection{
   height: 50%;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 
 }
 
@@ -167,7 +167,9 @@ h1{
   left: -30px;
 }
 
-
+#player2 .card-skills {
+  order:-1;
+}
 .card-skills,
 .card-items {
   padding: 2rem 1.5rem;
