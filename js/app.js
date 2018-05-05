@@ -82,8 +82,9 @@ var app = {
 
     // Attaque un enemie cible
     this.attack = function(target) {
-      console.log(this.name + ' attack');
-      target.life -= this.damage;
+      var dmg = app.randomNumber(1,this.damage);
+      target.life -= dmg;
+      target.showHit(dmg);
       target.updateStats();
     };
     this.useSkill = function(){
@@ -98,6 +99,38 @@ var app = {
         }, 2000);
       }
     };
+
+    this.showHit = function (damage) {
+      var size;
+      var fontSize;
+
+      if (damage >= 6) {
+        size = 100;
+        fontSize = 3;
+      }else if (damage >4) {
+        size = 80;
+        fontSize = 2.5;
+      }else if (damage >2) {
+        size = 60;
+        fontSize = 2;
+      }else {
+        size = 50;
+        fontSize = 1.7;
+      }
+
+     var hitDiv = $('<div>')
+                 .addClass('card-hit')
+                 .css({
+                   'height' : size+'px',
+                   'width'  : size+'px',
+                   'fontSize' : fontSize+'rem',
+                 })
+                 .text(damage).appendTo($(this.sectionId+' #'+this.id+ ' .card'));
+      setTimeout(function(){
+       $(hitDiv).remove();
+     },1000);
+    }
+    //debug
     this.log = function(){
       console.log("coucou log");
     }
