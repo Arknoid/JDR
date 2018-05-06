@@ -106,16 +106,16 @@ var app = {
 
       if (damage >= 6) {
         size = 100;
-        fontSize = 3;
+        fontSize = 2.2;
       }else if (damage >4) {
         size = 80;
-        fontSize = 2.5;
+        fontSize = 2.0;
       }else if (damage >2) {
         size = 60;
-        fontSize = 2;
+        fontSize = 1.6;
       }else {
         size = 50;
-        fontSize = 1.7;
+        fontSize = 1.4;
       }
 
      var hitDiv = $('<div>')
