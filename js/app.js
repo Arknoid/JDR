@@ -74,7 +74,7 @@ var app = {
     this.life = obj.life;
     this.mana = obj.mana;
     this.toHit = obj.toHit;
-    this.dodge = obj.dodge;
+    this.block = obj.toBlock;
     this.damage = obj.damage;
     this.numberAttack = obj.numberAttack;
     this.skillsAttack = [],
@@ -83,9 +83,16 @@ var app = {
     // Attaque un enemie cible
     this.attack = function(target) {
       var dmg = app.randomNumber(1,this.damage);
-      target.life -= dmg;
-      target.showHit(dmg);
-      target.updateStats();
+      console.log(target.block);
+      if (app.randomNumber(1,this.toHit) > app.randomNumber(1,target.block)) {
+        target.life -= dmg;
+        target.showHit(dmg);
+        target.updateStats();
+      }
+      else {
+        target.showBlock();
+      }
+
     };
     this.useSkill = function(){
       var $skill = $(this)
@@ -100,7 +107,18 @@ var app = {
       }
     };
 
+    this.showBlock = function (damage){
+      var blackDiv = $('<div>')
+                  .addClass('card-block')
+                  .text(damage).appendTo($(this.sectionId+' #'+this.id+ ' .card'));
+       setTimeout(function(){
+        $(blackDiv).remove();
+      },1000);
+    };
+
+
     this.showHit = function (damage) {
+
       var size;
       var fontSize;
 
@@ -130,17 +148,15 @@ var app = {
        $(hitDiv).remove();
      },1000);
     }
-    //debug
-    this.log = function(){
-      console.log("coucou log");
-    }
+
+
     this.generateHtml = function() {
 
       var divItems = $('<div>').attr('id', 'card-items');
       var divName = $('<div>').text(this.name).addClass('card-name');
       var divMana = $('<div>').text(this.mana).addClass('card-mana');
       var divLife = $('<div>').text(this.life).addClass('card-life');
-      var divToHit = $('<div>').text(this.toHit).addClass('card-toHit');
+      var divToBlock = $('<div>').text(this.toHit+'/'+this.block).addClass('card-toHit');
       var divDamage = $('<div>').text(this.damage).addClass('card-damage');
       var divSkills = $('<div>').addClass('card-skills');
       var divId = $('<div>').attr('id', this.id);
@@ -156,7 +172,7 @@ var app = {
           .appendTo(divSkills);
       }
 
-      divCard.append(divName, divLife, divMana, divToHit, divDamage);
+      divCard.append(divName, divLife, divMana, divToBlock, divDamage);
       divId.append(divItems, divCard, divSkills);
       $(this.sectionId).append(divId);
     };

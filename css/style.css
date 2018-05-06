@@ -177,7 +177,6 @@ h1{
 
 }
 
-.card-block,
 .card-attack{
   height: 50px;
   width: 50px;
@@ -189,8 +188,7 @@ h1{
 
 }
 .card-attack,
-.items,
-.card-block{
+.items{
   border-radius: 10px;
   border: 2px solid black;
   box-shadow: 0 0 20px black;
@@ -198,8 +196,7 @@ h1{
 }
 
 .items:hover,
-.card-attack:hover,
-.card-block:hover{
+.card-attack:hover{
   transform: scale(1.1);
   box-shadow: 0 0 20px white;
   border: none;
@@ -213,19 +210,32 @@ h1{
   box-shadow:none;
   border: 1px solid black;
 }
+
+
 .card-hit {
-background-image: url("../images/card_elements/blood.png");
-background-size: 100% 100%;
-color: white;
-font-size: 2.6rem;
-width: 80px;
-height: 80px;
-top: 25%;
-left:25%;
-display: flex;
-align-items: center;
-justify-content: center;
-position: absolute;
+  background-image: url("../images/card_elements/blood.png");
+  background-size: 100% 100%;
+  color: white;
+  font-size: 2.6rem;
+  width: 80px;
+  height: 80px;
+  top: 25%;
+  left:25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+}
+
+.card-block  {
+
+  position: absolute;
+  background-image: url("../images/card_elements/shield.png");
+  background-size: 100% 100%;
+  width: 80px;
+  height: 80px;
+  top: calc(98% - 40px);
+  left: calc(100% - 40px);
 }
 
 
