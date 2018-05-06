@@ -103,7 +103,7 @@ var app = {
         this.attack =  setTimeout(function() {
           $skill.removeClass('skill--disable');
           $skill.data('canUse',true);
-        }, 2000);
+        }, app.randomNumber(30,50)*100);
       }
     };
 
