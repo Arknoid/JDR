@@ -2,8 +2,9 @@ var app = {
 
   player: [],
   enemyPool: [],
-  numberEnemy: 0,
-  currentEnemy: 10,
+  numberEnemy: 10,
+  currentEnemy: 0,
+  
 
   init: function() {
     $('#btnEnter').on('click',function(){
