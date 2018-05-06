@@ -38,7 +38,7 @@ body{
 #player2,
 #player1 {
   height: 100%;
-  width: 300px;
+  width: 400px;
   display:flex;
   align-items: center;
   justify-content: space-between;
@@ -69,12 +69,15 @@ h1{
 
 
 /*  gameContents section*/
-.--card-size-normal{
+.card--size-normal{
   height: 250px;
-  width: 200px;;
+  width: 200px;
 }
-
-.--card-size-tiny{
+.card--size-big{
+  height: 300px;
+  width: 250px;
+}
+.card--size-tiny{
   height: 150px;
   width: 150px;
 }
@@ -259,6 +262,10 @@ h1{
 }
 .card--img-orcWarrior{
   background-image: url("../images/enemy/stone_blade_by_willobrien-d7ktk12.jpg");
+}
+
+.card--img-troll {
+  background-image: url("../images/enemy/giant_troll_by_karichristensen-d7xp2zs.jpg");
 }
 
 .items-potionLifeMini{

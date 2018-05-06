@@ -2,8 +2,8 @@ var app = {
 
   player: [],
   enemyPool: [],
-  numberEnemy: 10,
-  currentEnemy: 0,
+  numberEnemy: 0,
+  currentEnemy: 10,
 
   init: function() {
     $('#btnEnter').on('click',function(){
@@ -185,7 +185,7 @@ var app = {
       var divDamage = $('<div>').text(this.damage).addClass('card-damage');
       var divSkills = $('<div>').addClass('card-skills');
       var divId = $('<div>').attr('id', this.id);
-      var divCard = $('<div>').addClass('card  --card-size-' + this.cardSize + ' card--img-' + obj.face);
+      var divCard = $('<div>').addClass('card  card--size-' + this.cardSize + ' card--img-' + obj.face);
 
       //generate Attack skills
       for (var attack = 0; attack < this.numberAttack; attack++) {
@@ -236,9 +236,13 @@ var app = {
     app.Character.call(this, obj);
     this.valueXp = obj.valueXp;
     this.id = 'enemy1';
-    this.cardSize = 'normal';
     this.sectionId = '#enemySection';
 
+    if (obj.big) {
+      this.cardSize = 'big'
+    }else{
+      this.cardSize = 'normal';
+    }
     this.autoAttack = function(){
       this.skillsAttack.forEach(function(skill){
         setInterval(function(){
@@ -286,6 +290,7 @@ var app = {
         app.enemyPool.push(app.createEnemy(data.enemys.orcShaman));
       }
     }
+    app.enemyPool.push(app.createEnemy(data.enemys.trollGiant))
   },
 
   win: function() {

@@ -74,6 +74,19 @@ var data = {
       damage: 6,
       numberAttack: 1,
     },
+    trollGiant: {
+      name: 'troll-giant',
+      face: 'troll',
+      life: 80,
+      mana: 8,
+      toHit: 2,
+      toBlock: 1,
+      gold: 10,
+      valueXp: 10,
+      damage: 10,
+      numberAttack: 1,
+      big : true,
+    },
   },
 
   items: {
