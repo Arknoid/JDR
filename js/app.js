@@ -108,11 +108,16 @@ var app = {
     };
 
     this.showBlock = function (damage){
-      var blackDiv = $('<div>')
+      var blockDiv = $('<div>')
                   .addClass('card-block')
-                  .text(damage).appendTo($(this.sectionId+' #'+this.id+ ' .card'));
+                  .text(damage)
+                  .appendTo($(this.sectionId+' #'+this.id+ ' .card'))
+                  .hide()
+                  .fadeIn();
        setTimeout(function(){
-        $(blackDiv).remove();
+        $(blockDiv).fadeOut('slow',function(){
+          $(this).remove();
+        });
       },1000);
     };
 
@@ -143,10 +148,13 @@ var app = {
                    'width'  : size+'px',
                    'fontSize' : fontSize+'rem',
                  })
-                 .text(damage).appendTo($(this.sectionId+' #'+this.id+ ' .card'));
+                 .text(damage)
+                 .appendTo($(this.sectionId+' #'+this.id+ ' .card'));
       setTimeout(function(){
-       $(hitDiv).remove();
-     },1000);
+       $(hitDiv).fadeOut(2000,function(){
+        $(this).remove() ;
+       });
+     },500);
     }
 
 
