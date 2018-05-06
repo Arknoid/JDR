@@ -79,12 +79,17 @@ var app = {
     this.numberAttack = obj.numberAttack;
     this.skillsAttack = [],
     this.gold = obj.gold;
+    this.shield = obj.shield;
+    this.canBlock = false;
 
     // Attaque un enemie cible
     this.attack = function(target) {
       var dmg = app.randomNumber(1,this.damage);
-      console.log(target.block);
-      if (app.randomNumber(1,this.toHit) > app.randomNumber(1,target.block)) {
+      if (target.canBlock) {
+        target.showBlock();
+        target.canBlock = false;
+      }
+      else if (app.randomNumber(1,this.toHit) > app.randomNumber(1,target.block)) {
         target.life -= dmg;
         target.showHit(dmg);
         target.updateStats();
@@ -96,14 +101,26 @@ var app = {
     };
     this.useSkill = function(){
       var $skill = $(this)
-      console.log("attack");
+      var disableTimer ;
       if ($skill.data('canUse') ) {
-        app.combatManager($skill.data('owner'));
+
+        switch ($skill.data('type')) {
+          case  'attack':
+            app.combatManager($skill.data('owner'));
+            disableTimer = app.randomNumber(3,5)*1000;
+            break;
+          case 'shield':
+            this.canBlock = true;
+            disableTimer = app.randomNumber(15,20)*1000;
+            break;
+          default:
+        }
+
         $skill.addClass('skill--disable').data('canUse',false);
         this.attack =  setTimeout(function() {
           $skill.removeClass('skill--disable');
           $skill.data('canUse',true);
-        }, app.randomNumber(30,50)*100);
+        }, disableTimer);
       }
     };
 
@@ -176,7 +193,17 @@ var app = {
           .addClass('card-attack skill--img-attack')
           .data('owner', this.id)
           .data('canUse',true )
+          .data('type','attack')
           .on('click', this.useSkill)
+          .appendTo(divSkills);
+      }
+      if (this.shield) {
+        var divShield =$('<div>')
+          .addClass('card-shield skill--img-shield' )
+          .data('owner', this.id)
+          .data('canUse',true)
+          .data('type','shield')
+          .on('click',this.useSkill)
           .appendTo(divSkills);
       }
 
