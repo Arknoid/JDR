@@ -4,9 +4,11 @@ var app = {
   enemyPool: [],
   numberEnemy: 10,
   currentEnemy: 0,
-  
+  music : new Audio(),
 
   init: function() {
+    app.music.src = 'sounds/cave.ogg';
+    app.music.play();
     $('#btnEnter').on('click',function(){
       app.start();
       $(this).remove();
