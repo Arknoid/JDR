@@ -7,7 +7,8 @@ var app = {
   music : new Audio(),
 
   init: function() {
-    app.music.src = 'sounds/cave.ogg';
+    //load music
+    app.music.src = 'sounds/music/cave.ogg';
     app.music.play();
     $('#btnEnter').on('click',function(){
       app.start();
@@ -84,7 +85,14 @@ var app = {
     this.gold = obj.gold;
     this.shield = obj.shield;
     this.canBlock = false;
+    //Audio
 
+    this.soundMiss  = new Audio();
+    this.soundMiss.src = 'sounds/combat/'+obj.soundMiss+'.ogg';
+    this.soundBlock = new Audio();
+    this.soundBlock.src = 'sounds/combat/sword-block.ogg';
+    this.soundVoiceHit = new Audio();
+    this.soundVoiceHit.src = 'sounds/characters/'+obj.voice+'.ogg';
     // Attaque un enemie cible
     this.attack = function(target) {
       var dmg = app.randomNumber(1,this.damage);
@@ -94,10 +102,16 @@ var app = {
       }
       else if (app.randomNumber(1,this.toHit) > app.randomNumber(1,target.block)) {
         target.life -= dmg;
+        target.soundVoiceHit.play();
         target.showHit(dmg);
         target.updateStats();
       }
       else {
+        if (app.randomNumber(1,2 === 1)) {
+           this.soundMiss.play();
+        }else {
+          this.soundBlock.play();
+        }
         target.showBlock();
       }
 

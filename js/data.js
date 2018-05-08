@@ -15,6 +15,9 @@ var data = {
       numberAttack: 1,
       potionLife: 1,
       potionMana: 1,
+      voice : 'hit5',
+      soundMiss : 'sword',
+
 
     },
     player2: {
@@ -30,6 +33,8 @@ var data = {
       shield : false,
       numberAttack: 2,
       potionLife: 2,
+      voice : 'hit1',
+      soundMiss : 'sword1',
     },
   },
 
@@ -47,6 +52,8 @@ var data = {
       valueXp: 10,
       damage: 6,
       numberAttack: 2,
+      voice : 'orc3',
+      soundMiss : 'sword2',
     },
 
     goblinShaman: {
@@ -60,6 +67,8 @@ var data = {
       valueXp: 10,
       damage: 6,
       numberAttack: 1,
+      voice :'goblin1',
+      soundMiss : 'sword3'
     },
 
     orcShaman: {
@@ -73,6 +82,8 @@ var data = {
       valueXp: 10,
       damage: 6,
       numberAttack: 1,
+      voice : 'orc4',
+      soundMiss : 'sword2'
     },
     trollGiant: {
       name: 'troll-giant',
@@ -86,6 +97,8 @@ var data = {
       damage: 10,
       numberAttack: 1,
       big : true,
+      voice : 'giant1',
+      soundMiss : 'sword2'
     },
   },
 
