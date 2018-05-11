@@ -1,4 +1,4 @@
-###Project-RPG,
+###Project-RPG
 
 https://arknoid.github.io/project-RPG/
 
