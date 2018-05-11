@@ -21,6 +21,7 @@ var data = {
               'hit5',
              ],
       soundMiss : 'sword',
+      dieSound : 'die',
 
 
     },
@@ -43,6 +44,7 @@ var data = {
               'hit3',
              ],
       soundMiss : 'sword1',
+      dieSound : 'die',
     },
   },
 
@@ -62,9 +64,11 @@ var data = {
       numberAttack: 2,
       voice :[
               'orc1',
-              'orc3'
+              'orc2',
+              'orc3',
              ],
       soundMiss : 'sword2',
+      dieSound : 'orcDie1',
     },
 
     goblinShaman: {
@@ -83,7 +87,8 @@ var data = {
               'goblin1'
              ],
 
-      soundMiss : 'sword3'
+      soundMiss : 'sword3',
+      dieSound : 'goblinDie',
     },
 
     orcShaman: {
@@ -99,9 +104,11 @@ var data = {
       numberAttack: 1,
       voice :[
               'orc4',
-              'orc5'
+              'orc5',
+              'orc6',
              ],
-      soundMiss : 'sword2'
+      soundMiss : 'sword2',
+      dieSound : 'orcDie1',
     },
     trollGiant: {
       name: 'troll-giant',
@@ -122,7 +129,8 @@ var data = {
               'giant4',
               'giant5',
              ],
-      soundMiss : 'sword2'
+      soundMiss : 'sword2',
+      dieSound : 'trollDie',
     },
   },
 
