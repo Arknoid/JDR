@@ -15,7 +15,11 @@ var data = {
       numberAttack: 1,
       potionLife: 1,
       potionMana: 1,
-      voice : 'hit5',
+      voice :[
+              'hit3',
+              'hit4',
+              'hit5',
+             ],
       soundMiss : 'sword',
 
 
@@ -33,14 +37,18 @@ var data = {
       shield : false,
       numberAttack: 2,
       potionLife: 2,
-      voice : 'hit1',
+      voice :[
+              'hit1',
+              'hit2',
+              'hit3',
+             ],
       soundMiss : 'sword1',
     },
   },
 
   //NameSpace pour les ennemies
   enemys: {
-    //enemies de base pour les tests
+
     orcWarrior: {
       name: 'orc-warrior',
       face: 'orcWarrior',
@@ -52,7 +60,10 @@ var data = {
       valueXp: 10,
       damage: 6,
       numberAttack: 2,
-      voice : 'orc3',
+      voice :[
+              'orc1',
+              'orc3'
+             ],
       soundMiss : 'sword2',
     },
 
@@ -67,7 +78,11 @@ var data = {
       valueXp: 10,
       damage: 6,
       numberAttack: 1,
-      voice :'goblin1',
+      voice :[
+              'goblin',
+              'goblin1'
+             ],
+
       soundMiss : 'sword3'
     },
 
@@ -82,7 +97,10 @@ var data = {
       valueXp: 10,
       damage: 6,
       numberAttack: 1,
-      voice : 'orc4',
+      voice :[
+              'orc4',
+              'orc5'
+             ],
       soundMiss : 'sword2'
     },
     trollGiant: {
@@ -97,7 +115,13 @@ var data = {
       damage: 10,
       numberAttack: 1,
       big : true,
-      voice : 'giant1',
+      voice :[
+              'giant1',
+              'giant2',
+              'giant3',
+              'giant4',
+              'giant5',
+             ],
       soundMiss : 'sword2'
     },
   },

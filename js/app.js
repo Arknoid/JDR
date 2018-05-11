@@ -4,13 +4,13 @@ var app = {
   enemyPool: [],
   numberEnemy: 10,
   currentEnemy: 0,
-  music : new Audio(),
+  music: new Audio(),
 
   init: function() {
     //load music
     app.music.src = 'sounds/music/cave.ogg';
     app.music.play();
-    $('#btnEnter').on('click',function(){
+    $('#btnEnter').on('click', function() {
       app.start();
       $(this).remove();
     });
@@ -31,6 +31,16 @@ var app = {
   //Generateur de nombres aleatoire arondie
   randomNumber: function(min, max) {
     return Math.round(Math.random() * (max - min) + min);
+  },
+
+  //Allows from a ArrayList to generate the appropriate sounds
+  generateSounds : function(soundArray, location) {
+    var sounds = [];
+    for (var i = 0; i < soundArray.length; i++) {
+      sounds[i] = new Audio();
+      sounds[i].src = location + soundArray[i] + '.ogg';
+    }
+    return sounds;
   },
 
   enemyManager: function() {
@@ -57,17 +67,17 @@ var app = {
   combatManager: function(attacker) {
 
     switch (attacker) {
-    case 'player1':
-      app.player[0].attack(app.enemyPool[app.currentEnemy]);
-      break;
-    case 'player2':
-      app.player[1].attack(app.enemyPool[app.currentEnemy]);
-      break;
-    case 'enemy1':
-      //attaque au hasard un joueur
-      var randPlayer = app.randomNumber(0, app.player.length - 1);
-      app.enemyPool[app.currentEnemy].attack(app.player[randPlayer]);
-      break;
+      case 'player1':
+        app.player[0].attack(app.enemyPool[app.currentEnemy]);
+        break;
+      case 'player2':
+        app.player[1].attack(app.enemyPool[app.currentEnemy]);
+        break;
+      case 'enemy1':
+        //attaque au hasard un joueur
+        var randPlayer = app.randomNumber(0, app.player.length - 1);
+        app.enemyPool[app.currentEnemy].attack(app.player[randPlayer]);
+        break;
     }
   },
   //Prototype de Base ! qui peu evoluer vers 'player' ou  'enemy' grace au systeme d'heritage;
@@ -81,82 +91,86 @@ var app = {
     this.block = obj.toBlock;
     this.damage = obj.damage;
     this.numberAttack = obj.numberAttack;
-    this.skillsAttack = [],
+    this.skillsAttack = [];
     this.gold = obj.gold;
     this.shield = obj.shield;
     this.canBlock = false;
-    //Audio
 
-    this.soundMiss  = new Audio();
-    this.soundMiss.src = 'sounds/combat/'+obj.soundMiss+'.ogg';
+    //Audio
+    this.soundVoiceHit = app.generateSounds(obj.voice, 'sounds/characters/');
+    this.soundMiss =  app.generateSounds(obj.soundMiss, 'sounds/combat/');
+
     this.soundBlock = new Audio();
     this.soundBlock.src = 'sounds/combat/sword-block.ogg';
-    this.soundVoiceHit = new Audio();
-    this.soundVoiceHit.src = 'sounds/characters/'+obj.voice+'.ogg';
+
     // Attaque un enemie cible
     this.attack = function(target) {
-      var dmg = app.randomNumber(1,this.damage);
+      var dmg = app.randomNumber(1, this.damage);
       if (target.canBlock) {
         target.showBlock();
         target.canBlock = false;
-      }
-      else if (app.randomNumber(1,this.toHit) > app.randomNumber(1,target.block)) {
+      } else if (app.randomNumber(1, this.toHit) > app.randomNumber(1, target.block)) {
         target.life -= dmg;
-        target.soundVoiceHit.play();
+        target.scream();
         target.showHit(dmg);
         target.updateStats();
-      }
-      else {
-        if (app.randomNumber(1,2 === 1)) {
-           this.soundMiss.play();
-        }else {
+      } else {
+        if (app.randomNumber(1, 5) <= 4) {
+          this.soundMiss.play();
+        } else {
           this.soundBlock.play();
         }
         target.showBlock();
       }
 
     };
-    this.useSkill = function(){
+
+    //play a random sound form characters voice when hitting
+    this.scream = function() {
+      var rndSound = app.randomNumber(0, this.soundVoiceHit.length - 1)
+      this.soundVoiceHit[rndSound].play();
+    };
+    this.useSkill = function() {
       var $skill = $(this)
-      var disableTimer ;
-      if ($skill.data('canUse') ) {
+      var disableTimer;
+      if ($skill.data('canUse')) {
 
         switch ($skill.data('type')) {
-          case  'attack':
+          case 'attack':
             app.combatManager($skill.data('owner'));
-            disableTimer = app.randomNumber(3,5)*1000;
+            disableTimer = app.randomNumber(3, 5) * 1000;
             break;
           case 'shield':
             this.canBlock = true;
-            disableTimer = app.randomNumber(15,20)*1000;
+            disableTimer = app.randomNumber(15, 20) * 1000;
             break;
           default:
         }
 
-        $skill.addClass('skill--disable').data('canUse',false);
-        this.attack =  setTimeout(function() {
+        $skill.addClass('skill--disable').data('canUse', false);
+        this.attack = setTimeout(function() {
           $skill.removeClass('skill--disable');
-          $skill.data('canUse',true);
+          $skill.data('canUse', true);
         }, disableTimer);
       }
     };
 
-    this.showBlock = function (damage){
+    this.showBlock = function(damage) {
       var blockDiv = $('<div>')
-                  .addClass('card-block')
-                  .text(damage)
-                  .appendTo($(this.sectionId+' #'+this.id+ ' .card'))
-                  .hide()
-                  .fadeIn();
-       setTimeout(function(){
-        $(blockDiv).fadeOut('slow',function(){
+        .addClass('card-block')
+        .text(damage)
+        .appendTo($(this.sectionId + ' #' + this.id + ' .card'))
+        .hide()
+        .fadeIn();
+      setTimeout(function() {
+        $(blockDiv).fadeOut('slow', function() {
           $(this).remove();
         });
-      },1000);
+      }, 1000);
     };
 
 
-    this.showHit = function (damage) {
+    this.showHit = function(damage) {
 
       var size;
       var fontSize;
@@ -164,32 +178,33 @@ var app = {
       if (damage >= 6) {
         size = 100;
         fontSize = 2.2;
-      }else if (damage >4) {
+      } else if (damage > 4) {
         size = 80;
         fontSize = 2.0;
-      }else if (damage >2) {
+      } else if (damage > 2) {
         size = 60;
         fontSize = 1.6;
-      }else {
+      } else {
         size = 50;
         fontSize = 1.4;
       }
 
-     var hitDiv = $('<div>')
-                 .addClass('card-hit')
-                 .css({
-                   'height' : size+'px',
-                   'width'  : size+'px',
-                   'fontSize' : fontSize+'rem',
-                 })
-                 .text(damage)
-                 .appendTo($(this.sectionId+' #'+this.id+ ' .card'));
-      setTimeout(function(){
-       $(hitDiv).fadeOut(2000,function(){
-        $(this).remove() ;
-       });
-     },500);
-    }
+      var hitDiv = $('<div>')
+        .addClass('card-hit')
+        .css({
+          'height': size + 'px',
+          'width': size + 'px',
+          'fontSize': fontSize + 'rem',
+        })
+        .text(damage)
+        .appendTo($(this.sectionId + ' #' + this.id + ' .card'));
+      setTimeout(function() {
+        $(hitDiv).fadeOut(2000, function() {
+          $(this).remove();
+        });
+      }, 500);
+    };
+
 
 
     this.generateHtml = function() {
@@ -198,7 +213,7 @@ var app = {
       var divName = $('<div>').text(this.name).addClass('card-name');
       var divMana = $('<div>').text(this.mana).addClass('card-mana');
       var divLife = $('<div>').text(this.life).addClass('card-life');
-      var divToBlock = $('<div>').text(this.toHit+'/'+this.block).addClass('card-toHit');
+      var divToBlock = $('<div>').text(this.toHit + '/' + this.block).addClass('card-toHit');
       var divDamage = $('<div>').text(this.damage).addClass('card-damage');
       var divSkills = $('<div>').addClass('card-skills');
       var divId = $('<div>').attr('id', this.id);
@@ -209,18 +224,19 @@ var app = {
         this.skillsAttack[attack] = $('<div>')
           .addClass('card-attack skill--img-attack')
           .data('owner', this.id)
-          .data('canUse',true )
-          .data('type','attack')
+          .data('canUse', true)
+          .data('type', 'attack')
           .on('click', this.useSkill)
           .appendTo(divSkills);
       }
+      //generate Shield skills
       if (this.shield) {
-        var divShield =$('<div>')
-          .addClass('card-shield skill--img-shield' )
+        var divShield = $('<div>')
+          .addClass('card-shield skill--img-shield')
           .data('owner', this.id)
-          .data('canUse',true)
-          .data('type','shield')
-          .on('click',this.useSkill)
+          .data('canUse', true)
+          .data('type', 'shield')
+          .on('click', this.useSkill)
           .appendTo(divSkills);
       }
 
@@ -257,14 +273,14 @@ var app = {
 
     if (obj.big) {
       this.cardSize = 'big'
-    }else{
+    } else {
       this.cardSize = 'normal';
     }
-    this.autoAttack = function(){
-      this.skillsAttack.forEach(function(skill){
-        setInterval(function(){
-         $(skill).trigger('click');
-       },app.randomNumber(20,30)*100);
+    this.autoAttack = function() {
+      this.skillsAttack.forEach(function(skill) {
+        setInterval(function() {
+          $(skill).trigger('click');
+        }, app.randomNumber(20, 30) * 100);
       });
     }
   },
