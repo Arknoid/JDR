@@ -1,9 +1,11 @@
 
-#Project-RPG
+# Project-RPG
 
-
+---
 
 https://arknoid.github.io/project-RPG/
+
+---
 
 An open source project whose goal is to highlight the basic front techniques learned during my training at O'clock web dev school for now:
 
@@ -17,10 +19,12 @@ All code is under license M.I.T and do exclusively with open source software.
 
 All artworks are  for now on under license CC and come from various artists on Devianart.
 
-###Roadmap : 
+---
+
+### Roadmap : 
 
 https://trello.com/b/hBq2NFMW/projet-rpg
 
-#####Contact me at 
+##### Contact me at 
     
  omalige@gmail.com
