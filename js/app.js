@@ -12,7 +12,7 @@ var app = {
     app.music.play();
     $('#btnEnter').on('click', function() {
       app.start();
-      $(this).remove();
+      $(this).remove();;
     });
 
   },
@@ -53,7 +53,6 @@ var app = {
         app.enemyPool[app.currentEnemy].generateHtml();
         app.enemyPool[app.currentEnemy].autoAttack();
       }
-
     }
   },
 
@@ -94,21 +93,31 @@ var app = {
     this.skillsAttack = [];
     this.gold = obj.gold;
     this.shield = obj.shield;
-    this.canBlock = false;
+    this.shieldUp = false;
 
+    //use _this for this in nested function 
+    var _this = this;
     //Audio
     this.soundVoiceHit = app.generateSounds(obj.voice, 'sounds/characters/');
     this.soundMiss =  app.generateSounds(obj.soundMiss, 'sounds/combat/');
+    this.soundDie = app.generateSounds(obj.dieSound, 'sounds/characters/');
 
+          
     this.soundBlock = new Audio();
-    this.soundBlock.src = 'sounds/combat/sword-block.ogg';
+    this.soundBlock.src = 'sounds/combat/swordBlock.ogg';
+
+    
 
     // Attaque un enemie cible
     this.attack = function(target) {
       var dmg = app.randomNumber(1, this.damage);
-      if (target.canBlock) {
+      if (target.shieldUp) {    
+        var soundShieldUse = new Audio();
+        soundShieldUse.src = 'sounds/combat/shieldBlock.ogg';
+        soundShieldUse.play();
         target.showBlock();
-        target.canBlock = false;
+        target.shieldUp = false;
+        
       } else if (app.randomNumber(1, this.toHit) > app.randomNumber(1, target.block)) {
         target.life -= dmg;
         target.scream();
@@ -116,7 +125,7 @@ var app = {
         target.updateStats();
       } else {
         if (app.randomNumber(1, 5) <= 4) {
-          this.soundMiss.play();
+          this.soundMiss[app.randomNumber(0, this.soundMiss.length - 1)].play();
         } else {
           this.soundBlock.play();
         }
@@ -134,14 +143,17 @@ var app = {
       var $skill = $(this)
       var disableTimer;
       if ($skill.data('canUse')) {
-
         switch ($skill.data('type')) {
           case 'attack':
             app.combatManager($skill.data('owner'));
             disableTimer = app.randomNumber(3, 5) * 1000;
             break;
           case 'shield':
-            this.canBlock = true;
+            _this.shieldUp = true;
+            
+            var soundShieldUp = new Audio();
+            soundShieldUp.src = 'sounds/combat/shieldUp.ogg';
+            soundShieldUp.play();
             disableTimer = app.randomNumber(15, 20) * 1000;
             break;
           default:
@@ -244,17 +256,19 @@ var app = {
       divId.append(divItems, divCard, divSkills);
       $(this.sectionId).append(divId);
     };
-
-    this.updateStats = function() {
-      if (this.life <= 0) {
+    this.dies = function() {
         this.isDie = true;
-        $('#' + this.id + ' .card .card-life').text(0);
-        $('#' + this.id).fadeOut('slow', function() {
+        this.soundDie[app.randomNumber(0, this.soundDie.length - 1)].play();
+        $('#' + this.id).fadeOut('slow', function () {
           $(this).remove();
           if (this.id === 'player1' || this.id === 'player2') {
             app.playerManager();
           } else app.enemyManager();
         });
+    },
+    this.updateStats = function() {
+      if (this.life <= 0) {
+        this.dies();
       } else {
         $('#' + this.id + ' .card .card-life').text(this.life);
         $('#' + this.id + ' .card .card-mana').text(this.mana);
