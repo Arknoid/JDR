@@ -9,9 +9,9 @@ var app = {
   init: function() {
     //load music
     app.music.src = 'sounds/music/cave.ogg';
-    app.music.play();
     $('#btnEnter').on('click', function() {
       app.start();
+      app.music.play();
       $(this).remove();;
     });
 
