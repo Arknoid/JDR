@@ -54,14 +54,14 @@ var data = {
     orcWarrior: {
       name: 'orc-warrior',
       face: 'orcWarrior',
-      life: 40,
+      life: 20,
       mana: 2,
       toHit: 4,
       toBlock: 2,
       gold: 10,
       valueXp: 10,
       damage: 6,
-      numberAttack: 2,
+      numberAttack: 3,
       voice :[
               'orc1',
               'orc2',
@@ -80,8 +80,8 @@ var data = {
       toBlock: 1,
       gold: 10,
       valueXp: 10,
-      damage: 6,
-      numberAttack: 1,
+      damage: 2,
+      numberAttack: 3,
       voice :[
               'goblin',
               'goblin1'
@@ -119,7 +119,7 @@ var data = {
       toBlock: 1,
       gold: 10,
       valueXp: 10,
-      damage: 10,
+      damage: 16,
       numberAttack: 1,
       big : true,
       voice :[
