@@ -41,7 +41,7 @@ body{
   width: 400px;
   display:flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content:center;
   margin-right : 2rem;
 
 }
@@ -126,7 +126,7 @@ h1{
   text-align: center;
   vertical-align:middle;
   background: url("../images/card_elements/pv.png") ;
-  background-size: 100% 100%; */
+  background-size: 100% 100%;
   border-radius: 50px;
   top: calc(0% - 25px);
   left: 90%;
@@ -171,8 +171,11 @@ h1{
   left: -30px;
 }
 
+#player1 .card-skills {
+  order: 2;
+}
 #player2 .card-skills {
-  order:-1;
+  order: 0;
 }
 .card-skills,
 .card-items {
