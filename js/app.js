@@ -4,19 +4,20 @@ var app = {
   enemyPool: [],
   numberEnemy: 10,
   currentEnemy: 0,
+
   music: new Audio(),
 
   init: function() {
     //load music
     app.music.src = 'sounds/music/cave.ogg';
-    app.music.play();
     $('#btnEnter').on('click', function() {
+      app.music.play();
       app.start();
       $(this).remove();;
     });
 
   },
-  //Demarage du jeu !
+  //Demarage du je u !
   start: function() {
 
     app.player[0] = app.createPlayer(data.players.player1);
