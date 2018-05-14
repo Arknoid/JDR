@@ -9,23 +9,22 @@ var app = {
   init: function() {
     //load music
     app.music.src = 'sounds/music/cave.ogg';
+    app.music.play();
     $('#btnEnter').on('click', function() {
       app.start();
-      app.music.play();
-      $(this).remove();;
+      $(this).remove();
     });
 
   },
+
   //Demarage du jeu !
   start: function() {
-
     app.player[0] = app.createPlayer(data.players.player1);
     app.player[1] = app.createPlayer(data.players.player2);
-
     //Generation d'ennemies
     app.createEnemysPool(app.numberEnemy);
-    app.generateHtml(app.enemyPool[app.currentEnemy]);
-    app.enemyPool[app.currentEnemy].setAutoAttack();
+    app.enemyPool[app.currentEnemy].generateHtml();
+    app.enemyPool[app.currentEnemy].autoAttack();
   },
 
   //Generateur de nombres aleatoire arondie
@@ -43,58 +42,17 @@ var app = {
     return sounds;
   },
 
-  //Generate and show  Card format for Player or ennemy objets
-  generateHtml : function (cardObj) {
-    
-    var divItems = $('<div>').attr('id', 'card-items');
-    var divName = $('<div>').text(cardObj.name).addClass('card-name');
-    var divMana = $('<div>').text(cardObj.mana).addClass('card-mana');
-    var divLife = $('<div>').text(cardObj.life).addClass('card-life');
-    var divToBlock = $('<div>').text(cardObj.toHit + '/' + cardObj.block).addClass('card-toHit');
-    var divDamage = $('<div>').text(cardObj.damage).addClass('card-damage');
-    var divSkills = $('<div>').addClass('card-skills');
-    var divId = $('<div>').attr('id', cardObj.id);
-    var divCard = $('<div>').addClass('card  card--size-' + cardObj.cardSize + ' card--img-' + cardObj.face);
-
-    //generate Attack skills
-    for (var attack = 0; attack < cardObj.numberAttack; attack++) {
-      cardObj.skillsAttack[attack] = $('<div>')
-        .addClass('card-attack skill--img-attack')
-        .data('owner', cardObj.id)
-        .data('canUse', true)
-        .data('type', 'attack')
-        .on('click', cardObj.useSkill)
-        .appendTo(divSkills);
-    }
-    //generate Shield skills
-    if (cardObj.shield) {
-      var divShield = $('<div>')
-        .addClass('card-shield skill--img-shield')
-        .data('owner', cardObj.id)
-        .data('canUse', true)
-        .data('type', 'shield')
-        .on('click', cardObj.useSkill)
-        .appendTo(divSkills);
-    }
-
-    divCard.append(divName, divLife, divMana, divToBlock, divDamage);
-    if (cardObj.id === 'player1' || cardObj.id === 'player2') {
-      divId.append(divSkills);
-    }
-    divId.append(divItems, divCard);
-    $(cardObj.sectionId).append(divId);
-  },
-
   enemyManager: function() {
     if (app.enemyPool[app.currentEnemy].life <= 0) {
-        app.currentEnemy++;
-      if (app.currentEnemy === app.enemyPool.length ) {
+
+      if (app.currentEnemy === app.enemyPool.length - 1) {
         app.win();
-        
       } else {
-        app.generateHtml(app.enemyPool[app.currentEnemy]);
-        app.enemyPool[app.currentEnemy].setAutoAttack();
+        app.currentEnemy++;
+        app.enemyPool[app.currentEnemy].generateHtml();
+        app.enemyPool[app.currentEnemy].autoAttack();
       }
+
     }
   },
 
@@ -106,7 +64,7 @@ var app = {
   },
 
   combatManager: function(attacker) {
-    
+
     switch (attacker) {
       case 'player1':
         app.player[0].attack(app.enemyPool[app.currentEnemy]);
@@ -121,12 +79,10 @@ var app = {
         break;
     }
   },
-
   //Prototype de Base ! qui peu evoluer vers 'player' ou  'enemy' grace au systeme d'heritage;
   Character: function(obj) {
 
     this.isDie = false;
-    this.face = obj.face;
     this.name = obj.name;
     this.life = obj.life;
     this.mana = obj.mana;
@@ -137,31 +93,21 @@ var app = {
     this.skillsAttack = [];
     this.gold = obj.gold;
     this.shield = obj.shield;
-    this.shieldUp = false;
+    this.canBlock = false;
 
-    //use _this for this in nested function 
-    var _this = this;
     //Audio
     this.soundVoiceHit = app.generateSounds(obj.voice, 'sounds/characters/');
     this.soundMiss =  app.generateSounds(obj.soundMiss, 'sounds/combat/');
-    this.soundDie = app.generateSounds(obj.dieSound, 'sounds/characters/');
 
-          
     this.soundBlock = new Audio();
-    this.soundBlock.src = 'sounds/combat/swordBlock.ogg';
-
-    
+    this.soundBlock.src = 'sounds/combat/sword-block.ogg';
 
     // Attaque un enemie cible
     this.attack = function(target) {
       var dmg = app.randomNumber(1, this.damage);
-      if (target.shieldUp) {    
-        var soundShieldUse = new Audio();
-        soundShieldUse.src = 'sounds/combat/shieldBlock.ogg';
-        soundShieldUse.play();
+      if (target.canBlock) {
         target.showBlock();
-        target.shieldUp = false;
-        
+        target.canBlock = false;
       } else if (app.randomNumber(1, this.toHit) > app.randomNumber(1, target.block)) {
         target.life -= dmg;
         target.scream();
@@ -169,7 +115,7 @@ var app = {
         target.updateStats();
       } else {
         if (app.randomNumber(1, 5) <= 4) {
-          this.soundMiss[app.randomNumber(0, this.soundMiss.length - 1)].play();
+          this.soundMiss.play();
         } else {
           this.soundBlock.play();
         }
@@ -187,16 +133,14 @@ var app = {
       var $skill = $(this)
       var disableTimer;
       if ($skill.data('canUse')) {
+
         switch ($skill.data('type')) {
           case 'attack':
             app.combatManager($skill.data('owner'));
             disableTimer = app.randomNumber(3, 5) * 1000;
             break;
           case 'shield':
-            _this.shieldUp = true;
-            var soundShieldUp = new Audio();
-            soundShieldUp.src = 'sounds/combat/shieldUp.ogg';
-            soundShieldUp.play();
+            this.canBlock = true;
             disableTimer = app.randomNumber(15, 20) * 1000;
             break;
           default:
@@ -262,23 +206,54 @@ var app = {
 
 
 
-    this.dies = function() {
-    this.isDie = true;
-    this.soundDie[app.randomNumber(0, this.soundDie.length - 1)].play();
-    $('#' + this.id).fadeOut('slow', function () {
-      $(this).remove();
-      if (_this.id === 'player1' || _this.id === 'player2') {
-        app.playerManager();
-      } else {
+    this.generateHtml = function() {
 
-        _this.clearAutoAttack();
-        app.enemyManager();
+      var divItems = $('<div>').attr('id', 'card-items');
+      var divName = $('<div>').text(this.name).addClass('card-name');
+      var divMana = $('<div>').text(this.mana).addClass('card-mana');
+      var divLife = $('<div>').text(this.life).addClass('card-life');
+      var divToBlock = $('<div>').text(this.toHit + '/' + this.block).addClass('card-toHit');
+      var divDamage = $('<div>').text(this.damage).addClass('card-damage');
+      var divSkills = $('<div>').addClass('card-skills');
+      var divId = $('<div>').attr('id', this.id);
+      var divCard = $('<div>').addClass('card  card--size-' + this.cardSize + ' card--img-' + obj.face);
+
+      //generate Attack skills
+      for (var attack = 0; attack < this.numberAttack; attack++) {
+        this.skillsAttack[attack] = $('<div>')
+          .addClass('card-attack skill--img-attack')
+          .data('owner', this.id)
+          .data('canUse', true)
+          .data('type', 'attack')
+          .on('click', this.useSkill)
+          .appendTo(divSkills);
       }
-    });
-    },
+      //generate Shield skills
+      if (this.shield) {
+        var divShield = $('<div>')
+          .addClass('card-shield skill--img-shield')
+          .data('owner', this.id)
+          .data('canUse', true)
+          .data('type', 'shield')
+          .on('click', this.useSkill)
+          .appendTo(divSkills);
+      }
+
+      divCard.append(divName, divLife, divMana, divToBlock, divDamage);
+      divId.append(divItems, divCard, divSkills);
+      $(this.sectionId).append(divId);
+    };
+
     this.updateStats = function() {
       if (this.life <= 0) {
-        this.dies();
+        this.isDie = true;
+        $('#' + this.id + ' .card .card-life').text(0);
+        $('#' + this.id).fadeOut('slow', function() {
+          $(this).remove();
+          if (this.id === 'player1' || this.id === 'player2') {
+            app.playerManager();
+          } else app.enemyManager();
+        });
       } else {
         $('#' + this.id + ' .card .card-life').text(this.life);
         $('#' + this.id + ' .card .card-mana').text(this.mana);
@@ -294,26 +269,17 @@ var app = {
     this.valueXp = obj.valueXp;
     this.id = 'enemy1';
     this.sectionId = '#enemySection';
-    this.attackInterval = [] ;
-    var _this = this;
 
     if (obj.big) {
       this.cardSize = 'big'
     } else {
       this.cardSize = 'normal';
     }
-    this.setAutoAttack = function() {
-      this.skillsAttack.forEach(function () {
-        var inter = setInterval(function () {
-          app.combatManager('enemy1');
-        }, app.randomNumber(20, 30) * 100 );
-        _this.attackInterval.push(inter);
-      });
-    }
-    this.clearAutoAttack = function () {
-      
-      _this.attackInterval.forEach(function (inter) {
-          clearInterval(inter);
+    this.autoAttack = function() {
+      this.skillsAttack.forEach(function(skill) {
+        setInterval(function() {
+          $(skill).trigger('click');
+        }, app.randomNumber(20, 30) * 100);
       });
     }
   },
@@ -332,7 +298,7 @@ var app = {
   //Fonction pour crée le joueur basé sur le Prototype charactere -> player
   createPlayer: function(obj) {
     var player = new app.Player(obj);
-    app.generateHtml(player);
+    player.generateHtml();
     return player;
   },
 
@@ -360,18 +326,12 @@ var app = {
   },
 
   win: function() {
-    app.enemyPool[app.currentEnemy].clearAutoAttack();
-    delete app.enemyPool;
-    delete app.player;
     $('#playerSection').remove();
     $('<h2>').text('You win').appendTo('#enemySection');
     console.log('You win');
   },
 
   gameOver: function() {
-    app.enemyPool[app.currentEnemy].clearAutoAttack();
-    delete app.enemyPool;
-    delete app.player;
     $('#enemySection').remove();
     $('<h2>').text('gameOver').appendTo('#playerSection');
     console.log('gameOver');
