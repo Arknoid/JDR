@@ -9,6 +9,7 @@ var app = {
 
   init: function() {
     //load music
+    $('.carousel').carousel()
     app.music.src = 'sounds/music/cave.ogg';
     $('#btnEnter').on('click', function() {
       app.music.play();
