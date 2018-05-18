@@ -44,11 +44,11 @@ var app = {
   generateHtml : function (cardObj) {
 
     var divItems = $('<div>').attr('id', 'card-items');
-    var divName = $('<div>').text(cardObj.name).addClass('card-name');
-    var divMana = $('<div>').text(cardObj.mana).addClass('card-mana');
-    var divLife = $('<div>').text(cardObj.life).addClass('card-life');
-    var divToBlock = $('<div>').text(cardObj.toHit + '/' + cardObj.block).addClass('card-toHit');
-    var divDamage = $('<div>').text(cardObj.damage).addClass('card-damage');
+    var divName = $('<div>').text(cardObj.name).addClass('card-name').attr("data-toggle","tooltip").attr("title","Name");
+    var divMana = $('<div>').text(cardObj.mana).addClass('card-mana').attr("data-toggle","tooltip").attr("title","Mana");
+    var divLife = $('<div>').text(cardObj.life).addClass('card-life').attr("data-toggle","tooltip").attr("title","Health");
+    var divToBlock = $('<div>').text(cardObj.toHit + '/' + cardObj.block).addClass('card-toHit').attr("data-toggle","tooltip").attr("title","Chances to Block & Touch");
+    var divDamage = $('<div>').text(cardObj.damage).addClass('card-damage').attr("data-toggle","tooltip").attr("title","Damages");
     var divSkills = $('<div>').addClass('card-skills');
     var divId = $('<div>').attr('id', cardObj.id);
     var divCard = $('<div>').addClass('card  card--size-' + cardObj.cardSize + ' card--img-' + cardObj.face);
@@ -60,6 +60,7 @@ var app = {
         .data('owner', cardObj.id)
         .data('canUse', true)
         .data('type', 'attack')
+        .attr("data-toggle","tooltip").attr("title","Attack enemy")
         .on('click', cardObj.useSkill)
         .appendTo(divSkills);
     }
@@ -71,6 +72,7 @@ var app = {
         .data('canUse', true)
         .data('type', 'shield')
         .on('click', cardObj.useSkill)
+        .attr("data-toggle","tooltip").attr("title","Block the next enemy attack ")
         .appendTo(divSkills);
     }
 
