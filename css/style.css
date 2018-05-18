@@ -20,8 +20,11 @@ header{
   border-radius:5px;
 }
 nav {
-  background-color: rgba(0, 0, 0,0.7);
   height: 2rem;
+}
+.nav--background-alpha {
+
+  background-color: rgba(0, 0, 0,0.7);
 }
 h2,
 h1{
@@ -127,8 +130,8 @@ footer p {
 /*********************************GAME CLASS***********************************/
 
 .card--size-normal{
-  height: 250px;
-  width: 200px;
+  height: 230px;
+  width: 180px;
 }
 .card--size-big{
   height: 300px;
@@ -186,7 +189,7 @@ footer p {
   font-size: 1.2rem;
   background: url("../images/card_elements/mana.png") ;
   background-size: 100% 100%;
-  top: 25px;
+  top: 1.5rem;
   right: -1.2rem;
   width: 2rem;
   height: 2rem;
@@ -262,8 +265,8 @@ footer p {
   background-size: 100% 100%;
   color: white;
   font-size: 2.6rem;
-  width: 80px;
-  height: 80px;
+  width: 5rem;
+  height: 5rem;
   top: 25%;
   left:25%;
   display: flex;
@@ -276,10 +279,10 @@ footer p {
   position: absolute;
   background-image: url("../images/card_elements/shield.png");
   background-size: 100% 100%;
-  width: 80px;
-  height: 80px;
-  top: calc(98% - 40px);
-  left: calc(100% - 40px);
+  width: 5rem;
+  height: 5rem;
+  bottom: -2.5rem;
+  right: -2.5rem;
 }
 /* Player Faces */
 
@@ -332,7 +335,7 @@ footer p {
 @media (max-width: 600px) {
 
 html{
-  font-size: 12px;
+  font-size: 10px;
 }
 #playerSection,
 #enemySection{

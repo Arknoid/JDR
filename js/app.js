@@ -230,24 +230,24 @@ var app = {
       var fontSize;
 
       if (damage >= 6) {
-        size = 100;
+        size = 6;
         fontSize = 2.2;
       } else if (damage > 4) {
-        size = 80;
+        size = 5;
         fontSize = 2.0;
       } else if (damage > 2) {
-        size = 60;
+        size = 4;
         fontSize = 1.6;
       } else {
-        size = 50;
+        size = 3;
         fontSize = 1.4;
       }
 
       var hitDiv = $('<div>')
         .addClass('card-hit')
         .css({
-          'height': size + 'px',
-          'width': size + 'px',
+          'height': size + 'rem',
+          'width': size + 'rem',
           'fontSize': fontSize + 'rem',
         })
         .text(damage)
