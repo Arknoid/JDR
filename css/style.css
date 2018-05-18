@@ -331,8 +331,13 @@ footer p {
 /**********************************MEDIA QUERY*********************************/
 @media (max-width: 600px) {
 
-body{
+html{
   font-size: 12px;
+}
+#playerSection,
+#enemySection{
+
+  justify-content: space-around;
 }
 .card--size-normal{
   height: 200px;
