@@ -8,18 +8,14 @@ var app = {
   music: new Audio(),
 
   init: function() {
-    //load music
 
-    $('#btnEnter').on('click', function() {
-      app.music.play();
-      app.start();
-      $(this).remove();;
-    });
+   app.music.src = 'sounds/music/cave.ogg';
 
   },
-  //Demarage du je u !
+  //Demarage du jeu !
   start: function() {
-
+    //load music
+    app.music.play();
     app.player[0] = app.createPlayer(data.players.player1);
     app.player[1] = app.createPlayer(data.players.player2);
 

@@ -3,7 +3,13 @@ var bs = {
     init : function () {
     //starting carousel
     $('.carousel').carousel()
-    app.music.src = 'sounds/music/cave.ogg';
+
+
+    //starting game on btn click
+    $('#btnEnter').on('click', function() {
+      app.start();
+      $(this).remove();;
+    });
   },
 
 }
