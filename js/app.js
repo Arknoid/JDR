@@ -9,7 +9,7 @@ var app = {
 
   init: function() {
 
-   app.music.src = 'sounds/music/cave.ogg';
+    app.music.src = 'sounds/music/cave.ogg';
 
   },
   //Demarage du jeu !
@@ -31,7 +31,7 @@ var app = {
   },
 
   //Allows from a ArrayList to generate the appropriate sounds
-  generateSounds : function(soundArray, location) {
+  generateSounds: function(soundArray, location) {
     var sounds = [];
     for (var i = 0; i < soundArray.length; i++) {
       sounds[i] = new Audio();
@@ -41,14 +41,14 @@ var app = {
   },
 
   //Generate and show  Card format for Player or ennemy objets
-  generateHtml : function (cardObj) {
+  generateHtml: function(cardObj) {
 
     var divItems = $('<div>').attr('id', 'card-items');
-    var divName = $('<div>').text(cardObj.name).addClass('card-name').attr("data-toggle","tooltip").attr("title","Name");
-    var divMana = $('<div>').text(cardObj.mana).addClass('card-mana').attr("data-toggle","tooltip").attr("title","Mana");
-    var divLife = $('<div>').text(cardObj.life).addClass('card-life').attr("data-toggle","tooltip").attr("title","Health");
-    var divToBlock = $('<div>').text(cardObj.toHit + '/' + cardObj.block).addClass('card-toHit').attr("data-toggle","tooltip").attr("title","Chances to Block & Touch");
-    var divDamage = $('<div>').text(cardObj.damage).addClass('card-damage').attr("data-toggle","tooltip").attr("title","Damages");
+    var divName = $('<div>').text(cardObj.name).addClass('card-name').attr("data-toggle", "tooltip").attr("title", "Name");
+    var divMana = $('<div>').text(cardObj.mana).addClass('card-mana').attr("data-toggle", "tooltip").attr("title", "Mana");
+    var divLife = $('<div>').text(cardObj.life).addClass('card-life').attr("data-toggle", "tooltip").attr("title", "Health");
+    var divToBlock = $('<div>').text(cardObj.toHit + '/' + cardObj.block).addClass('card-toHit').attr("data-toggle", "tooltip").attr("title", "Chances to Block & Touch");
+    var divDamage = $('<div>').text(cardObj.damage).addClass('card-damage').attr("data-toggle", "tooltip").attr("title", "Damages");
     var divSkills = $('<div>').addClass('card-skills');
     var divId = $('<div>').attr('id', cardObj.id);
     var divCard = $('<div>').addClass('card  card--size-' + cardObj.cardSize + ' card--img-' + cardObj.face);
@@ -60,7 +60,7 @@ var app = {
         .data('owner', cardObj.id)
         .data('canUse', true)
         .data('type', 'attack')
-        .attr("data-toggle","tooltip").attr("title","Attack enemy")
+        .attr("data-toggle", "tooltip").attr("title", "Attack enemy")
         .on('click', cardObj.useSkill)
         .appendTo(divSkills);
     }
@@ -72,7 +72,7 @@ var app = {
         .data('canUse', true)
         .data('type', 'shield')
         .on('click', cardObj.useSkill)
-        .attr("data-toggle","tooltip").attr("title","Block the next enemy attack ")
+        .attr("data-toggle", "tooltip").attr("title", "Block the next enemy attack ")
         .appendTo(divSkills);
     }
 
@@ -86,8 +86,8 @@ var app = {
 
   enemyManager: function() {
     if (app.enemyPool[app.currentEnemy].life <= 0) {
-        app.currentEnemy++;
-      if (app.currentEnemy === app.enemyPool.length ) {
+      app.currentEnemy++;
+      if (app.currentEnemy === app.enemyPool.length) {
         app.win();
 
       } else {
@@ -142,7 +142,7 @@ var app = {
     var _this = this;
     //Audio
     this.soundVoiceHit = app.generateSounds(obj.voice, 'sounds/characters/');
-    this.soundMiss =  app.generateSounds(obj.soundMiss, 'sounds/combat/');
+    this.soundMiss = app.generateSounds(obj.soundMiss, 'sounds/combat/');
     this.soundDie = app.generateSounds(obj.dieSound, 'sounds/characters/');
 
 
@@ -262,28 +262,28 @@ var app = {
 
 
     this.dies = function() {
-    this.isDie = true;
-    this.soundDie[app.randomNumber(0, this.soundDie.length - 1)].play();
-    $('#' + this.id).fadeOut('slow', function () {
-      $(this).remove();
-      if (_this.id === 'player1' || _this.id === 'player2') {
-        app.playerManager();
-      } else {
+        this.isDie = true;
+        this.soundDie[app.randomNumber(0, this.soundDie.length - 1)].play();
+        $('#' + this.id).fadeOut('slow', function() {
+          $(this).remove();
+          if (_this.id === 'player1' || _this.id === 'player2') {
+            app.playerManager();
+          } else {
 
-        _this.clearAutoAttack();
-        app.enemyManager();
-      }
-    });
-    },
-    this.updateStats = function() {
-      if (this.life <= 0) {
-        this.dies();
-      } else {
-        $('#' + this.id + ' .card .card-life').text(this.life);
-        $('#' + this.id + ' .card .card-mana').text(this.mana);
-      }
+            _this.clearAutoAttack();
+            app.enemyManager();
+          }
+        });
+      },
+      this.updateStats = function() {
+        if (this.life <= 0) {
+          this.dies();
+        } else {
+          $('#' + this.id + ' .card .card-life').text(this.life);
+          $('#' + this.id + ' .card .card-mana').text(this.mana);
+        }
 
-    };
+      };
   },
 
   //Prototype pour les ennemies
@@ -293,7 +293,7 @@ var app = {
     this.valueXp = obj.valueXp;
     this.id = 'enemy1';
     this.sectionId = '#enemySection';
-    this.attackInterval = [] ;
+    this.attackInterval = [];
     var _this = this;
 
     if (obj.big) {
@@ -302,17 +302,17 @@ var app = {
       this.cardSize = 'normal';
     }
     this.setAutoAttack = function() {
-      this.skillsAttack.forEach(function () {
-        var inter = setInterval(function () {
+      this.skillsAttack.forEach(function() {
+        var inter = setInterval(function() {
           app.combatManager('enemy1');
-        }, app.randomNumber(20, 30) * 100 );
+        }, app.randomNumber(20, 30) * 100);
         _this.attackInterval.push(inter);
       });
     }
-    this.clearAutoAttack = function () {
+    this.clearAutoAttack = function() {
 
-      _this.attackInterval.forEach(function (inter) {
-          clearInterval(inter);
+      _this.attackInterval.forEach(function(inter) {
+        clearInterval(inter);
       });
     }
   },
@@ -348,14 +348,46 @@ var app = {
     for (var index = 0; index < numberToAdd; index++) {
       var randNumber = app.randomNumber(1, 100);
       if (randNumber >= 50) {
-        app.enemyPool.push(app.createEnemy(data.enemys.goblinShaman));
+        //Create goblins
+        switch (app.randomNumber(1, 3)) {
+          case 1:
+            app.enemyPool.push(app.createEnemy(data.enemys.goblinShaman));
+            break;
+          case 2:
+            app.enemyPool.push(app.createEnemy(data.enemys.goblin));
+            break;
+          case 3:
+            app.enemyPool.push(app.createEnemy(data.enemys.goblinArcher));
+            break;
+        }
       } else if (randNumber >= 25) {
-        app.enemyPool.push(app.createEnemy(data.enemys.orcWarrior));
+        switch (app.randomNumber(1, 2)) {
+          case 1:
+            app.enemyPool.push(app.createEnemy(data.enemys.lizardMan));
+            break;
+          case 2:
+            app.enemyPool.push(app.createEnemy(data.enemys.orcShaman));
+            break;
+        }
       } else {
-        app.enemyPool.push(app.createEnemy(data.enemys.orcShaman));
+        switch (app.randomNumber(1, 2)) {
+          case 1:
+            app.enemyPool.push(app.createEnemy(data.enemys.orcWarrior));
+            break;
+          case 2:
+            app.enemyPool.push(app.createEnemy(data.enemys.lizardWarrior));
+            break;
+        }
       }
     }
-    app.enemyPool.push(app.createEnemy(data.enemys.trollGiant))
+    switch (app.randomNumber(1, 2)) {
+      case 1:
+        app.enemyPool.push(app.createEnemy(data.enemys.trollGiant));
+        break;
+      case 2:
+        app.enemyPool.push(app.createEnemy(data.enemys.swampElder));
+        break;
+    }   
   },
 
   win: function() {

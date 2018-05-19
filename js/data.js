@@ -10,9 +10,9 @@ var data = {
       toHit: 3,
       toBlock: 3,
       gold: 0,
-      damage: 6,
-      shield : true,
-      numberAttack: 1,
+      damage: 8,
+      shield : false,
+      numberAttack: 2,
       potionLife: 1,
       potionMana: 1,
       voice :[
@@ -31,12 +31,12 @@ var data = {
       face: 'darkKnight',
       life: 50,
       mana: 10,
-      toHit: 3,
+      toHit: 4,
       toBlock: 3,
       gold: 0,
       damage: 6,
-      shield : false,
-      numberAttack: 2,
+      shield : true,
+      numberAttack: 1,
       potionLife: 2,
       voice :[
               'hit1',
@@ -61,7 +61,7 @@ var data = {
       gold: 10,
       valueXp: 10,
       damage: 6,
-      numberAttack: 3,
+      numberAttack: 2,
       voice :[
               'orc1',
               'orc2',
@@ -71,11 +71,11 @@ var data = {
       dieSound : ['orcDie1'],
     },
 
-    goblinShaman: {
-      name: 'goblin-shaman',
-      face: 'goblinShaman',
+    goblin: {
+      name: 'goblin',
+      face: 'goblin',
       life: 10,
-      mana: 10,
+      mana: 1,
       toHit: 3,
       toBlock: 1,
       gold: 10,
@@ -89,6 +89,86 @@ var data = {
 
       soundMiss : ['sword3'],
       dieSound : ['goblinDie1'],
+    },
+
+    goblinShaman: {
+      name: 'goblin-shaman',
+      face: 'goblinShaman',
+      life: 5,
+      mana: 10,
+      toHit: 3,
+      toBlock: 1,
+      gold: 10,
+      valueXp: 10,
+      damage: 2,
+      numberAttack: 1,
+      voice :[
+              'goblin',
+              'goblin1'
+             ],
+
+      soundMiss : ['sword3'],
+      dieSound : ['goblinDie1'],
+    },
+
+    goblinArcher: {
+      name: 'Goblin-Archer',
+      face: 'goblinArcher',
+      life: 10,
+      mana: 10,
+      toHit: 3,
+      toBlock: 1,
+      gold: 10,
+      valueXp: 10,
+      damage: 2,
+      numberAttack: 1,
+      voice :[
+              'goblin',
+              'goblin1'
+             ],
+
+      soundMiss : ['sword3'],
+      dieSound : ['goblinDie1'],
+    },
+
+    lizardMan: {
+      name: 'lizardMan',
+      face: 'lizardMan',
+      life: 10,
+      mana: 10,
+      toHit: 3,
+      toBlock: 5,
+      gold: 10,
+      valueXp: 10,
+      damage: 2,
+      numberAttack: 2,
+      voice :[
+              'orc4',
+              'orc5'
+             ],
+
+      soundMiss : ['sword3'],
+      dieSound : ['orcDie1'],
+    },
+
+    lizardWarrior: {
+      name: 'lizard-Warrior',
+      face: 'lizardWarrior',
+      life: 20,
+      mana: 10,
+      toHit: 4,
+      toBlock: 3,
+      gold: 10,
+      valueXp: 10,
+      damage: 10,
+      numberAttack: 2,
+      voice :[
+              'orc4',
+              'orc5'
+             ],
+
+      soundMiss : ['sword3'],
+      dieSound : ['orcDie1'],
     },
 
     orcShaman: {
@@ -121,6 +201,29 @@ var data = {
       valueXp: 10,
       damage: 16,
       numberAttack: 1,
+      big : true,
+      voice :[
+              'giant1',
+              'giant2',
+              'giant3',
+              'giant4',
+              'giant5',
+             ],
+      soundMiss : ['sword2'],
+      dieSound : ['trollDie'],
+    },
+
+    swampElder: {
+      name: 'swamp-Elder',
+      face: 'swampElder',
+      life: 60,
+      mana: 8,
+      toHit: 4,
+      toBlock: 3,
+      gold: 10,
+      valueXp: 10,
+      damage: 8,
+      numberAttack: 2,
       big : true,
       voice :[
               'giant1',

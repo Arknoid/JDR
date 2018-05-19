@@ -65,7 +65,7 @@ h1{
 }
 #board{
   border: 10px solid black !important;
-  background-image: url("../images/backgrounds/thedullforest_by_bersverk88-dbtj913.jpg");
+  background-image: url("../images/backgrounds/swamp_by_polyraspad-d2zsqhz.jpg");
   background-position: center;
   background-size:cover;
   box-shadow: 0px 0px 30px black;
@@ -294,6 +294,27 @@ footer p {
 }
 
 /* Enemys */
+.card--img-goblin {
+  background-image: url("../images/enemy/goblin_by_aaronflorento-d7srkrg.jpg");
+}
+
+.card--img-goblinArcher {
+  background-image: url("../images/enemy/goblin_archer_by_arkiniano-d9465pj.jpg");
+}
+
+.card--img-lizardWarrior {
+  background-image: url("../images/enemy/lizardman_deathknight_by_cribs-d5zxv9k.jpg");
+}
+
+.card--img-lizardMan {
+  background-image: url("../images/enemy/lizard_man_by_sansyu.jpg");
+}
+
+.card--img-swampElder {
+  background-image: url("../images/enemy/swamp_elder_by_harryosborn_art-da7f8am.jpg");
+}
+
+
 .card--img-orcShaman{
   background-image: url("../images/enemy/orc_shaman_by_saturnoarg-d5159hi.jpg");
 }
