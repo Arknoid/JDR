@@ -16,6 +16,8 @@ var app = {
   start: function() {
     //load music
     app.music.play();
+
+    //createPlayer
     app.player[0] = app.createPlayer(data.players.player1);
     app.player[1] = app.createPlayer(data.players.player2);
 
@@ -44,11 +46,22 @@ var app = {
   generateHtml: function(cardObj) {
 
     var divItems = $('<div>').attr('id', 'card-items');
-    var divName = $('<div>').text(cardObj.name).addClass('card-name').attr("data-toggle", "tooltip").attr("title", "Name");
-    var divMana = $('<div>').text(cardObj.mana).addClass('card-mana').attr("data-toggle", "tooltip").attr("title", "Mana");
-    var divLife = $('<div>').text(cardObj.life).addClass('card-life').attr("data-toggle", "tooltip").attr("title", "Health");
-    var divToBlock = $('<div>').text(cardObj.toHit + '/' + cardObj.block).addClass('card-toHit').attr("data-toggle", "tooltip").attr("title", "Chances to Block & Touch");
-    var divDamage = $('<div>').text(cardObj.damage).addClass('card-damage').attr("data-toggle", "tooltip").attr("title", "Damages");
+    var divName = $('<div>').text(cardObj.name)
+      .addClass('card-name').attr("data-toggle", "tooltip")
+      .attr("title", "Name");
+    var divMana = $('<div>').text(cardObj.mana)
+      .addClass('card-mana').attr("data-toggle", "tooltip")
+      .attr("title", "Mana");
+    var divLife = $('<div>').text(cardObj.life)
+      .addClass('card-life').attr("data-toggle", "tooltip")
+      .attr("title", "Health");
+    var divToBlock = $('<div>').text(cardObj.toHit + '/' + cardObj.block)
+      .addClass('card-toHit')
+      .attr("data-toggle", "tooltip")
+      .attr("title", "Chances to Block & Touch");
+    var divDamage = $('<div>').text(cardObj.damage)
+      .addClass('card-damage').attr("data-toggle", "tooltip")
+      .attr("title", "Damages");
     var divSkills = $('<div>').addClass('card-skills');
     var divId = $('<div>').attr('id', cardObj.id);
     var divCard = $('<div>').addClass('card  card--size-' + cardObj.cardSize + ' card--img-' + cardObj.face);
@@ -72,7 +85,8 @@ var app = {
         .data('canUse', true)
         .data('type', 'shield')
         .on('click', cardObj.useSkill)
-        .attr("data-toggle", "tooltip").attr("title", "Block the next enemy attack ")
+        .attr("data-toggle", "tooltip")
+          .attr("title", "Block the next enemy attack ")
         .appendTo(divSkills);
     }
 
@@ -145,37 +159,53 @@ var app = {
     this.soundMiss = app.generateSounds(obj.soundMiss, 'sounds/combat/');
     this.soundDie = app.generateSounds(obj.dieSound, 'sounds/characters/');
 
-
     this.soundBlock = new Audio();
     this.soundBlock.src = 'sounds/combat/swordBlock.ogg';
 
-
-
-    // Attaque un enemie cible
+    //Attack target
     this.attack = function(target) {
+      this.animateAttack();
       var dmg = app.randomNumber(1, this.damage);
+      //Test if Shield Block
       if (target.shieldUp) {
+        //Shield block sound
         var soundShieldUse = new Audio();
         soundShieldUse.src = 'sounds/combat/shieldBlock.ogg';
         soundShieldUse.play();
         target.showBlock();
         target.shieldUp = false;
-
+      //Test if touch !
       } else if (app.randomNumber(1, this.toHit) > app.randomNumber(1, target.block)) {
         target.life -= dmg;
         target.scream();
         target.showHit(dmg);
         target.updateStats();
-      } else {
-        if (app.randomNumber(1, 5) <= 4) {
-          this.soundMiss[app.randomNumber(0, this.soundMiss.length - 1)].play();
-        } else {
-          this.soundBlock.play();
-        }
+      //Attack missing or parrying
+      } else if (app.randomNumber(1, 5) <= 4) {
+        this.soundMiss[app.randomNumber(0, this.soundMiss.length - 1)].play();
         target.showBlock();
+      } else {
+          this.soundBlock.play();
+          target.showBlock();
+        }
+      };
+
+    this.animateAttack = function(){
+      //Rotate players
+      if (_this.id === 'player1' || this.id === 'player2') {
+        let rotate = 20;
+        $('#' + _this.id + ' .card')
+          .transition({ rotate : '+='+rotate+'deg'},200)
+          .transition({ rotate : '-='+rotate+'deg'},200)
+      }else {
+      //Translate to bottom ennemy
+        let dir = 60;
+        $('#' + _this.id + ' .card')
+        .transition({y:'+='+dir},200)
+        .transition({y:'-='+dir  },200)
       }
 
-    };
+    },
 
     //play a random sound form characters voice when hitting
     this.scream = function() {
@@ -328,14 +358,14 @@ var app = {
     this.sectionId = '#playerSection';
   },
 
-  //Fonction pour crée le joueur basé sur le Prototype charactere -> player
+  //Fonction pour crée le joueur basé sur le Prototype Character -> player
   createPlayer: function(obj) {
     var player = new app.Player(obj);
     app.generateHtml(player);
     return player;
   },
 
-  //Fonction pour crée un enemie  basé sur le Prototype charactere -> Enemy
+  //Fonction pour crée un enemie  basé sur le Prototype Character -> Enemy
   createEnemy: function(obj) {
     var enemy = new app.Enemy(obj);
     return enemy;
@@ -387,7 +417,7 @@ var app = {
       case 2:
         app.enemyPool.push(app.createEnemy(data.enemys.swampElder));
         break;
-    }   
+    }
   },
 
   win: function() {
