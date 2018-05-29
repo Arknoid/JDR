@@ -198,7 +198,7 @@ var app = {
       _this.canUseSkills = false;
       $('#'+_this.id+' .globalCountdown').each(function() {
         $(this).css({backgroundColor: "rgba(0, 0, 0, 0.8)",})
-          .transition({backgroundColor: "rgba(0, 0, 0, 0)"},timer,'easeInQuart', function(){
+          .transition({backgroundColor: "rgba(0, 0, 0, 0.2)"},timer,'easeInQuart', function(){
               //reset
               _this.canUseSkills = true;
             })
@@ -208,7 +208,7 @@ var app = {
     this.animateAttack = function() {
         //Rotate players
         if (_this.id === 'player1' || this.id === 'player2') {
-          let rotate = 20;
+          let rotate = 10;
           $('#' + _this.id + ' .card')
             .transition({
               rotate: '+=' + rotate + 'deg'
@@ -260,8 +260,9 @@ var app = {
             $skill.removeClass('skill--disable');
             $skill.data('canUse', true);
           }, disableTimer);
+          _this.setGlobalTimer();
         }
-        _this.setGlobalTimer();
+
       }
 
     };
