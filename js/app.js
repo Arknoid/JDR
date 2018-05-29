@@ -369,8 +369,12 @@ var app = {
           if (_this.canUseSkills) {
             app.combatManager('enemy1');
             _this.canUseSkills = false;
+            //init  Global Timer
+            setTimeout(function(){
+              _this.canUseSkills = true;
+            },1500);
           }
-        }, app.randomNumber(30, 40) * 100);
+        }, app.randomNumber(30, 50) * 100);
         _this.attackInterval.push(inter);
       });
     }
