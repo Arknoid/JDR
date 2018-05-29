@@ -198,7 +198,11 @@ var app = {
       _this.canUseSkills = false;
       $('#'+_this.id+' .globalCountdown').each(function() {
         $(this).css({backgroundColor: "rgba(0, 0, 0, 0.8)",})
+<<<<<<< HEAD
           .transition({backgroundColor: "rgba(0, 0, 0, 0.2)"},timer,'easeInQuart', function(){
+=======
+          .transition({backgroundColor: "rgba(0, 0, 0, 0.1)"},timer,'easeInQuart', function(){
+>>>>>>> 96302ae00e5cf40d78942e4244f354f4a58bf3a1
               //reset
               _this.canUseSkills = true;
             })
