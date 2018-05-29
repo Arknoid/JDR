@@ -196,16 +196,17 @@ var app = {
     this.setGlobalTimer = function() {
       const timer = 2000;
       _this.canUseSkills = false;
-      $('#'+_this.id+' .globalCountdown').each(function() {
-        $(this).css({backgroundColor: "rgba(0, 0, 0, 0.8)",})
-<<<<<<< HEAD
-          .transition({backgroundColor: "rgba(0, 0, 0, 0.2)"},timer,'easeInQuart', function(){
-=======
-          .transition({backgroundColor: "rgba(0, 0, 0, 0.1)"},timer,'easeInQuart', function(){
->>>>>>> 96302ae00e5cf40d78942e4244f354f4a58bf3a1
-              //reset
-              _this.canUseSkills = true;
-            })
+      $('#' + _this.id + ' .globalCountdown').each(function() {
+        $(this).css({
+            backgroundColor: "rgba(0, 0, 0, 0.8)",
+          })
+          .transition({
+            backgroundColor: "rgba(0, 0, 0, 0.2)"
+          }, timer, 'easeInQuart', function() {
+
+            //reset
+            _this.canUseSkills = true;
+          })
       });
 
     };
