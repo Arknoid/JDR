@@ -69,24 +69,26 @@ var app = {
     //generate Attack skills
     for (var attack = 0; attack < cardObj.numberAttack; attack++) {
       cardObj.skillsAttack[attack] = $('<div>')
-        .addClass('card-attack skill--img-attack')
+        .addClass('card-attack skill skill--img-attack')
         .data('owner', cardObj.id)
         .data('canUse', true)
         .data('type', 'attack')
         .attr("data-toggle", "tooltip").attr("title", "Attack enemy")
         .on('click', cardObj.useSkill)
+        .append('<div class = "globalCountdown">')
         .appendTo(divSkills);
     }
     //generate Shield skills
     if (cardObj.shield) {
       var divShield = $('<div>')
-        .addClass('card-shield skill--img-shield')
+        .addClass('card-shield skill skill--img-shield')
         .data('owner', cardObj.id)
         .data('canUse', true)
         .data('type', 'shield')
         .on('click', cardObj.useSkill)
         .attr("data-toggle", "tooltip")
-          .attr("title", "Block the next enemy attack ")
+        .attr("title", "Block the next enemy attack ")
+        .append('<div class = "globalCountdown">')
         .appendTo(divSkills);
     }
 
@@ -137,7 +139,6 @@ var app = {
 
   //Prototype de Base ! qui peu evoluer vers 'player' ou  'enemy' grace au systeme d'heritage;
   Character: function(obj) {
-
     this.isDie = false;
     this.face = obj.face;
     this.name = obj.name;
@@ -151,14 +152,16 @@ var app = {
     this.gold = obj.gold;
     this.shield = obj.shield;
     this.shieldUp = false;
+    //Gobal timer
+    this.canUseSkills = true;
+    this.gobalTimer = null;
 
     //use _this for this in nested function
-    var _this = this;
+    const _this = this;
     //Audio
     this.soundVoiceHit = app.generateSounds(obj.voice, 'sounds/characters/');
     this.soundMiss = app.generateSounds(obj.soundMiss, 'sounds/combat/');
     this.soundDie = app.generateSounds(obj.dieSound, 'sounds/characters/');
-
     this.soundBlock = new Audio();
     this.soundBlock.src = 'sounds/combat/swordBlock.ogg';
 
@@ -174,69 +177,94 @@ var app = {
         soundShieldUse.play();
         target.showBlock();
         target.shieldUp = false;
-      //Test if touch !
+        //Test if touch !
       } else if (app.randomNumber(1, this.toHit) > app.randomNumber(1, target.block)) {
         target.life -= dmg;
         target.scream();
         target.showHit(dmg);
         target.updateStats();
-      //Attack missing or parrying
+        //Attack missing or parrying
       } else if (app.randomNumber(1, 5) <= 4) {
         this.soundMiss[app.randomNumber(0, this.soundMiss.length - 1)].play();
         target.showBlock();
       } else {
-          this.soundBlock.play();
-          target.showBlock();
-        }
-      };
-
-    this.animateAttack = function(){
-      //Rotate players
-      if (_this.id === 'player1' || this.id === 'player2') {
-        let rotate = 20;
-        $('#' + _this.id + ' .card')
-          .transition({ rotate : '+='+rotate+'deg'},200)
-          .transition({ rotate : '-='+rotate+'deg'},200)
-      }else {
-      //Translate to bottom ennemy
-        let dir = 60;
-        $('#' + _this.id + ' .card')
-        .transition({y:'+='+dir},200)
-        .transition({y:'-='+dir  },200)
+        this.soundBlock.play();
+        target.showBlock();
       }
-
-    },
-
-    //play a random sound form characters voice when hitting
-    this.scream = function() {
-      var rndSound = app.randomNumber(0, this.soundVoiceHit.length - 1)
-      this.soundVoiceHit[rndSound].play();
     };
-    this.useSkill = function() {
-      var $skill = $(this)
-      var disableTimer;
-      if ($skill.data('canUse')) {
-        switch ($skill.data('type')) {
-          case 'attack':
-            app.combatManager($skill.data('owner'));
-            disableTimer = app.randomNumber(3, 5) * 1000;
-            break;
-          case 'shield':
-            _this.shieldUp = true;
-            var soundShieldUp = new Audio();
-            soundShieldUp.src = 'sounds/combat/shieldUp.ogg';
-            soundShieldUp.play();
-            disableTimer = app.randomNumber(15, 20) * 1000;
-            break;
-          default:
+
+    this.setGlobalTimer = function() {
+      const timer = 2000;
+      _this.canUseSkills = false;
+      $('#'+_this.id+' .globalCountdown').each(function() {
+        console.log('each');
+        $(this).css({backgroundColor: "rgba(0, 0, 0, 0.8)",})
+          .transition({backgroundColor: "rgba(0, 0, 0, 0)"},timer, function(){
+              //reset
+              this.canUseSkills = true;
+            })
+      });
+
+    };
+    this.animateAttack = function() {
+        //Rotate players
+        if (_this.id === 'player1' || this.id === 'player2') {
+          let rotate = 20;
+          $('#' + _this.id + ' .card')
+            .transition({
+              rotate: '+=' + rotate + 'deg'
+            }, 200)
+            .transition({
+              rotate: '-=' + rotate + 'deg'
+            }, 200)
+        } else {
+          //Translate to bottom ennemy
+          let dir = 60;
+          $('#' + _this.id + ' .card')
+            .transition({
+              y: '+=' + dir
+            }, 200)
+            .transition({
+              y: '-=' + dir
+            }, 200)
         }
 
-        $skill.addClass('skill--disable').data('canUse', false);
-        this.attack = setTimeout(function() {
-          $skill.removeClass('skill--disable');
-          $skill.data('canUse', true);
-        }, disableTimer);
+      },
+
+      //play a random sound form characters voice when hitting
+      this.scream = function() {
+        var rndSound = app.randomNumber(0, this.soundVoiceHit.length - 1)
+        this.soundVoiceHit[rndSound].play();
+      };
+    this.useSkill = function() {
+      if (_this.canUseSkills) {
+        var $skill = $(this)
+        var disableTimer;
+        if ($skill.data('canUse')) {
+          switch ($skill.data('type')) {
+            case 'attack':
+              app.combatManager($skill.data('owner'));
+              disableTimer = app.randomNumber(3, 5) * 1000;
+              break;
+            case 'shield':
+              _this.shieldUp = true;
+              var soundShieldUp = new Audio();
+              soundShieldUp.src = 'sounds/combat/shieldUp.ogg';
+              soundShieldUp.play();
+              disableTimer = app.randomNumber(15, 20) * 1000;
+              break;
+            default:
+          }
+
+          $skill.addClass('skill--disable').data('canUse', false);
+          this.attack = setTimeout(function() {
+            $skill.removeClass('skill--disable');
+            $skill.data('canUse', true);
+          }, disableTimer);
+        }
+        _this.setGlobalTimer();
       }
+
     };
 
     this.showBlock = function(damage) {
@@ -289,8 +317,6 @@ var app = {
       }, 500);
     };
 
-
-
     this.dies = function() {
         this.isDie = true;
         this.soundDie[app.randomNumber(0, this.soundDie.length - 1)].play();
@@ -334,8 +360,12 @@ var app = {
     this.setAutoAttack = function() {
       this.skillsAttack.forEach(function() {
         var inter = setInterval(function() {
-          app.combatManager('enemy1');
-        }, app.randomNumber(20, 30) * 100);
+          //Global timer
+          if (_this.canUseSkills) {
+            app.combatManager('enemy1');
+            _this.canUseSkills = false;
+          }
+        }, app.randomNumber(30, 40) * 100);
         _this.attackInterval.push(inter);
       });
     }

@@ -2,32 +2,32 @@
 
 @import url('https://fonts.googleapis.com/css?family=Aref+Ruqaa:400,700|Merienda:400,700');
 @import url('https://fonts.googleapis.com/css?family=Kreon');
-
 /****************************SECTION GENERAL************************************/
 
-body{
+body {
   background-color: burlywood;
 }
 
 /********************************HEADER****************************************/
 
-header{
+header {
   max-height: 100vh;
   background-color: black;
   margin-bottom: 2rem;
   border-bottom: 2rem solid black;
   box-shadow: 0px 0px 30px black;
-  border-radius:5px;
+  border-radius: 5px;
 }
+
 nav {
   height: 2rem;
 }
-.nav--background-alpha {
 
-  background-color: rgba(0, 0, 0,0.8);
+.nav--background-alpha {
+  background-color: rgba(0, 0, 0, 0.8);
 }
-h2,
-h1{
+
+h2, h1 {
   display: block;
   font-family: 'Aref Ruqaa', serif;
   font-size: 4rem;
@@ -35,13 +35,13 @@ h1{
   text-shadow: 1px 1px 10px white;
   text-align: center;
   padding: 1rem;
-  margin:  1rem auto;
+  margin: 1rem auto;
   border-radius: 5px;
   text-transform: uppercase;
 }
 
-
 /*Inner shadow effect  */
+
 .carousel-item:before {
   -webkit-box-shadow: inset 0 0 20rem rgba(0, 0, 0, 1);
   box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.8);
@@ -55,41 +55,39 @@ h1{
 
 /********************************MAIN*****************************************/
 
-.container{
+.container {
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   border-radius: 10px;
 }
+
 #gameContents {
   height: 100vh;
 }
-#board{
+
+#board {
   border: 10px solid black !important;
   background-image: url("../images/backgrounds/swamp_by_polyraspad-d2zsqhz.jpg");
   background-position: center;
-  background-size:cover;
+  background-size: cover;
   box-shadow: 0px 0px 30px black;
   border-radius: 10px;
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   height: 95%;
   margin-top: 2.5rem;
 }
-#playerSection,
-#enemySection{
+
+#playerSection, #enemySection {
   height: 50%;
   display: flex;
   justify-content: center;
 }
-#enemy3,
-#enemy2,
-#enemy1,
-#player2,
-#player1 {
 
-  display:flex;
+#enemy3, #enemy2, #enemy1, #player2, #player1 {
+  display: flex;
   align-items: center;
-  justify-content:center;
+  justify-content: center;
 }
 
 #btnEnter {
@@ -108,15 +106,15 @@ h1{
 }
 
 #btnEnter:hover {
-  border: 2px solid BurlyWood ;
+  border: 2px solid BurlyWood;
   box-shadow: 0 0 20px BurlyWood;
   transform: scale(1.1);
 }
 
 /******************************SECTION FOOTER**********************************/
 
-footer{
-  color: BurlyWood ;
+footer {
+  color: BurlyWood;
   margin-top: 3rem;
   box-shadow: 0px 0px 30px black;
   padding: 2rem;
@@ -124,43 +122,44 @@ footer{
   text-shadow: 1px 1px 10px black;
   background-color: black;
 }
+
 footer p {
   text-shadow: 0px 0px 2px white;
 }
+
 /*********************************GAME CLASS***********************************/
 
-.card--size-normal{
+.card--size-normal {
   height: 230px;
   width: 180px;
 }
-.card--size-big{
+
+.card--size-big {
   height: 300px;
   width: 250px;
 }
-.card--size-tiny{
+
+.card--size-tiny {
   height: 150px;
   width: 150px;
 }
-.card{
+
+.card {
   position: relative;
   background-size: cover;
   border-radius: 10px;
   border: 5px solid black;
   box-shadow: 0 0 20px black;
-
 }
-.card-name,
-.card-hit,
-.card-life,
-.card-mana,
-.card-toHit,
-.card-damage {
+
+.card-name, .card-hit, .card-life, .card-mana, .card-toHit, .card-damage {
   text-shadow: 1px 1px 10px black;
   position: absolute;
   color: white;
   font-family: 'Kreon', serif;
   font-weight: bold;
 }
+
 .card-name {
   text-transform: capitalize;
   border-radius: 10px;
@@ -170,24 +169,25 @@ footer p {
   background-color: black;
   box-shadow: 0 0 10px black;
 }
-.card-life{
+
+.card-life {
   text-align: center;
   padding-top: 0.5rem;
   width: 2.5rem;
   height: 2.5rem;
   font-size: 1.5rem;
-  background: url("../images/card_elements/pv.png") ;
+  background: url("../images/card_elements/pv.png");
   background-size: 100% 100%;
   border-radius: 50px;
   top: -1rem;
   right: -1.5rem;
-
 }
-.card-mana{
+
+.card-mana {
   padding-top: 0.1rem;
   text-align: center;
   font-size: 1.2rem;
-  background: url("../images/card_elements/mana.png") ;
+  background: url("../images/card_elements/mana.png");
   background-size: 100% 100%;
   top: 1.5rem;
   right: -1.2rem;
@@ -195,71 +195,88 @@ footer p {
   height: 2rem;
 }
 
-.card-toHit{
+.card-toHit {
   padding-top: 0.4rem;
   text-align: center;
   right: -1.5rem;
-  bottom:-1.5rem;
+  bottom: -1.5rem;
   width: 3rem;
   height: 3rem;
   font-size: 1.2rem;
-  background: url("../images/card_elements/defence.png") ;
+  background: url("../images/card_elements/defence.png");
   background-size: 100% 100%;
 }
-.card-damage{
-  text-align:center;
+
+.card-damage {
+  text-align: center;
   padding: 2.1rem 0rem;
   height: 5.5rem;
   width: 5.5rem;
   font-size: 1.2rem;
-  background: url("../images/card_elements/attack.png") ;
+  background: url("../images/card_elements/attack.png");
   background-size: 100% 100%;
   bottom: -2.5rem;
   left: -2rem;
 }
+
 #player1 .card-skills {
   order: 2;
 }
+
 #player2 .card-skills {
   order: 0;
 }
-.card-skills,
-.card-items {
+
+.card-skills, .card-items {
+  position: relative;
   padding: 2rem 1.5rem;
 }
-.card-shield,
-.card-attack{
+
+.globalCountdown {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  content: "";
+  border-radius: 10px;
+}
+
+.card-shield, .card-attack {
+  position: relative;
   height: 50px;
   width: 50px;
 }
-.items{
+
+.items {
   height: 40px;
   width: 40px;
 }
-.card-shield,
-.card-attack,
-.items{
+
+.card-shield, .card-attack, .items {
   transition-duration: 0.3s;
   border-radius: 10px;
   border: 2px solid black;
   box-shadow: 0 0 20px black;
   margin-top: 5px;
 }
-.card-shield:hover,
-.items:hover,
-.card-attack:hover{
+
+.card-shield:hover, .items:hover, .card-attack:hover {
   transform: scale(1.1);
   box-shadow: 0 0 20px white;
   border: none;
 }
-.skill--disable{
+
+.skill--disable {
   filter: grayscale(100%);
 }
-.skill--disable:hover{
+
+.skill--disable:hover {
   transform: scale(1);
-  box-shadow:none;
+  box-shadow: none;
   border: 1px solid black;
 }
+
 .card-hit {
   background-image: url("../images/card_elements/blood.png");
   background-size: 100% 100%;
@@ -268,13 +285,14 @@ footer p {
   width: 5rem;
   height: 5rem;
   top: 25%;
-  left:25%;
+  left: 25%;
   display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
 }
-.card-block  {
+
+.card-block {
   opacity: 0.8;
   position: absolute;
   background-image: url("../images/card_elements/shield.png");
@@ -284,16 +302,19 @@ footer p {
   bottom: -2.5rem;
   right: -2.5rem;
 }
+
 /* Player Faces */
 
-.card--img-darkKnight{
+.card--img-darkKnight {
   background-image: url("../images/player_elements/face2.jpg");
 }
-.card--img-knight{
+
+.card--img-knight {
   background-image: url("../images/player_elements/face.jpg");
 }
 
 /* Enemys */
+
 .card--img-goblin {
   background-image: url("../images/enemy/goblin_by_aaronflorento-d7srkrg.jpg");
 }
@@ -314,78 +335,82 @@ footer p {
   background-image: url("../images/enemy/swamp_elder_by_harryosborn_art-da7f8am.jpg");
 }
 
-
-.card--img-orcShaman{
+.card--img-orcShaman {
   background-image: url("../images/enemy/orc_shaman_by_saturnoarg-d5159hi.jpg");
 }
-.card--img-goblinShaman{
+
+.card--img-goblinShaman {
   background-image: url("../images/enemy/goblin_shaman_by_jonasjensenart-d64k3v1.jpg");
 }
-.card--img-orcWarrior{
+
+.card--img-orcWarrior {
   background-image: url("../images/enemy/stone_blade_by_willobrien-d7ktk12.jpg");
 }
+
 .card--img-troll {
   background-image: url("../images/enemy/giant_troll_by_karichristensen-d7xp2zs.jpg");
 }
-.items-potionLifeMini{
+
+.items-potionLifeMini {
   background: url("../images/items/potions/potionLifeMini.jpg");
   background-size: 100% 100%;
 }
-.items-potionLife{
+
+.items-potionLife {
   background: url("../images/items/potions/potionLife.jpg");
   background-size: 100% 100%;
 }
-.items-potionManaMini{
+
+.items-potionManaMini {
   background: url("../images/items/potions/potionManaMini.jpg");
   background-size: 100% 100%;
 }
-.items-potionMana{
+
+.items-potionMana {
   background: url("../images/items/potions/potionMana.jpg");
   background-size: 100% 100%;
 }
-.skill--img-attack{
+
+.skill--img-attack {
   background: url("../images/skills/attack.jpg");
   background-size: 100% 100%;
 }
-.skill--img-shield{
+
+.skill--img-shield {
   background: url("../images/skills/defence.jpg");
   background-size: 100% 100%;
 }
 
 /**********************************MEDIA QUERY*********************************/
+
 @media (max-width: 600px) {
-
-html{
-  font-size: 10px;
+  html {
+    font-size: 10px;
+  }
+  #playerSection, #enemySection {
+    justify-content: space-around;
+  }
+  .card--size-normal {
+    height: 200px;
+    width: 150px;
+  }
+  .card--size-big {
+    height: 250px;
+    width: 200px;
+  }
+  .card--size-tiny {
+    height: 100px;
+    width: 100px;
+  }
+  .card-shield, .card-attack {
+    height: 40px;
+    width: 40px;
+  }
+  .items {
+    height: 30px;
+    width: 30px;
+  }
+  .card-skills, .card-items {
+    padding: 2rem 0.5rem;
+  }
 }
-#playerSection,
-#enemySection{
-
-  justify-content: space-around;
-}
-.card--size-normal{
-  height: 200px;
-  width: 150px;
-}
-.card--size-big{
-  height: 250px;
-  width: 200px;
-}
-.card--size-tiny{
-  height: 100px;
-  width: 100px;
-}
-.card-shield,
-.card-attack{
-  height: 40px;
-  width: 40px;
-}
-.items{
-  height: 30px;
-  width: 30px;
-}
-.card-skills,
-.card-items {
-  padding: 2rem 0.5rem;
-}
- }
