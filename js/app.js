@@ -197,9 +197,8 @@ var app = {
       const timer = 2000;
       _this.canUseSkills = false;
       $('#'+_this.id+' .globalCountdown').each(function() {
-        console.log('each');
         $(this).css({backgroundColor: "rgba(0, 0, 0, 0.8)",})
-          .transition({backgroundColor: "rgba(0, 0, 0, 0)"},timer, function(){
+          .transition({backgroundColor: "rgba(0, 0, 0, 0)"},timer,'easeInQuart', function(){
               //reset
               _this.canUseSkills = true;
             })
