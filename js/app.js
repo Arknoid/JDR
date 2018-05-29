@@ -201,7 +201,7 @@ var app = {
         $(this).css({backgroundColor: "rgba(0, 0, 0, 0.8)",})
           .transition({backgroundColor: "rgba(0, 0, 0, 0)"},timer, function(){
               //reset
-              this.canUseSkills = true;
+              _this.canUseSkills = true;
             })
       });
 
