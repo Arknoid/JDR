@@ -5,17 +5,16 @@ var app = {
   numberEnemy: 10,
   currentEnemy: 0,
 
-  music: new Audio(),
-
   init: function() {
-
-    app.music.src = 'sounds/music/cave.ogg';
+    soundsController.init();
 
   },
   //Demarage du jeu !
   start: function() {
     //load music
-    app.music.play();
+    // soundsController.setMuted('sounds',true)
+    // soundsController.setMuted('musics',true)
+    soundsController.playMusic('swamp');
 
     //createPlayer
     app.player[0] = app.createPlayer(data.players.player1);
@@ -33,14 +32,14 @@ var app = {
   },
 
   //Allows from a ArrayList to generate the appropriate sounds
-  generateSounds: function(soundArray, location) {
-    var sounds = [];
-    for (var i = 0; i < soundArray.length; i++) {
-      sounds[i] = new Audio();
-      sounds[i].src = location + soundArray[i] + '.ogg';
-    }
-    return sounds;
-  },
+  // generateSounds: function(soundArray, location) {
+  //   var sounds = [];
+  //   for (var i = 0; i < soundArray.length; i++) {
+  //     sounds[i] = new Audio();
+  //     sounds[i].src = location + soundArray[i] + '.ogg';
+  //   }
+  //   return sounds;
+  // },
 
   //Generate and show  Card format for Player or ennemy objets
   generateHtml: function(cardObj) {
@@ -159,11 +158,9 @@ var app = {
     //use _this for this in nested function
     const _this = this;
     //Audio
-    this.soundVoiceHit = app.generateSounds(obj.voice, 'sounds/characters/');
-    this.soundMiss = app.generateSounds(obj.soundMiss, 'sounds/combat/');
-    this.soundDie = app.generateSounds(obj.dieSound, 'sounds/characters/');
-    this.soundBlock = new Audio();
-    this.soundBlock.src = 'sounds/combat/swordBlock.ogg';
+    this.soundVoiceHit =  obj.voice;
+    this.soundMiss = obj.soundMiss;
+    this.soundDie = obj.dieSound;
 
     //Attack target
     this.attack = function(target) {
@@ -172,9 +169,7 @@ var app = {
       //Test if Shield Block
       if (target.shieldUp) {
         //Shield block sound
-        var soundShieldUse = new Audio();
-        soundShieldUse.src = 'sounds/combat/shieldBlock.ogg';
-        soundShieldUse.play();
+        soundsController.play('shieldBlock')
         target.showBlock();
         target.shieldUp = false;
         //Test if touch !
@@ -185,10 +180,11 @@ var app = {
         target.updateStats();
         //Attack missing or parrying
       } else if (app.randomNumber(1, 5) <= 4) {
-        this.soundMiss[app.randomNumber(0, this.soundMiss.length - 1)].play();
+        soundsController.play(this.soundMiss[app.randomNumber(0, this.soundMiss.length - 1)]);
         target.showBlock();
       } else {
-        this.soundBlock.play();
+        //play parry sound
+        soundsController.play('swordBlock')
         target.showBlock();
       }
     };
@@ -238,7 +234,7 @@ var app = {
       //play a random sound form characters voice when hitting
       this.scream = function() {
         var rndSound = app.randomNumber(0, this.soundVoiceHit.length - 1)
-        this.soundVoiceHit[rndSound].play();
+        soundsController.play(this.soundVoiceHit[rndSound]);
       };
     this.useSkill = function() {
       if (_this.canUseSkills) {
@@ -252,9 +248,7 @@ var app = {
               break;
             case 'shield':
               _this.shieldUp = true;
-              var soundShieldUp = new Audio();
-              soundShieldUp.src = 'sounds/combat/shieldUp.ogg';
-              soundShieldUp.play();
+              soundsController.play('shieldUp')
               disableTimer = app.randomNumber(15, 20) * 1000;
               break;
             default:
@@ -324,7 +318,7 @@ var app = {
 
     this.dies = function() {
         this.isDie = true;
-        this.soundDie[app.randomNumber(0, this.soundDie.length - 1)].play();
+        soundsController.play(this.soundDie[app.randomNumber(0, this.soundDie.length - 1)]);
         $('#' + this.id).fadeOut('slow', function() {
           $(this).remove();
           if (_this.id === 'player1' || _this.id === 'player2') {

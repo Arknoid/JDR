@@ -11,17 +11,17 @@ var data = {
       toBlock: 3,
       gold: 0,
       damage: 8,
-      shield : false,
+      shield: false,
       numberAttack: 2,
       potionLife: 1,
       potionMana: 1,
-      voice :[
-              'hit3',
-              'hit4',
-              'hit5',
-             ],
-      soundMiss : ['sword'],
-      dieSound : ['die1'],
+      voice: [
+        'hit3',
+        'hit4',
+        'hit5',
+      ],
+      soundMiss: ['sword'],
+      dieSound: ['die1'],
 
 
     },
@@ -35,16 +35,16 @@ var data = {
       toBlock: 3,
       gold: 0,
       damage: 6,
-      shield : true,
+      shield: true,
       numberAttack: 1,
       potionLife: 2,
-      voice :[
-              'hit1',
-              'hit2',
-              'hit3',
-             ],
-      soundMiss : ['sword1'],
-      dieSound : ['die1'],
+      voice: [
+        'hit1',
+        'hit2',
+        'hit3',
+      ],
+      soundMiss: ['sword1'],
+      dieSound: ['die1'],
     },
   },
 
@@ -62,13 +62,13 @@ var data = {
       valueXp: 10,
       damage: 6,
       numberAttack: 2,
-      voice :[
-              'orc1',
-              'orc2',
-              'orc3',
-             ],
-      soundMiss : ['sword2'],
-      dieSound : ['orcDie1'],
+      voice: [
+        'orc1',
+        'orc2',
+        'orc3',
+      ],
+      soundMiss: ['sword2'],
+      dieSound: ['orcDie1'],
     },
 
     goblin: {
@@ -82,13 +82,13 @@ var data = {
       valueXp: 10,
       damage: 2,
       numberAttack: 3,
-      voice :[
-              'goblin',
-              'goblin1'
-             ],
+      voice: [
+        'goblin',
+        'goblin1'
+      ],
 
-      soundMiss : ['sword3'],
-      dieSound : ['goblinDie1'],
+      soundMiss: ['sword3'],
+      dieSound: ['goblinDie1'],
     },
 
     goblinShaman: {
@@ -102,13 +102,13 @@ var data = {
       valueXp: 10,
       damage: 2,
       numberAttack: 1,
-      voice :[
-              'goblin',
-              'goblin1'
-             ],
+      voice: [
+        'goblin',
+        'goblin1'
+      ],
 
-      soundMiss : ['sword3'],
-      dieSound : ['goblinDie1'],
+      soundMiss: ['sword3'],
+      dieSound: ['goblinDie1'],
     },
 
     goblinArcher: {
@@ -122,13 +122,13 @@ var data = {
       valueXp: 10,
       damage: 2,
       numberAttack: 1,
-      voice :[
-              'goblin',
-              'goblin1'
-             ],
+      voice: [
+        'goblin',
+        'goblin1'
+      ],
 
-      soundMiss : ['sword3'],
-      dieSound : ['goblinDie1'],
+      soundMiss: ['sword3'],
+      dieSound: ['goblinDie1'],
     },
 
     lizardMan: {
@@ -142,13 +142,13 @@ var data = {
       valueXp: 10,
       damage: 2,
       numberAttack: 2,
-      voice :[
-              'orc4',
-              'orc5'
-             ],
+      voice: [
+        'orc4',
+        'orc5'
+      ],
 
-      soundMiss : ['sword3'],
-      dieSound : ['orcDie1'],
+      soundMiss: ['sword3'],
+      dieSound: ['orcDie1'],
     },
 
     lizardWarrior: {
@@ -162,13 +162,13 @@ var data = {
       valueXp: 10,
       damage: 10,
       numberAttack: 2,
-      voice :[
-              'orc4',
-              'orc5'
-             ],
+      voice: [
+        'orc4',
+        'orc5'
+      ],
 
-      soundMiss : ['sword3'],
-      dieSound : ['orcDie1'],
+      soundMiss: ['sword3'],
+      dieSound: ['orcDie1'],
     },
 
     orcShaman: {
@@ -182,13 +182,13 @@ var data = {
       valueXp: 10,
       damage: 6,
       numberAttack: 1,
-      voice :[
-              'orc4',
-              'orc5',
-              'orc6',
-             ],
-      soundMiss : ['sword2'],
-      dieSound : ['orcDie1'],
+      voice: [
+        'orc4',
+        'orc5',
+        'orc6',
+      ],
+      soundMiss: ['sword2'],
+      dieSound: ['orcDie1'],
     },
     trollGiant: {
       name: 'troll-giant',
@@ -201,16 +201,16 @@ var data = {
       valueXp: 10,
       damage: 16,
       numberAttack: 1,
-      big : true,
-      voice :[
-              'giant1',
-              'giant2',
-              'giant3',
-              'giant4',
-              'giant5',
-             ],
-      soundMiss : ['sword2'],
-      dieSound : ['trollDie'],
+      big: true,
+      voice: [
+        'giant1',
+        'giant2',
+        'giant3',
+        'giant4',
+        'giant5',
+      ],
+      soundMiss: ['sword2'],
+      dieSound: ['trollDie'],
     },
 
     swampElder: {
@@ -224,19 +224,77 @@ var data = {
       valueXp: 10,
       damage: 8,
       numberAttack: 2,
-      big : true,
-      voice :[
-              'giant1',
-              'giant2',
-              'giant3',
-              'giant4',
-              'giant5',
-             ],
-      soundMiss : ['sword2'],
-      dieSound : ['trollDie'],
+      big: true,
+      voice: [
+        'giant1',
+        'giant2',
+        'giant3',
+        'giant4',
+        'giant5',
+      ],
+      soundMiss: ['sword2'],
+      dieSound: ['trollDie'],
     },
   },
+  //Reference all sounds and musics for preload in soundsManager
+  sounds: {
+    characters: {
+      type : 'sound',
+      path: 'sounds/characters/',
+      sounds: [
+        'die1',
+        'giant1',
+        'giant2',
+        'giant3',
+        'giant4',
+        'giant5',
+        'goblin',
+        'goblin1',
+        'goblin2',
+        'goblinDie',
+        'goblinDie1',
+        'hit1',
+        'hit2',
+        'hit3',
+        'hit4',
+        'hit5',
+        'orc',
+        'orc1',
+        'orc2',
+        'orc3',
+        'orc4',
+        'orc5',
+        'orc6',
+        'orcDie1',
+        'trollDie',
+      ],
+    },
 
+    combats: {
+      type : 'sound',
+      path: 'sounds/combats/',
+      sounds: [
+        'shieldBlock',
+        'shieldUp',
+        'sword',
+        'sword1',
+        'sword2',
+        'sword3',
+        'swordBlock',
+        'swordBlock1',
+        'swordBlock2',
+        'swordBlock3',
+        'swordBlock4',
+      ],
+    },
+    musics: {
+      type : 'music',
+      path : 'sounds/musics/',
+      sounds : [
+        'swamp',
+      ],
+    }
+  },
   items: {
     potions: {
       life: function() {
