@@ -7,6 +7,37 @@ var app = {
 
   init: function() {
     soundsController.init();
+    app.initGameControls();
+  },
+
+  initGameControls : function() {
+    let startVolume = 60;
+    soundsController.setVolume(startVolume)
+    $( "#slider" ).slider({
+      range: "min",
+      min: 0,
+      max: 100,
+      value: startVolume,
+      slide: function( event, ui ) {
+        soundsController.setVolume(ui.value)
+      }
+    });
+    $('#gameControls .fa-pause').on('click', function(){
+      $(this).hide();
+        $('#gameControls .fa-play').show();
+    });
+    $('#gameControls .fa-play').on('click', function(){
+      $(this).hide();
+        $('#gameControls .fa-pause').show();
+    });
+    $('#gameControls .fa-music').on('click', function(){
+      $(this).toggleClass('disable')
+      soundsController.toggleMuted('musics')
+    });
+    $('#gameControls .fa-volume-up').on('click', function(){
+      $(this).toggleClass('disable')
+      soundsController.toggleMuted('sounds')
+    });
 
   },
   //Demarage du jeu !
@@ -31,15 +62,6 @@ var app = {
     return Math.round(Math.random() * (max - min) + min);
   },
 
-  //Allows from a ArrayList to generate the appropriate sounds
-  // generateSounds: function(soundArray, location) {
-  //   var sounds = [];
-  //   for (var i = 0; i < soundArray.length; i++) {
-  //     sounds[i] = new Audio();
-  //     sounds[i].src = location + soundArray[i] + '.ogg';
-  //   }
-  //   return sounds;
-  // },
 
   //Generate and show  Card format for Player or ennemy objets
   generateHtml: function(cardObj) {

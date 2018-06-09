@@ -1,7 +1,6 @@
 var bs = {
 
     init : function () {
-
     //starting carousel
     $('.carousel').carousel()
 

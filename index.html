@@ -9,6 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -72,6 +73,13 @@
 
 		<main id="gameContents" class="col-sm-12 col-lg-10 ">
 			<div id="board">
+				<div id="gameControls">
+					<i class="fas fa-pause" data-toggle="tooltip" data-placement="bottom" title="Paused the game"></i>
+					<i class="fas fa-play" data-toggle="tooltip" data-placement="bottom" title="Resume the game"></i>
+					<i class="fas fa-music" data-toggle="tooltip" data-placement="bottom" title="Music ON/OFF"></i>
+					<i class="fas fa-volume-up" data-toggle="tooltip" data-placement="bottom" title="Sounds ON/OFF"></i>
+					<div id="slider" data-toggle="tooltip" data-placement="bottom" title="Volume general"></div>
+				</div>
 				<div id="enemySection" ></div>
 				<div id="playerSection" >
 					<button id="btnEnter" type="button" name="btnEnter">Start</button>
@@ -82,20 +90,24 @@
 
 	<footer>
 		<div id="copyright">
-            <p>&#169; 2018 - Arknoid's Games</p>
-            <p>All artworks by artists on DeviantArt</p>
+            <p>MIT licence for code by Arknoid's Games-</p>
+            <p>&copy;  artworks by artists on DeviantArt</p>
 		</div>
 	</footer>
 	<!-- Sound API Howler  -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.12/howler.min.js" charset="utf-8"></script>
 	<!-- Jquery  -->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<!-- JqueryUI -->
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 	<!-- Jquery plugins transit  -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.transit/0.9.12/jquery.transit.min.js" charset="utf-8"></script>
 	<!-- Popper for BS -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<!-- Bootstrap -->
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+  <!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
 	<script src="./js/bs.js" charset="utf-8"></script>
 	<script src="./js/soundsController.js" charset="utf-8"></script>

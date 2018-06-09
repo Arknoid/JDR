@@ -1,6 +1,9 @@
 var soundsController = {
   sounds: [],
   musics: [],
+  musicsMuted : false,
+  soundsMuted : false,
+  allMuted : false,
 
   init: function() {
     console.log('soundsController init');
@@ -10,7 +13,6 @@ var soundsController = {
   preload: function() {
     let arrayToPush;
     let loopType;
-
 
     //Browse all sounds and mucics with curent path in data.js and  preload it into soundsController.sounds[]
     $.each(data.sounds, function(i, snd) {
@@ -63,23 +65,27 @@ var soundsController = {
     }
   },
 
-  setVolume: function() {
-
+  setVolume: function(value) {
+    
+    Howler.volume(value/100)
   },
 
-  setMuted: function(type = 'all', value) {
+  toggleMuted: function(type = 'all') {
+
     switch (type) {
       case 'all':
         Howler.mute(value);
         break;
       case 'musics':
-        soundsController.musics.forEach(function(elem) {
-          elem.sound.mute(value)
+       soundsController.musicsMuted = !soundsController.musicsMuted;
+       soundsController.musics.forEach(function(elem) {
+          elem.sound.mute(soundsController.musicsMuted)
         })
         break;
       case 'sounds':
+        soundsController.soundsMuted = !soundsController.soundsMuted;
         soundsController.sounds.forEach(function(elem) {
-           elem.sound.mute(value)
+           elem.sound.mute(soundsController.soundsMuted)
         })
         break;
     }
