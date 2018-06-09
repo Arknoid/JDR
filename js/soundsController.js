@@ -66,16 +66,13 @@ var soundsController = {
   },
 
   setVolume: function(value) {
-    
+
     Howler.volume(value/100)
   },
 
   toggleMuted: function(type = 'all') {
 
     switch (type) {
-      case 'all':
-        Howler.mute(value);
-        break;
       case 'musics':
        soundsController.musicsMuted = !soundsController.musicsMuted;
        soundsController.musics.forEach(function(elem) {

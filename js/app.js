@@ -4,47 +4,63 @@ var app = {
   enemyPool: [],
   numberEnemy: 10,
   currentEnemy: 0,
+  paused : false,
+  volume : 60,
 
   init: function() {
     soundsController.init();
+    soundsController.setVolume(app.volume)
     app.initGameControls();
   },
 
   initGameControls : function() {
-    let startVolume = 60;
-    soundsController.setVolume(startVolume)
     $( "#slider" ).slider({
       range: "min",
       min: 0,
       max: 100,
-      value: startVolume,
+      value: app.volume,
       slide: function( event, ui ) {
-        soundsController.setVolume(ui.value)
+        if (!app.paused) {
+          soundsController.setVolume(ui.value);
+        }
+        app.volume = ui.value;
       }
     });
-    $('#gameControls .fa-pause').on('click', function(){
-      $(this).hide();
-        $('#gameControls .fa-play').show();
-    });
-    $('#gameControls .fa-play').on('click', function(){
-      $(this).hide();
-        $('#gameControls .fa-pause').show();
-    });
+    $('#gameControls .fa-pause').on('click', app.setPause);
+    $('#gameControls .fa-play').on('click', app.setResume);
     $('#gameControls .fa-music').on('click', function(){
-      $(this).toggleClass('disable')
-      soundsController.toggleMuted('musics')
+      $(this).toggleClass('disable');
+      soundsController.toggleMuted('musics');
     });
     $('#gameControls .fa-volume-up').on('click', function(){
-      $(this).toggleClass('disable')
-      soundsController.toggleMuted('sounds')
+      $(this).toggleClass('disable');
+      soundsController.toggleMuted('sounds');
     });
-
   },
+
+  setPause : function(){
+    $.each(app.player,function(index,element) {
+      // console.log(index);
+      console.log(element);
+    });
+    app.paused = true;
+    $('#board-paused').toggle();
+    soundsController.setVolume(0);
+    $(this).hide();
+      $('#gameControls .fa-play').show();
+  },
+
+  setResume : function(){
+    app.paused = false;
+    $('#board-paused').toggle();
+    soundsController.setVolume(app.volume);
+    $(this).hide();
+      $('#gameControls .fa-pause').show();
+  },
+
   //Demarage du jeu !
   start: function() {
     //load music
-    // soundsController.setMuted('sounds',true)
-    // soundsController.setMuted('musics',true)
     soundsController.playMusic('swamp');
 
     //createPlayer
@@ -176,6 +192,8 @@ var app = {
     //Gobal timer
     this.canUseSkills = true;
     this.gobalTimer = null;
+    //for pause
+    this.timer = [];
 
     //use _this for this in nested function
     const _this = this;
@@ -259,7 +277,7 @@ var app = {
         soundsController.play(this.soundVoiceHit[rndSound]);
       };
     this.useSkill = function() {
-      if (_this.canUseSkills) {
+      if (_this.canUseSkills && !app.paused) {
         var $skill = $(this)
         var disableTimer;
         if ($skill.data('canUse')) {
@@ -382,7 +400,7 @@ var app = {
       this.skillsAttack.forEach(function() {
         var inter = setInterval(function() {
           //Global timer
-          if (_this.canUseSkills) {
+          if (_this.canUseSkills && !app.paused) {
             app.combatManager('enemy1');
             _this.canUseSkills = false;
             //init  Global Timer
