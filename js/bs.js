@@ -1,3 +1,9 @@
+/**
+ * Projet-RPG
+ * Created by Olivier Malige (Arknoid)
+ * Licensed under The MIT License.
+ */
+
 var bs = {
 
     init : function () {

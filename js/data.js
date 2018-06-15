@@ -1,4 +1,10 @@
-var data = {
+/**
+ * Projet-RPG
+ * Created by Olivier Malige (Arknoid)
+ * Licensed under The MIT License.
+ */
+
+const data = {
   //NameSpace pour le joueur
   players: {
     player1: {

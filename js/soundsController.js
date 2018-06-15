@@ -1,4 +1,11 @@
-var soundsController = {
+/**
+ * Projet-RPG
+ * Created by Olivier Malige (Arknoid)
+ * Licensed under The MIT License.
+ *
+ */
+
+const soundsController = {
   sounds: [],
   musics: [],
   musicsMuted : false,
