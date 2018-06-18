@@ -23,6 +23,7 @@ class Character {
     //Gobal timer
     this.canUseSkills = true;
     this.gobalTimer = null;
+    this.skillsTimers = [];
 
     //Audio
     this.soundVoiceHit = obj.voice;
@@ -30,6 +31,21 @@ class Character {
     this.soundDie = obj.dieSound;
   }
 
+  //Disable timer when the game is paused
+  pausedTimers() {
+    $.each(this.skillsTimers, function (index, element) {
+      element.pause();
+      
+    })
+  }
+
+  //Resume timer when the game is resume
+  resumeTimers() {
+    $.each(this.skillsTimers, function (index, element) {
+      element.start();
+
+    })
+  }
   //Attack target
   attack(target) {
     this.animateAttack();
@@ -113,24 +129,30 @@ class Character {
         switch (skill.data('type')) {
           case 'attack':
             app.combatManager(skill.data('owner'));
-            disableTimer = app.randomNumber(3, 5) * 1000;
+            disableTimer = app.randomNumber(3, 5);
             break;
           case 'shield':
             self.shieldUp = true;
             soundsController.play('shieldUp');
-            disableTimer = app.randomNumber(15, 20) * 1000;
+            disableTimer = app.randomNumber(15, 20);
             break;
           default:
         }
 
-        skill.addClass('skill--disable').data('canUse', false);
-        setTimeout(function() {
-          skill.removeClass('skill--disable');
-          skill.data('canUse', true);
-        }, disableTimer);
-        evt.data.self.setGlobalTimer();
+        //Create new Timer objet for the game pause
+        let timer = new Timer ({
+            tick: 1,
+            onend: function () {
+              skill.removeClass('skill--disable');
+              skill.data('canUse', true);
+            }
+          });
+          evt.data.self.setGlobalTimer();
+          skill.addClass('skill--disable').data('canUse', false);
+          timer.start(disableTimer);
+          //add this timer to all character timers
+          evt.data.self.skillsTimers.push(timer);
       }
-
     }
 
   }

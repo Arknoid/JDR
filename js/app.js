@@ -47,8 +47,8 @@ const app = {
 
   setPause : function(){
     $.each(app.player,function(index,element) {
-      // console.log(index);
-      console.log(element);
+      element.pausedTimers();
+     
     });
     app.paused = true;
     $('#board-paused').toggle();
@@ -58,6 +58,9 @@ const app = {
   },
 
   setResume : function(){
+    $.each(app.player, function (index, element) {
+      element.resumeTimers();
+    });
     app.paused = false;
     $('#board-paused').toggle();
     soundsController.setVolume(app.volume);
