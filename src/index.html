@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+<head>
+
+	<meta charset="utf-8">
+	<title>Project-RPG</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+</head>
+
+<body>
+
+	<nav class="navbar fixed-top navbar-expand-sm navbar-dark nav--background-alpha">
+		<a class="navbar-brand" href="#">Project-RPG</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<div class="navbar-nav nav--background-alpha">
+				<a class="nav-item nav-link active" href="#">Home
+					<span class="sr-only">(current)</span>
+				</a>
+				<a class="nav-item nav-link" href="#gameContents">Game</a>
+				<a class="nav-item nav-link disabled" href="#">Rules</a>
+				<a class="nav-item nav-link disabled" href="#">Blog</a>
+			</div>
+		</div>
+	</nav>
+
+	<header class="container-fuild ">
+		<div id="carouselExampleIndicators" class="carousel slide " data-ride="carousel">
+			<ol class="carousel-indicators">
+				<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+				<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+				<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+			</ol>
+			<div class="carousel-inner">
+				<div class="carousel-item">
+					<img class="d-block w-100 h-auto" src="./src/images/carousel/thedullforest_carousel.jpg" alt="First slide">
+					<div class="carousel-caption d-none d-md-block">
+						<h1>Projet-Rpg</h1>
+					</div>
+				</div>
+				<div class="carousel-item active ">
+					<img class="d-block w-100  h-auto shadow" src="./src/images/carousel/citadel_by_aeon_lux-d8ga2jg.jpg" alt="Second slide">
+					<div class="carousel-caption d-none d-md-block">
+						<h1>Projet-Rpg</h1>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img class="d-block w-100" src="./src/images/carousel/gate_by_frankatt-d9f4ce2.jpg" alt="Third slide">
+					<div class="carousel-caption d-none d-md-block">
+						<h1>Projet-Rpg</h1>
+					</div>
+				</div>
+			</div>
+			<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a>
+			<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			</a>
+		</div>
+	</header>
+	<div class="container-fuild d-flex justify-content-center ">
+
+		<main id="gameContents" class="col-sm-12 col-lg-10 ">
+			<div id="board">
+				<div id="board-paused"></div>
+				<div id="gameControls">
+					<i class="fas fa-pause" data-toggle="tooltip" data-placement="bottom" title="Paused the game"></i>
+					<i class="fas fa-play" data-toggle="tooltip" data-placement="bottom" title="Resume the game"></i>
+					<i class="fas fa-music" data-toggle="tooltip" data-placement="bottom" title="Music ON/OFF"></i>
+					<i class="fas fa-volume-up" data-toggle="tooltip" data-placement="bottom" title="Sounds ON/OFF"></i>
+					<div id="slider" data-toggle="tooltip" data-placement="bottom" title="Volume general"></div>
+				</div>
+				<div id="enemySection"></div>
+				<div id="playerSection">
+					<button id="btnEnter" type="button" name="btnEnter">Start</button>
+				</div>
+			</div>
+		</main>
+	</div>
+
+	<footer>
+		<div id="copyright">
+			<p>MIT licence for code by Arknoid's Games-</p>
+			<p>&copy; artworks by artists on DeviantArt</p>
+		</div>
+	</footer>
+	<!-- Timer -->
+	<!-- <script src="./js/library/timer.js" charset="utf-8"></script> -->
+	<!-- Sound API Howler  -->
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.12/howler.min.js" charset="utf-8"></script> -->
+	<!-- Jquery  -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<!-- JqueryUI -->
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+	<!-- Jquery plugins transit  -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.transit/0.9.12/jquery.transit.min.js" charset="utf-8"></script>
+	<!-- Popper for BS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<!-- Bootstrap -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <!-- <script src="./js/class/Weapons/Weapon.js" charset="utf-8"></script>
+  <script src="./js/class/Characters/Character.js" charset="utf-8"></script>
+	<script src="./js/class/Characters/Enemy.js" charset="utf-8"></script>
+	<script src="./js/class/Characters/Player.js" charset="utf-8"></script> -->
+<!-- 	<script src="./js/bs.js" charset="utf-8"></script>
+	<script src="./js/soundsController.js" charset="utf-8"></script>
+	<script src="./js/data.js" charset="utf-8"></script> -->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-118676246-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-118676246-1');
+	</script>
+</body>
+
+</html>

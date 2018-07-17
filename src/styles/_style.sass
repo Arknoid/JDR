@@ -1,0 +1,483 @@
+/****************************SECTION IMPORT************************************/
+
+@import url('https://fonts.googleapis.com/css?family=Aref+Ruqaa:400,700|Merienda:400,700') 
+@import url('https://fonts.googleapis.com/css?family=Kreon') 
+/****************************SECTION GENERAL************************************/
+
+body 
+  background-color: burlywood
+
+
+/********************************HEADER****************************************/
+
+header 
+  max-height: 100vh
+  background-color: black
+  margin-bottom: 2rem
+  border-bottom: 2rem solid black
+  box-shadow: 0px 0px 30px black
+  border-radius: 5px
+
+nav 
+  height: 2rem
+
+.nav--background-alpha 
+  background-color: rgba(0, 0, 0, 0.8)
+
+
+h2,
+h1 
+  display: block
+  font-family: 'Aref Ruqaa', serif
+  font-size: 4rem
+  color: BurlyWood
+  text-shadow: 1px 1px 10px white
+  text-align: center
+  padding: 1rem
+  margin: 1rem auto
+  border-radius: 5px
+  text-transform: uppercase
+
+
+/*Inner shadow effect  */
+
+.carousel-item:before 
+  -webkit-box-shadow: inset 0 0 20rem rgba(0, 0, 0, 1) 
+  box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.8) 
+  position: absolute 
+  top: 0 
+  left: 0 
+  width: 100% 
+  height: 100% 
+  content: "" 
+ 
+
+/********************************MAIN*****************************************/
+
+.container  
+  display: flex 
+  flex-direction: column 
+  border-radius: 10px 
+ 
+
+#gameContents  
+  height: 100vh 
+ 
+
+#board  
+  position: relative 
+  border: 10px solid black !important 
+  background-image: url("../images/backgrounds/swamp_by_polyraspad-d2zsqhz.jpg") 
+  background-position: center 
+  background-size: cover 
+  box-shadow: 0px 0px 30px black 
+  border-radius: 10px 
+  display: flex 
+  flex-direction: column 
+  height: 95% 
+  margin-top: 2.5rem 
+ 
+#board-paused 
+  display: none 
+  position: absolute 
+  background-color: rgba(0, 0, 0, 0.7) 
+  width: 100% 
+  height: 100% 
+ 
+#playerSection,
+#enemySection  
+  height: 50% 
+  display: flex 
+  justify-content: center 
+ 
+
+#enemy3,
+#enemy2,
+#enemy1,
+#player2,
+#player1  
+  display: flex 
+  align-items: center 
+  justify-content: center 
+ 
+
+#btnEnter  
+  font-family: 'Aref Ruqaa', cursive 
+  font-size: 2.5rem 
+  color: BurlyWood 
+  text-shadow: 1px 1px 10px white 
+  margin: auto 
+  padding: 0.5rem 1.5rem 
+  background-color: rgba(0, 0, 0, 0.7) 
+  border-radius: 10px 
+  text-transform: capitalize 
+  box-shadow: 0 0 20px black 
+  transition-duration: 0.3s 
+  border: none 
+ 
+
+#btnEnter:hover  
+  border: 2px solid BurlyWood 
+  box-shadow: 0 0 20px BurlyWood 
+  transform: scale(1.1) 
+ 
+
+
+#gameControls  
+  display: flex 
+  justify-content: space-between 
+  position: absolute 
+  padding: 0.2rem 1.5rem 
+  border: 1px solid black 
+  border-top: none 
+  border-left: none 
+  border-radius: 0px 0px 10px 0px 
+  background-color: rgba(0, 0, 0, 0.7) 
+  box-shadow: 0 0 20px black 
+  font-size: 1.5rem 
+  color : BurlyWood 
+
+ 
+
+#gameContents .disable  
+  color: gray 
+ 
+
+#gameControls i:hover 
+  color: #dcdc 
+ 
+#gameControls .disable:hover,
+#gameControls .fa-pause:hover,
+#gameControls .fa-play:hover  
+  color: white 
+  text-shadow: 1px 1px 2px white 
+ 
+#slider  
+  font-size: 1rem 
+  margin-top: 0.3rem 
+  margin-left: 1rem 
+  width: 5rem 
+  background-color: black 
+  border-color: BurlyWood 
+ 
+#slider .ui-slider-handle  
+  border-color: black 
+  background-color: BurlyWood 
+ 
+#slider .ui-slider-range  
+  background-color: BurlyWood 
+ 
+#gameControls i 
+  transition-duration: 0.3s 
+  margin-left: 0.5rem 
+ 
+
+#gameControls .fa-play  
+  display: none 
+ 
+
+/******************************SECTION FOOTER**********************************/
+
+footer  
+  color: BurlyWood 
+  margin-top: 3rem 
+  box-shadow: 0px 0px 30px black 
+  padding: 2rem 
+  text-align: center 
+  text-shadow: 1px 1px 10px black 
+  background-color: black 
+ 
+
+footer p  
+  text-shadow: 0px 0px 2px white 
+ 
+
+/*********************************GAME CLASS***********************************/
+
+.card--size-normal  
+  height: 230px 
+  width: 180px 
+ 
+
+.card--size-big  
+  height: 300px 
+  width: 250px 
+ 
+
+.card--size-tiny  
+  height: 150px 
+  width: 150px 
+ 
+
+.card  
+  position: relative 
+  background-size: cover 
+  border-radius: 10px 
+  border: 5px solid black 
+  box-shadow: 0 0 20px black 
+ 
+
+.card-name,
+.card-hit,
+.card-life,
+.card-mana,
+.card-toHit,
+.card-damage  
+  text-shadow: 1px 1px 10px black 
+  position: absolute 
+  color: white 
+  font-family: 'Kreon', serif 
+  font-weight: bold 
+ 
+.card-name  
+  text-transform: capitalize 
+  border-radius: 10px 
+  padding: 0.2rem 0.5rem 
+  top: -6% 
+  left: -2% 
+  background-color: black 
+  box-shadow: 0 0 10px black 
+ 
+.card-life  
+  text-align: center 
+  padding-top: 0.5rem 
+  width: 2.5rem 
+  height: 2.5rem 
+  font-size: 1.5rem 
+  background: url("../images/card_elements/pv.png") 
+  background-size: 100% 100% 
+  border-radius: 50px 
+  top: -1rem 
+  right: -1.5rem 
+ 
+.card-mana  
+  padding-top: 0.1rem 
+  text-align: center 
+  font-size: 1.2rem 
+  background: url("../images/card_elements/mana.png") 
+  background-size: 100% 100% 
+  top: 1.5rem 
+  right: -1.2rem 
+  width: 2rem 
+  height: 2rem 
+ 
+
+.card-toHit  
+  padding-top: 0.4rem 
+  text-align: center 
+  right: -1.5rem 
+  bottom: -1.5rem 
+  width: 3rem 
+  height: 3rem 
+  font-size: 1.2rem 
+  background: url("../images/card_elements/defence.png") 
+  background-size: 100% 100% 
+ 
+
+.card-damage  
+  text-align: center 
+  padding: 2.1rem 0rem 
+  height: 5.5rem 
+  width: 5.5rem 
+  font-size: 1.2rem 
+  background: url("../images/card_elements/attack.png") 
+  background-size: 100% 100% 
+  bottom: -2.5rem 
+  left: -2rem 
+ 
+
+#player1 .card-skills  
+  order: 2 
+ 
+
+#player2 .card-skills  
+  order: 0 
+ 
+
+.card-skills, .card-items  
+  position: relative 
+  padding: 2rem 1.5rem 
+ 
+
+.globalCountdown  
+  position: absolute 
+  top: 0 
+  left: 0 
+  height: 100% 
+  width: 100% 
+  content: "" 
+  border-radius: 10px 
+ 
+
+.card-shield, .card-attack  
+  position: relative 
+  height: 50px 
+  width: 50px 
+ 
+
+.items  
+  height: 40px 
+  width: 40px 
+ 
+
+.card-shield, .card-attack, .items  
+  transition-duration: 0.3s 
+  border-radius: 10px 
+  border: 2px solid black 
+  box-shadow: 0 0 20px black 
+  margin-top: 5px 
+ 
+
+.card-shield:hover, .items:hover, .card-attack:hover  
+  transform: scale(1.1) 
+  box-shadow: 0 0 20px white 
+  border: none 
+ 
+
+.skill--disable  
+  filter: grayscale(100%) 
+ 
+
+.skill--disable:hover  
+  transform: scale(1) 
+  box-shadow: none 
+  border: 1px solid black 
+ 
+
+.card-hit  
+  background-image: url("../images/card_elements/blood.png") 
+  background-size: 100% 100% 
+  color: white 
+  font-size: 2.6rem 
+  width: 5rem 
+  height: 5rem 
+  top: 25% 
+  left: 25% 
+  display: flex 
+  align-items: center 
+  justify-content: center 
+  position: absolute 
+ 
+
+.card-block  
+  opacity: 0.8 
+  position: absolute 
+  background-image: url("../images/card_elements/shield.png") 
+  background-size: 100% 100% 
+  width: 5rem 
+  height: 5rem 
+  bottom: -2.5rem 
+  right: -2.5rem 
+ 
+
+/* Player Faces */
+
+.card--img-darkKnight  
+  background-image: url("../images/player_elements/face2.jpg") 
+ 
+
+.card--img-knight  
+  background-image: url("../images/player_elements/face.jpg") 
+ 
+
+/* Enemys */
+
+.card--img-goblin  
+  background-image: url("../images/enemy/goblin_by_aaronflorento-d7srkrg.jpg") 
+ 
+
+.card--img-goblinArcher  
+  background-image: url("../images/enemy/goblin_archer_by_arkiniano-d9465pj.jpg") 
+ 
+
+.card--img-lizardWarrior  
+  background-image: url("../images/enemy/lizardman_deathknight_by_cribs-d5zxv9k.jpg") 
+ 
+
+.card--img-lizardMan  
+  background-image: url("../images/enemy/lizard_man_by_sansyu.jpg") 
+ 
+
+.card--img-swampElder  
+  background-image: url("../images/enemy/swamp_elder_by_harryosborn_art-da7f8am.jpg") 
+ 
+
+.card--img-orcShaman  
+  background-image: url("../images/enemy/orc_shaman_by_saturnoarg-d5159hi.jpg") 
+ 
+
+.card--img-goblinShaman  
+  background-image: url("../images/enemy/goblin_shaman_by_jonasjensenart-d64k3v1.jpg") 
+ 
+
+.card--img-orcWarrior  
+  background-image: url("../images/enemy/stone_blade_by_willobrien-d7ktk12.jpg") 
+ 
+
+.card--img-troll  
+  background-image: url("../images/enemy/giant_troll_by_karichristensen-d7xp2zs.jpg") 
+ 
+
+.items-potionLifeMini  
+  background: url("../images/items/potions/potionLifeMini.jpg") 
+  background-size: 100% 100% 
+ 
+
+.items-potionLife  
+  background: url("../images/items/potions/potionLife.jpg") 
+  background-size: 100% 100% 
+ 
+
+.items-potionManaMini  
+  background: url("../images/items/potions/potionManaMini.jpg") 
+  background-size: 100% 100% 
+ 
+
+.items-potionMana  
+  background: url("../images/items/potions/potionMana.jpg") 
+  background-size: 100% 100% 
+ 
+
+.skill--img-attack  
+  background: url("../images/skills/attack.jpg") 
+  background-size: 100% 100% 
+ 
+
+.skill--img-shield  
+  background: url("../images/skills/defence.jpg") 
+  background-size: 100% 100% 
+ 
+
+/**********************************MEDIA QUERY*********************************/
+
+@media (max-width: 600px)  
+  html  
+    font-size: 10px 
+   
+  #playerSection, #enemySection  
+    justify-content: space-around 
+   
+  .card--size-normal  
+    height: 200px 
+    width: 150px 
+   
+  .card--size-big  
+    height: 250px 
+    width: 200px 
+   
+  .card--size-tiny  
+    height: 100px 
+    width: 100px 
+   
+  .card-shield, .card-attack  
+    height: 40px 
+    width: 40px 
+   
+  .items  
+    height: 30px 
+    width: 30px 
+   
+  .card-skills, .card-items  
+    padding: 2rem 0.5rem 
+   
+ 
