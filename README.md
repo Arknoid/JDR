@@ -1,21 +1,22 @@
 
 # Project-RPG
+ 
+## Development branch
+
+---
+It is a branch of development in order to pass the project in ES6 with Webpack and I hope to migrate the project from Jquery to React.Js
 
 ---
 
-https://arknoid.github.io/project-RPG/
+Use Npm or Yarn to install the project :
 
----
+    npm install
 
-An open source project whose goal is to highlight the basic front techniques learned during my training at O'clock web dev school for now:
+    npm start
 
-- Javascript and Jquery
-- Html and Css.
-- go further in object programming
 
-It is also in some sort my technical laboratory  before embarking on a larger project.
 
-All code is under license M.I.T and do exclusively with open source software.
+All code is under license M.I.T 
 
 All artworks are  for now on under license CC and come from various artists on Devianart.
 
